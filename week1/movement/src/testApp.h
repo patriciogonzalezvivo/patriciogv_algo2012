@@ -19,8 +19,9 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 	
-    SuperDot sDot;
+    vector<SuperDot> dots;
 	vector<ofPoint*> points;
     
     int     selectedPoint;
+    int     selectedDot;
 };
