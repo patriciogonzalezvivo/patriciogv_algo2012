@@ -6,9 +6,10 @@ void testApp::setup(){
     ofSetVerticalSync(true);
     ofSetCircleResolution(100);
     ofSetDrawBitmapMode(OF_BITMAPMODE_SIMPLE);
+    ofEnableSmoothing();
     
     selectedPoint = -1; // means NO point is selected
-    sDot.algorithm = ALGO_POWER;
+    sDot.algorithm = ALGO_LINEAR;
 }
 
 //--------------------------------------------------------------

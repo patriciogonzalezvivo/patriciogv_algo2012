@@ -9,7 +9,6 @@
 #include "SuperDot.h"
 
 SuperDot::SuperDot(){
-    radius = 5;
     color = ofColor(255);
     
     algorithm = ALGO_LINEAR;
@@ -33,6 +32,7 @@ void SuperDot::init(ofPoint *_start, ofPoint *_end){
 }
 
 bool SuperDot::update(){
+    prev = *this;
     
     if (bMoving){
         if ( algorithm == ALGO_LINEAR){
@@ -58,16 +58,18 @@ bool SuperDot::update(){
                 bMoving = false;
         }
     }
-    
-    angle = atan2( dst->y - org->y, dst->x - org->x );
 }
 
 void SuperDot::draw(){
+    float radius = 5.0;
+    float angle = atan2( dst->y - org->y, dst->x - org->x );
+    float speed = distance(prev) * ofGetFrameRate();
+    
     ofPushStyle();
     
     //  Draw line
     //
-    ofSetColor(255, 150);
+    ofSetColor(255, 200);
     ofLine( *org, *dst);
     
     //  Draw start line
@@ -87,14 +89,18 @@ void SuperDot::draw(){
     
     if ( algorithm == ALGO_LINEAR){
         ofDrawBitmapString("LINEAR", 5, 15);
-        ofDrawBitmapString("Pct: " + ofToString(percentage) + "%", 5, 30);
+        ofDrawBitmapString("speed: " + ofToString(speed) + " px/sec", 5, 45);
+        ofDrawBitmapString("pos: " + ofToString(percentage*100) + "%", 5, 30);
         
     } else if ( algorithm == ALGO_POWER){
         ofDrawBitmapString("POWER", 5, 15);
-        ofDrawBitmapString("Pct: " + ofToString(percentage) + "%", 5, 30);
+        ofDrawBitmapString("speed: " + ofToString(speed) + " px/sec", 5, 45);
+        ofDrawBitmapString("pos: " + ofToString(percentage*100) + "%", 5, 30);
+        ofDrawBitmapString("shaper: " + ofToString(shaper) , 5, 45);
         
     } else if ( algorithm == ALGO_XENO){
          ofDrawBitmapString("XENO", 5, 15);
+        ofDrawBitmapString("speed: " + ofToString(speed) , 5, 45);
     }
     
     

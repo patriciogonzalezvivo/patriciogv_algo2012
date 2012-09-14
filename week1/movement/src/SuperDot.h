@@ -42,11 +42,10 @@ public:
     bool    bMoving;
     
 private:
+    ofPoint prev;
+    
     ofPoint *org;
     ofPoint *dst;
-    
-    float   angle;
-    float   radius;
 };
 
 #endif
