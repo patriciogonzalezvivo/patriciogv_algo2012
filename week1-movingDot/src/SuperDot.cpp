@@ -114,10 +114,12 @@ void SuperDot::draw(){
     if ( algorithm == ALGO_LINEAR){
         text << "LINEAR by " << incrementFactor << endl;
         text << "Percentage: " << percentage*100 << "%" << endl;
+        text << "Total Time: " << (1.0/incrementFactor)/ofGetFrameRate() << "s" << endl;
         
     } else if ( algorithm == ALGO_POWER){
         text << "POWER by " << incrementFactor << " over " << shaper << endl;
         text << "Percentage: " << percentage*100 << "%" << endl;
+        text << "Total Time: " << (1.0/incrementFactor)/ofGetFrameRate() << "s" << endl;
         
     } else if ( algorithm == ALGO_XENO){
         text << "XENO at " << incrementFactor*100 << "%"<< endl;
