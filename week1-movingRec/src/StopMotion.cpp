@@ -22,7 +22,13 @@ void StopMotion::load(string _path){
 }
 
 void StopMotion::save(string _path){
-    for(int i = 0; )
+    ofImage tmpImgHolder;
+    tmpImgHolder.allocate(width, height, OF_IMAGE_COLOR);
+    
+    for(int i = 0; i < buffer.size(); i++){
+        tmpImgHolder.setFromPixels(buffer[i].pixels , width, height, OF_IMAGE_COLOR);
+        tmpImgHolder.saveImage(_path+"/"+ofToString(i)+".jpg");
+    }
 }
 
 void StopMotion::addFrame( unsigned char * _pixels ){
