@@ -41,6 +41,9 @@ void StopMotion::addFrame( unsigned char * _pixels ){
         startTime = ofGetElapsedTimeMillis();
     }
     
+    //  Copy pixel by pixel otherwise it copy the pointer reference to buffer witch is allways the same
+    //  I know it's a C funtion for this... memcopy?
+    //
     int totalPixles = width*height*3;
     Frame newFrame;
     newFrame.pixels = new unsigned char[totalPixles];
@@ -48,7 +51,6 @@ void StopMotion::addFrame( unsigned char * _pixels ){
     for(int i = 0; i < totalPixles ; i++){
         newFrame.pixels[i] = _pixels[i];
     }
-    
     
     newFrame.timeStamp = ofGetElapsedTimeMillis() - startTime;
     
