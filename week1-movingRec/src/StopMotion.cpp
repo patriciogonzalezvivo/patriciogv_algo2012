@@ -90,7 +90,9 @@ void StopMotion::save(string _folder){
         ofPixels pixelsHolder;
         pixelsHolder.allocate(width, height, 3);
         pixelsHolder.setFromPixels( buffer[i].pixels , width, height, OF_IMAGE_COLOR);
-        ofSaveImage(pixelsHolder, _folder+"/"+ofToString( buffer[i].timeStamp,8,'0')+".jpg");
+        ostringstream name;
+        name << fixed << setfill('0') << setw(8) << buffer[i].timeStamp;
+        ofSaveImage(pixelsHolder, _folder+"/" + name.str() + ".jpg");
     } 
 }
 
