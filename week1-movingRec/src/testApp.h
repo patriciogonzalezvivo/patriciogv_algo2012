@@ -24,4 +24,6 @@ public:
     StopMotion      sMotion;
 
 	int             width, height;
+    
+    bool            bRecording;
 };

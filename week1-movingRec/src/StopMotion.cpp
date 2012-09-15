@@ -41,19 +41,36 @@ void StopMotion::addFrame( unsigned char * _pixels ){
         startTime = ofGetElapsedTimeMillis();
     }
     
-    //  Copy pixel by pixel otherwise it copy the pointer reference to buffer witch is allways the same
-    //  I know it's a C funtion for this... memcopy?
+    //  For geting a copy of this frame we have to copy every single pixel
+    //  So we start by knowing the total amount of pixels
     //
     int totalPixles = width*height*3;
+    
+    //  Making a new frame with the right amount of pixels on the "pixles" array
+    //
     Frame newFrame;
     newFrame.pixels = new unsigned char[totalPixles];
     
-    for(int i = 0; i < totalPixles ; i++){
-        newFrame.pixels[i] = _pixels[i];
-    }
+    //  For copying each single pixel of the image we can use this C function
+    //
     
+    memcpy(newFrame.pixels, _pixels, totalPixles * sizeof(unsigned char) );
+    
+    //
+    //  Witch is the same to say:
+    //
+    
+//    for(int i = 0; i < totalPixles ; i++){
+//        newFrame.pixels[i] = _pixels[i];
+//    }
+    
+    //  Put a timeStamp on it.
+    //  This could be handy if we record in other speed that is not 24 per second
+    //
     newFrame.timeStamp = ofGetElapsedTimeMillis() - startTime;
     
+    //  Add the Frame into the dinamic array of Frames that we call buffer
+    //
     buffer.push_back( newFrame );
 }
 

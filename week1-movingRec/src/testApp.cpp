@@ -4,6 +4,8 @@
 void testApp::setup(){
     ofSetFrameRate(24);
     ofSetVerticalSync(true);
+    ofSetCircleResolution(80);
+    ofEnableAlphaBlending();
     
     width = 640;
     height = 480;
@@ -11,6 +13,8 @@ void testApp::setup(){
     videoIn.initGrabber(width , height);
     
     sMotion.allocate(width, height);
+    
+    bRecording = false;
 }
 
 //--------------------------------------------------------------
@@ -18,7 +22,10 @@ void testApp::update(){
     videoIn.update();
     
     if (videoIn.isFrameNew()){
-        sMotion.addFrame( videoIn.getPixels() );
+        
+        if (bRecording){
+            sMotion.addFrame( videoIn.getPixels() );
+        }
     }
 }
 
@@ -26,7 +33,14 @@ void testApp::update(){
 void testApp::draw(){
     ofBackground(0);
     
+    ofSetColor(255);
     videoIn.draw(0, 0);
+    
+    if (bRecording){
+        ofSetColor(255, 0, 0, abs ( sin( ofGetElapsedTimeMillis() * 0.001 ) ) * 255 );
+        ofCircle(25, 25, 7);
+        ofDrawBitmapString("REC", 35,30);
+    }
 }
 
 //--------------------------------------------------------------
@@ -36,7 +50,7 @@ void testApp::exit(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-
+    bRecording = !bRecording;
 }
 
 //--------------------------------------------------------------
