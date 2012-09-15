@@ -176,8 +176,8 @@ void StopMotion::draw(int _x, int _y, int _width, int _height){
         
         ofSetColor(255);
         activeFrame.draw(0, 0, tmpWidth, tmpHeight);
-        ofDrawBitmapString( "Frame: " + ofToString( nFrame ) + "/" + ofToString( buffer.size() ), _x + 35, 30 );
-        ofDrawBitmapString( "TimeStamp: " + ofToString( buffer[nFrame].timeStamp * 2.0 ), _x + 35, 45 );
+        ofDrawBitmapString( "Frame: " + ofToString( nFrame ) + "/" + ofToString( buffer.size() ), 15, 30 );
+        ofDrawBitmapString( "TimeStamp: " + ofToString( buffer[nFrame].timeStamp * 2.0 ), 15, 45 );
         
         ofPopMatrix();
     

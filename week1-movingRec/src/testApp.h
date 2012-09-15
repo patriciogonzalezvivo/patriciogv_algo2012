@@ -21,10 +21,13 @@ public:
     void gotMessage(ofMessage msg);
     
     ofVideoGrabber  videoIn;
+    ofVideoPlayer   movieIn;
+    
     StopMotion      sMotion;
 
 	int             width, height;
     int             movieCounter;
     
     bool            bRecording;
+    bool            bConvert;
 };
