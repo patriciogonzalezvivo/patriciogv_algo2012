@@ -11,7 +11,6 @@ void testApp::setup(){
     height = 480;
     
     videoIn.initGrabber(width , height);
-    
     sMotion.allocate(width, height);
     
     bRecording = false;
@@ -22,7 +21,6 @@ void testApp::update(){
     videoIn.update();
     
     if (videoIn.isFrameNew()){
-        
         if (bRecording){
             sMotion.addFrame( videoIn.getPixels() );
         }
@@ -34,7 +32,7 @@ void testApp::draw(){
     ofBackground(0);
     
     ofSetColor(255);
-    videoIn.draw(0, 0);
+    videoIn.draw(0, 0, width * 0.5, height * 0.5);
     
     if (bRecording){
         ofSetColor(255, 0, 0, abs ( sin( ofGetElapsedTimeMillis() * 0.001 ) ) * 255 );
@@ -45,12 +43,20 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::exit(){
-    sMotion.save("movie");
+    
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-    bRecording = !bRecording;
+    
+    if (key == ' '){
+        bRecording = !bRecording;
+        if (!bRecording){
+            sMotion.save("movie");
+            sMotion.clear();
+        } 
+    }
+    
 }
 
 //--------------------------------------------------------------

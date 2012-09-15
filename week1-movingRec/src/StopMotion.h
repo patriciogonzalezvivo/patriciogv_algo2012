@@ -22,9 +22,10 @@ public:
     StopMotion();
     
     void    allocate( int _width, int _height );
-    void    load(string _path);
-    void    save(string _path);
+    void    load(string _folder);
+    void    save(string _folder);
     
+    void    clear();
     void    addFrame( unsigned char * _pixels );
     
     void    nextFrame();
