@@ -13,8 +13,14 @@ StopMotion::StopMotion(){
 }
 
 void StopMotion::allocate( int _width, int _height ){
+    clear();
+    
     width = _width;
     height = _height;
+    
+    activeFrame.allocate(width, height, OF_IMAGE_COLOR);
+    
+    nFrame = 0;
 }
 
 void StopMotion::clear(){
@@ -47,8 +53,7 @@ void StopMotion::load(string _folder){
             if (i == 0){
                 //  If it's the first one remember the width and height
                 //
-                width = pixelsHolder.getWidth();
-                height = pixelsHolder.getHeight();
+                allocate(pixelsHolder.getWidth(), pixelsHolder.getHeight());
             }
             
             int totalPixels = width*height*3;
@@ -61,6 +66,8 @@ void StopMotion::load(string _folder){
         }
     }
 }
+
+
 
 void StopMotion::save(string _folder){
     
@@ -128,18 +135,51 @@ void StopMotion::addFrame( unsigned char * _pixels ){
     buffer.push_back( newFrame );
 }
 
-void StopMotion::nextFrame(){
-    
+void StopMotion::prevFrame(){
+    if ( nFrame > 0 )
+        nFrame--;
 }
 
-void StopMotion::goFrame(){
-    
+void StopMotion::nextFrame(){
+    if ( buffer.size() != 0 ){
+        nFrame = (nFrame+1)%buffer.size();
+    }
 }
 
 void StopMotion::goPct(float _pct){
     
 }
 
+void StopMotion::update(){
+    if ( buffer.size() != 0 ){
+        activeFrame.setFromPixels( buffer[nFrame].pixels, width, height, OF_IMAGE_COLOR );
+    }
+}
+
 void StopMotion::draw(int _x, int _y, int _width, int _height){
     
+    if ( buffer.size() != 0 ){
+        int tmpWidth, tmpHeight;
+        
+        if ( _width == -1)
+            tmpWidth = width;
+        else
+            tmpWidth = _width;
+        
+        if ( _height == -1)
+            tmpHeight = height;
+        else
+            tmpHeight = _height;
+        
+        ofPushMatrix();
+        ofTranslate(_x, _y);
+        
+        ofSetColor(255);
+        activeFrame.draw(0, 0, tmpWidth, tmpHeight);
+        ofDrawBitmapString( "Frame: " + ofToString( nFrame ) + "/" + ofToString( buffer.size() ), _x + 35, 30 );
+        ofDrawBitmapString( "TimeStamp: " + ofToString( buffer[nFrame].timeStamp * 2.0 ), _x + 35, 45 );
+        
+        ofPopMatrix();
+    
+    }
 }

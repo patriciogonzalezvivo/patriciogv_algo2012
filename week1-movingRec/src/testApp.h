@@ -24,6 +24,7 @@ public:
     StopMotion      sMotion;
 
 	int             width, height;
+    int             movieCounter;
     
     bool            bRecording;
 };

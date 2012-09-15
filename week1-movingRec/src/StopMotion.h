@@ -22,25 +22,29 @@ public:
     StopMotion();
     
     void    allocate( int _width, int _height );
+    
     void    load(string _folder);
     void    save(string _folder);
     
     void    clear();
     void    addFrame( unsigned char * _pixels );
     
+    void    prevFrame();
     void    nextFrame();
-    void    goFrame();
     
     void    goPct(float _pct);
     
+    void    update();
     void    draw(int _x, int _y, int _width = -1, int _height = -1);
     
 private:
     vector< Frame > buffer;
     
+    ofImage activeFrame;
+    
     unsigned long startTime;
     int     width, height;
-    
+    int     nFrame;
 };
 
 #endif

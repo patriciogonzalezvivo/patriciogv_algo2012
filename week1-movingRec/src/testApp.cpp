@@ -14,6 +14,7 @@ void testApp::setup(){
     sMotion.allocate(width, height);
     
     bRecording = false;
+    movieCounter = 0;
 }
 
 //--------------------------------------------------------------
@@ -25,6 +26,9 @@ void testApp::update(){
             sMotion.addFrame( videoIn.getPixels() );
         }
     }
+    
+    sMotion.nextFrame();
+    sMotion.update();
 }
 
 //--------------------------------------------------------------
@@ -39,6 +43,8 @@ void testApp::draw(){
         ofCircle(25, 25, 7);
         ofDrawBitmapString("REC", 35,30);
     }
+    
+    sMotion.draw(width*0.5 + 10, 10);
 }
 
 //--------------------------------------------------------------
@@ -52,9 +58,10 @@ void testApp::keyPressed(int key){
     if (key == ' '){
         bRecording = !bRecording;
         if (!bRecording){
-            sMotion.save("movie");
+            sMotion.save( "movie" + ofToString(movieCounter++) );
+        } else {
             sMotion.clear();
-        } 
+        }
     }
     
 }
