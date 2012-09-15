@@ -15,6 +15,8 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update(){
+    videoIn.update();
+    
     if (videoIn.isFrameNew()){
         sMotion.addFrame( videoIn.getPixels() );
     }

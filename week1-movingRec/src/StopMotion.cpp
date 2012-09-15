@@ -22,12 +22,14 @@ void StopMotion::load(string _path){
 }
 
 void StopMotion::save(string _path){
-    ofImage tmpImgHolder;
-    tmpImgHolder.allocate(width, height, OF_IMAGE_COLOR);
+    
+    ofDirectory dirHolder;
     
     for(int i = 0; i < buffer.size(); i++){
-        tmpImgHolder.setFromPixels(buffer[i].pixels , width, height, OF_IMAGE_COLOR);
-        tmpImgHolder.saveImage(_path+"/"+ofToString(i)+".jpg");
+        ofPixels pixelsHolder;
+        pixelsHolder.allocate(width, height, 3);
+        pixelsHolder.setFromPixels( buffer[i].pixels , width, height, OF_IMAGE_COLOR);
+        ofSaveImage(pixelsHolder, _path+"/"+ofToString(i)+".jpg");
     }
 }
 
@@ -39,8 +41,15 @@ void StopMotion::addFrame( unsigned char * _pixels ){
         startTime = ofGetElapsedTimeMillis();
     }
     
+    int totalPixles = width*height*3;
     Frame newFrame;
-    newFrame.pixels = _pixels;
+    newFrame.pixels = new unsigned char[totalPixles];
+    
+    for(int i = 0; i < totalPixles ; i++){
+        newFrame.pixels[i] = _pixels[i];
+    }
+    
+    
     newFrame.timeStamp = ofGetElapsedTimeMillis() - startTime;
     
     buffer.push_back( newFrame );
