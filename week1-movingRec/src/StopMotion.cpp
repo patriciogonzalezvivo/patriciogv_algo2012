@@ -42,7 +42,13 @@ void StopMotion::load(string _folder){
     //
     ofDirectory dir;
     int nFiles = dir.listDir(_folder);
-    if(nFiles) {
+    if ( nFiles ) {
+        ofxXmlSettings XML;
+        
+        XML.loadFile(_folder+"/points.xml");
+        
+        int totalFramesLoaded = 0;
+        
         for(int i=0; i<dir.numFiles(); i++) {
             
             if (dir.getFile(i).getExtension() == "jpg"){
@@ -50,24 +56,52 @@ void StopMotion::load(string _folder){
                 
                 //  Load the image
                 //
-                ofLoadImage( pixelsHolder, dir.getPath(i) );
+                if ( ofLoadImage( pixelsHolder, dir.getPath(i) ) ){
                 
-                if (i == 0){
                     //  If it's the first one remember the width and height
                     //
-                    allocate(pixelsHolder.getWidth(), pixelsHolder.getHeight());
+                    if (i == 0)
+                        allocate(pixelsHolder.getWidth(), pixelsHolder.getHeight());
+                    
+                    //  Increment image counter
+                    //
+                    totalFramesLoaded++;
+                    
+                    //  Copy pixels to the frame
+                    //
+                    int totalPixels = width*height*3;
+                    Frame newFrame;
+                    newFrame.pixels = new unsigned char[ totalPixels ];
+                    memcpy(newFrame.pixels, pixelsHolder.getPixels(), totalPixels * sizeof(unsigned char) );
+                    
+                    //  Store time
+                    //
+                    newFrame.timeStamp = ofToInt(dir.getFile(i).getFileName());
+                    
+                    //  Load Point
+                    //
+                    
+                    
+                    //  Add Frame to the Buffer
+                    //
+                    buffer.push_back( newFrame );
                 }
-                
-                int totalPixels = width*height*3;
-                Frame newFrame;
-                newFrame.pixels = new unsigned char[ totalPixels ];
-                memcpy(newFrame.pixels, pixelsHolder.getPixels(), totalPixels * sizeof(unsigned char) );
-                newFrame.timeStamp = ofToInt(dir.getFile(i).getFileName());
-                
-                buffer.push_back( newFrame );
             }
         }
+        
     }
+}
+
+void StopMotion::savePoints( string _folder){
+    ofxXmlSettings XML;
+    
+    XML.loadFile(_folder + "/points.xml");
+    for(int i = 0; i < buffer.size(); i++){
+        XML.setValue("point:x", buffer[i].point.x);
+        XML.setValue("point:y", buffer[i].point.y);
+    }
+    
+    XML.saveFile();
 }
 
 void StopMotion::save(string _folder){
@@ -192,7 +226,8 @@ void StopMotion::draw(int _x, int _y, int _width, int _height){
     
         if ( inside(ofGetMouseX(), ofGetMouseY()) ){
             ofSetColor(255, 100);
-            
+            ofLine(ofGetMouseX()-10, ofGetMouseY(), ofGetMouseX()+10, ofGetMouseY());
+            ofLine(ofGetMouseX(), ofGetMouseY()-10, ofGetMouseX(), ofGetMouseY()+10);
         }
     }
 }

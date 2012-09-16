@@ -10,10 +10,12 @@
 #define STOPMOTION
 
 #include "ofMain.h"
+#include "ofxXmlSettings.h"
 
 typedef struct{
     unsigned char * pixels;
     unsigned long timeStamp;
+    ofPoint point;
 } Frame;
 
 class StopMotion : ofRectangle {
@@ -25,6 +27,7 @@ public:
     
     void    load(string _folder);
     void    save(string _folder);
+    void    savePoints( string _folder);
     
     void    clear();
     void    addFrame( unsigned char * _pixels );

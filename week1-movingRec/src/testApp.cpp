@@ -141,6 +141,7 @@ void testApp::keyPressed(int key){
     }
     
     if ( key == OF_KEY_DOWN){
+        sMotion.savePoints( dataDir.getFile(selectedDir).getFileName() );
         selectedDir = (selectedDir+1)%dataDir.numFiles();
         
         if ( dataDir.getFile(selectedDir).isDirectory() ) {
