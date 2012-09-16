@@ -32,4 +32,5 @@ public:
     
     bool            bRecording;
     bool            bConvert;
+    bool            bPlay;
 };

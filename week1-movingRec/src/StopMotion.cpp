@@ -44,25 +44,28 @@ void StopMotion::load(string _folder){
     int nFiles = dir.listDir(_folder);
     if(nFiles) {
         for(int i=0; i<dir.numFiles(); i++) {
-            ofPixels pixelsHolder;
             
-            //  Load the image
-            //
-            ofLoadImage( pixelsHolder, dir.getPath(i) );
-            
-            if (i == 0){
-                //  If it's the first one remember the width and height
+            if (dir.getFile(i).getExtension() == "jpg"){
+                ofPixels pixelsHolder;
+                
+                //  Load the image
                 //
-                allocate(pixelsHolder.getWidth(), pixelsHolder.getHeight());
+                ofLoadImage( pixelsHolder, dir.getPath(i) );
+                
+                if (i == 0){
+                    //  If it's the first one remember the width and height
+                    //
+                    allocate(pixelsHolder.getWidth(), pixelsHolder.getHeight());
+                }
+                
+                int totalPixels = width*height*3;
+                Frame newFrame;
+                newFrame.pixels = new unsigned char[ totalPixels ];
+                memcpy(newFrame.pixels, pixelsHolder.getPixels(), totalPixels * sizeof(unsigned char) );
+                newFrame.timeStamp = ofToInt(dir.getFile(i).getFileName());
+                
+                buffer.push_back( newFrame );
             }
-            
-            int totalPixels = width*height*3;
-            Frame newFrame;
-            newFrame.pixels = new unsigned char[ totalPixels ];
-            memcpy(newFrame.pixels, pixelsHolder.getPixels(), totalPixels * sizeof(unsigned char) );
-            newFrame.timeStamp = ofToInt(dir.getFile(i).getFileName());
-        
-            buffer.push_back( newFrame );
         }
     }
 }
@@ -136,18 +139,16 @@ void StopMotion::addFrame( unsigned char * _pixels ){
 }
 
 void StopMotion::prevFrame(){
-    if ( nFrame > 0 )
-        nFrame--;
+    nFrame--;
+    
+    if ( nFrame < 0 )
+        nFrame = buffer.size()-1;
 }
 
 void StopMotion::nextFrame(){
     if ( buffer.size() != 0 ){
         nFrame = (nFrame+1)%buffer.size();
     }
-}
-
-void StopMotion::goPct(float _pct){
-    
 }
 
 void StopMotion::update(){
@@ -189,5 +190,9 @@ void StopMotion::draw(int _x, int _y, int _width, int _height){
         
         ofPopMatrix();
     
+        if ( inside(ofGetMouseX(), ofGetMouseY()) ){
+            ofSetColor(255, 100);
+            
+        }
     }
 }

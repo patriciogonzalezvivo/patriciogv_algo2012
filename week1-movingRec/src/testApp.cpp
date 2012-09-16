@@ -15,6 +15,7 @@ void testApp::setup(){
     sMotion.allocate(width, height);
 
     
+    bPlay = true;
     bConvert = false;
     bRecording = false;
     movieCounter = 0;
@@ -60,7 +61,9 @@ void testApp::update(){
     
     //  Play StopMotion
     //
-    sMotion.nextFrame();
+    if (bPlay){
+        sMotion.nextFrame();
+    }
     sMotion.update();
 }
 
@@ -72,8 +75,8 @@ void testApp::draw(){
     //  Header
     //
     ofSetColor(255);
-    ofDrawBitmapString("Press SPACEBAR to start recording or drop a MOVIE file on to the app to convert", 10, 15);
-    ofDrawBitmapString("The StopMotion are going to be store in your data folder", 10, 30);
+    ofDrawBitmapString("Press 'r' to start recording or drop a MOVIE file on to the app to convert", 10, 15);
+    ofDrawBitmapString("Press 'SPACEBAR' to start and stop. RIGHT and LEFT keys makes it Next and Prev frame", 10, 30);
     
     ofPushMatrix();
     ofTranslate(10, 45);
@@ -115,7 +118,19 @@ void testApp::draw(){
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
     
-    if (key == ' '){
+    if( key == ' '){
+        bPlay = !bPlay;
+    }
+    
+    if ( key == OF_KEY_RIGHT){
+        sMotion.nextFrame();
+    }
+    
+    if ( key == OF_KEY_LEFT){
+        sMotion.prevFrame();
+    }
+    
+    if (key == 'r'){
         bRecording = !bRecording;
         if (!bRecording){
             sMotion.save( "movie" + ofToString(movieCounter++) );

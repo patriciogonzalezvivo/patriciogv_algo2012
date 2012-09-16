@@ -32,8 +32,6 @@ public:
     void    prevFrame();
     void    nextFrame();
     
-    void    goPct(float _pct);
-    
     void    update();
     void    draw(int _x, int _y, int _width = -1, int _height = -1);
     
