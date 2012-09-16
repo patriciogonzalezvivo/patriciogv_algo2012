@@ -18,6 +18,14 @@ void testApp::setup(){
     bConvert = false;
     bRecording = false;
     movieCounter = 0;
+    
+    
+    //  Load data folder
+    //
+    dataDir.listDir(".");
+    
+    selectedDir = -1;
+    
 }
 
 //--------------------------------------------------------------
@@ -59,14 +67,19 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     ofBackground(0);
+    ofBackgroundGradient(ofColor(0), ofColor(50), OF_GRADIENT_LINEAR);
     
+    //  Header
+    //
+    ofSetColor(255);
     ofDrawBitmapString("Press SPACEBAR to start recording or drop a MOVIE file on to the app to convert", 10, 15);
     ofDrawBitmapString("The StopMotion are going to be store in your data folder", 10, 30);
     
-    //  Draw StopMotion
-    //
     ofPushMatrix();
     ofTranslate(10, 45);
+    
+    //  Draw StopMotion
+    //
     ofSetColor(255);
     videoIn.draw(0, 0, width * 0.5, height * 0.5);
     if (bRecording){
@@ -74,15 +87,28 @@ void testApp::draw(){
         ofCircle(25, 25, 7);
         ofDrawBitmapString("REC", 35,30);
     }
+    
+    //  Draw Dir List
+    //
+    stringstream dirList;
+    dirList << "Data: ( UP / DOWN keys ) " << endl;
+    dirList << endl;
+    for(int i = 0; i < dataDir.numFiles(); i++){
+        dirList << dataDir.getFile(i).getFileName();
+        if ( selectedDir != -1 ){
+            if ( i == selectedDir ){
+                dirList << " <--";
+            }
+        }
+        dirList << endl;
+    }
+    ofDrawBitmapString(dirList.str(), 10, height*0.5 + 25 );
+    
     ofPopMatrix();
     
     //  Draw StopMotion
     //
     sMotion.draw(width*0.5 + 10 + 10, 45);
-}
-
-//--------------------------------------------------------------
-void testApp::exit(){
     
 }
 
@@ -93,8 +119,27 @@ void testApp::keyPressed(int key){
         bRecording = !bRecording;
         if (!bRecording){
             sMotion.save( "movie" + ofToString(movieCounter++) );
+            dataDir.listDir(".");
         } else {
             sMotion.clear();
+        }
+    }
+    
+    if ( key == OF_KEY_DOWN){
+        selectedDir = (selectedDir+1)%dataDir.numFiles();
+        
+        if ( dataDir.getFile(selectedDir).isDirectory() ) {
+            sMotion.load( dataDir.getFile(selectedDir).getFileName() );
+        }
+            
+    } else if ( key == OF_KEY_UP){
+        
+        if (selectedDir > 0 ) {
+            selectedDir--;
+        }
+        
+        if ( dataDir.getFile(selectedDir).isDirectory() ) {
+            sMotion.load( dataDir.getFile(selectedDir).getFileName() );
         }
     }
     

@@ -16,7 +16,7 @@ typedef struct{
     unsigned long timeStamp;
 } Frame;
 
-class StopMotion {
+class StopMotion : ofRectangle {
 public:
 
     StopMotion();
@@ -43,7 +43,7 @@ private:
     ofImage activeFrame;
     
     unsigned long startTime;
-    int     width, height;
+//    int     width, height;
     int     nFrame;
 };
 

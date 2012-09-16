@@ -67,8 +67,6 @@ void StopMotion::load(string _folder){
     }
 }
 
-
-
 void StopMotion::save(string _folder){
     
     //  Check if the folder exist
@@ -159,8 +157,11 @@ void StopMotion::update(){
 }
 
 void StopMotion::draw(int _x, int _y, int _width, int _height){
-    
+
     if ( buffer.size() != 0 ){
+        x = _x;
+        y = _y;
+        
         int tmpWidth, tmpHeight;
         
         if ( _width == -1)
@@ -174,12 +175,17 @@ void StopMotion::draw(int _x, int _y, int _width, int _height){
             tmpHeight = _height;
         
         ofPushMatrix();
-        ofTranslate(_x, _y);
+        ofTranslate(x, y);
         
         ofSetColor(255);
         activeFrame.draw(0, 0, tmpWidth, tmpHeight);
-        ofDrawBitmapString( "Frame: " + ofToString( nFrame ) + "/" + ofToString( buffer.size() ), 15, 30 );
-        ofDrawBitmapString( "TimeStamp: " + ofToString( buffer[nFrame].timeStamp * 2.0 ), 15, 45 );
+        
+        ofSetColor(0, 200);
+        ofRect(0,0,150,35);
+        
+        ofSetColor(255);
+        ofDrawBitmapString( "Frame: " + ofToString( nFrame ) + "/" + ofToString( buffer.size() ), 5, 15 );
+        ofDrawBitmapString( "TimeStamp: " + ofToString( buffer[nFrame].timeStamp * 0.02 ) + "s", 5, 30 );
         
         ofPopMatrix();
     
