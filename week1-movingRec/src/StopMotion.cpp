@@ -9,7 +9,7 @@
 #include "StopMotion.h"
 
 StopMotion::StopMotion(){
-    
+    folderName = "NONE";
 }
 
 void StopMotion::allocate( int _width, int _height ){
@@ -21,6 +21,10 @@ void StopMotion::allocate( int _width, int _height ){
     activeFrame.allocate(width, height, OF_IMAGE_COLOR);
     
     nFrame = 0;
+}
+
+void StopMotion::size(){
+    return buffer.size();
 }
 
 void StopMotion::clear(){
@@ -35,20 +39,36 @@ void StopMotion::clear(){
 }
 
 void StopMotion::load(string _folder){
+    //  If was something previusly loaded, save the points position
+    //
+    if (folderName != "NONE"){
+        cout << "Saving previus information at " << folderName << endl;
+        savePoints(folderName);
+    }
+    
+    //  Clean the buffer
+    //
     clear();
     
-    //Read the directory for the images
-    // We know that they are named in seq
+    //  Read the directory for the images
+    //  We know that they are named in seq
     //
     ofDirectory dir;
     int nFiles = dir.listDir(_folder);
-    if ( nFiles ) {
-        ofxXmlSettings XML;
+    if ( nFiles > 0) {
         
-        XML.loadFile(_folder+"/points.xml");
+        folderName = _folder;
+        cout << "Loading " << folderName << " folder" << endl;
+        
+        string xmlFile = _folder + "/points.xml";
+        ofxXmlSettings XML;
+        if ( XML.loadFile( xmlFile ) ){
+            cout << "- "<< ofToDataPath( xmlFile ) << " found and loaded" << endl;
+        } else {
+            cout << "- "<< ofToDataPath( xmlFile ) << " not found" << endl;
+        }
         
         int totalFramesLoaded = 0;
-        
         for(int i=0; i<dir.numFiles(); i++) {
             
             if (dir.getFile(i).getExtension() == "jpg"){
@@ -80,7 +100,10 @@ void StopMotion::load(string _folder){
                     
                     //  Load Point
                     //
-                    
+                    XML.pushTag("point",i);
+                    newFrame.point.x = XML.getValue("x", width*0.5);
+                    newFrame.point.y = XML.getValue("y", height*0.5);
+                    XML.popTag();
                     
                     //  Add Frame to the Buffer
                     //
@@ -92,43 +115,83 @@ void StopMotion::load(string _folder){
     }
 }
 
-void StopMotion::savePoints( string _folder){
-    ofxXmlSettings XML;
-    
-    XML.loadFile(_folder + "/points.xml");
-    for(int i = 0; i < buffer.size(); i++){
-        XML.setValue("point:x", buffer[i].point.x);
-        XML.setValue("point:y", buffer[i].point.y);
+void StopMotion::save(string _folder){
+    if ( _folder != "NONE" ){
+        folderName = _folder;
     }
     
-    XML.saveFile();
+    if ( folderName != "NONE"){
+        cout << "Saving " << folderName << endl;
+        
+        //  Check if the folder exist
+        //
+        ofDirectory checkFolder;
+        if ( checkFolder.listDir(folderName) ){
+            
+            //  if exist, clean it
+            //
+            for(int i=0; i < checkFolder.numFiles(); i++) {
+                checkFolder.getFile(i).remove();
+            }
+            
+        } else {
+            
+            //  If not, create one
+            //
+            checkFolder.createDirectory(folderName);
+            
+        }
+        
+        //  Save each one of the frames as a JPG image
+        //
+        for(int i = 0; i < buffer.size(); i++){
+            ofPixels pixelsHolder;
+            pixelsHolder.allocate(width, height, 3);
+            pixelsHolder.setFromPixels( buffer[i].pixels , width, height, OF_IMAGE_COLOR);
+            ostringstream name;
+            name << fixed << setfill('0') << setw(8) << buffer[i].timeStamp;
+            ofSaveImage(pixelsHolder, folderName+"/" + name.str() + ".jpg");
+        }
+        
+        //  Save the points position or make an empty one.
+        //
+        savePoints(folderName);
+    }
 }
 
-void StopMotion::save(string _folder){
+void StopMotion::savePoints( string _folder ){
+    string xmlFile = _folder + "/points.xml";
+    cout << "- Atempting to saving the points info on " << xmlFile << endl;
     
-    //  Check if the folder exist
+    //  Load point.xml
     //
-    ofDirectory checkFolder;
-    if ( checkFolder.listDir(_folder) ){
-        //  if exist, clean it
-        //
-        for(int i=0; i < checkFolder.numFiles(); i++) {
-            checkFolder.getFile(i).remove();
-        }
+    ofxXmlSettings XML;
+    if (XML.loadFile(xmlFile)){
+        cout << "- File found and opened " << endl;
     } else {
-        //  If not, create one
-        //
-        checkFolder.createDirectory(_folder);
+        cout << "- File NOT found" << endl;
     }
     
+    //  Check if there is enought space
+    //
+    int totalPoints = XML.getNumTags("point");
+    if ( totalPoints < buffer.size() ){
+        for(int i = 0; i < buffer.size() - totalPoints ; i++){
+            cout << "Adding tag " << i << endl;
+            XML.addTag("point");
+        }
+    }
+    
+    //  Store the points information into it
+    //
     for(int i = 0; i < buffer.size(); i++){
-        ofPixels pixelsHolder;
-        pixelsHolder.allocate(width, height, 3);
-        pixelsHolder.setFromPixels( buffer[i].pixels , width, height, OF_IMAGE_COLOR);
-        ostringstream name;
-        name << fixed << setfill('0') << setw(8) << buffer[i].timeStamp;
-        ofSaveImage(pixelsHolder, _folder+"/" + name.str() + ".jpg");
-    } 
+        XML.setValue("point:x", buffer[i].point.x,i);
+        XML.setValue("point:y", buffer[i].point.y,i);
+    }
+    
+    //  Save information
+    //
+    XML.saveFile(xmlFile);
 }
 
 void StopMotion::addFrame( unsigned char * _pixels ){
@@ -151,21 +214,22 @@ void StopMotion::addFrame( unsigned char * _pixels ){
     
     //  For copying each single pixel of the image we can use this C function
     //
-    
     memcpy(newFrame.pixels, _pixels, totalPixles * sizeof(unsigned char) );
-    
     //
     //  Witch is the same to say:
     //
-    
-//    for(int i = 0; i < totalPixles ; i++){
-//        newFrame.pixels[i] = _pixels[i];
-//    }
+    //    for(int i = 0; i < totalPixles ; i++){
+    //        newFrame.pixels[i] = _pixels[i];
+    //    }
     
     //  Put a timeStamp on it.
     //  This could be handy if we record in other speed that is not 24 per second
     //
     newFrame.timeStamp = ofGetElapsedTimeMillis()*0.05 - startTime;
+    
+    //  Add a default Point information at the center of the image
+    //
+    newFrame.point = ofPoint(width*0.5,height*0.5);
     
     //  Add the Frame into the dinamic array of Frames that we call buffer
     //
@@ -187,7 +251,21 @@ void StopMotion::nextFrame(){
 
 void StopMotion::update(){
     if ( buffer.size() != 0 ){
+        
+        //  Update pixels
+        //
         activeFrame.setFromPixels( buffer[nFrame].pixels, width, height, OF_IMAGE_COLOR );
+        
+        //  Dragable points
+        //
+        if ( ofGetMousePressed() && inside(ofGetMouseX(), ofGetMouseY()) ){
+            ofPoint mouse = ofPoint(ofGetMouseX()-x, ofGetMouseY()-y);
+            
+            if ( buffer[nFrame].point.distance(mouse) < 50 ){
+                buffer[nFrame].point = mouse;
+            }
+        }
+        
     }
 }
 
@@ -209,21 +287,46 @@ void StopMotion::draw(int _x, int _y, int _width, int _height){
         else
             tmpHeight = _height;
         
+        ofPushStyle();
         ofPushMatrix();
+        
         ofTranslate(x, y);
         
         ofSetColor(255);
         activeFrame.draw(0, 0, tmpWidth, tmpHeight);
         
+        //  Frame information
+        //
         ofSetColor(0, 200);
         ofRect(0,0,150,35);
-        
         ofSetColor(255);
         ofDrawBitmapString( "Frame: " + ofToString( nFrame ) + "/" + ofToString( buffer.size() ), 5, 15 );
         ofDrawBitmapString( "TimeStamp: " + ofToString( buffer[nFrame].timeStamp * 0.02 ) + "s", 5, 30 );
         
+        //  Point
+        //
+        ofSetColor(255, 50);
+        ofCircle(buffer[nFrame].point, 20);
+        ofSetColor(0,50);
+        ofCircle(buffer[nFrame].point, 3);
+        ofSetColor(255);
+        ofCircle(buffer[nFrame].point, 2);
+        
+        //  Line
+        //
+        ofNoFill();
+        ofSetColor(255);
+        ofBeginShape();
+        for (int i = 0; i < nFrame; i++){
+            ofVertex(buffer[i].point);
+        }
+        ofEndShape();
+        
         ofPopMatrix();
+        ofPopStyle();
     
+        //  Mouse pointer
+        //
         if ( inside(ofGetMouseX(), ofGetMouseY()) ){
             ofSetColor(255, 100);
             ofLine(ofGetMouseX()-10, ofGetMouseY(), ofGetMouseX()+10, ofGetMouseY());

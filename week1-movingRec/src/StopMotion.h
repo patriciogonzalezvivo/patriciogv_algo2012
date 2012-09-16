@@ -26,10 +26,12 @@ public:
     void    allocate( int _width, int _height );
     
     void    load(string _folder);
-    void    save(string _folder);
+    void    save(string _folder = "NONE");
     void    savePoints( string _folder);
     
+    void    size();
     void    clear();
+    Frame&  operator[](int _nFrame){ if ((_nFrame < buffer.size()) && (_nFrame >= 0) ) return buffer[_nFrame]; };
     void    addFrame( unsigned char * _pixels );
     
     void    prevFrame();
@@ -43,8 +45,8 @@ private:
     
     ofImage activeFrame;
     
+    string  folderName;
     unsigned long startTime;
-//    int     width, height;
     int     nFrame;
 };
 

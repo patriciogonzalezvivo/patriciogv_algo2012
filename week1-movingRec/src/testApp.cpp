@@ -6,6 +6,7 @@ void testApp::setup(){
     ofSetVerticalSync(true);
     ofSetCircleResolution(80);
     ofEnableAlphaBlending();
+    ofEnableSmoothing();
     
     width = 640;
     height = 480;
@@ -75,8 +76,8 @@ void testApp::draw(){
     //  Header
     //
     ofSetColor(255);
-    ofDrawBitmapString("Press 'r' to start recording or drop a MOVIE file on to the app to convert", 10, 15);
-    ofDrawBitmapString("Press 'SPACEBAR' to start and stop. RIGHT and LEFT keys makes it Next and Prev frame", 10, 30);
+    ofDrawBitmapString("Press 'r' to start recording or drop a MOVIE file on to the app to convert.", 10, 15);
+    ofDrawBitmapString("Press 'SPACEBAR' to start and stop. RIGHT and LEFT keys makes it Next and Prev frame. Move the point and save with 's'", 10, 30);
     
     ofPushMatrix();
     ofTranslate(10, 45);
@@ -105,6 +106,7 @@ void testApp::draw(){
         }
         dirList << endl;
     }
+    ofSetColor(255);
     ofDrawBitmapString(dirList.str(), 10, height*0.5 + 25 );
     
     ofPopMatrix();
@@ -140,8 +142,11 @@ void testApp::keyPressed(int key){
         }
     }
     
+    if (key == 's'){
+        sMotion.save();
+    }
+    
     if ( key == OF_KEY_DOWN){
-        sMotion.savePoints( dataDir.getFile(selectedDir).getFileName() );
         selectedDir = (selectedDir+1)%dataDir.numFiles();
         
         if ( dataDir.getFile(selectedDir).isDirectory() ) {
