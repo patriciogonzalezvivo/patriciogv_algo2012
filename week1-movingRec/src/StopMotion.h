@@ -29,7 +29,7 @@ public:
     void    save(string _folder = "NONE");
     void    savePoints( string _folder);
     
-    void    size();
+    int     size();
     void    clear();
     Frame&  operator[](int _nFrame){ if ((_nFrame < buffer.size()) && (_nFrame >= 0) ) return buffer[_nFrame]; };
     void    addFrame( unsigned char * _pixels );

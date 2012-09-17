@@ -23,7 +23,7 @@ void StopMotion::allocate( int _width, int _height ){
     nFrame = 0;
 }
 
-void StopMotion::size(){
+int StopMotion::size(){
     return buffer.size();
 }
 
