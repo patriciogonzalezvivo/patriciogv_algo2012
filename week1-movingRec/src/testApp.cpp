@@ -8,6 +8,8 @@ void testApp::setup(){
     ofEnableAlphaBlending();
     ofEnableSmoothing();
     
+    ofSetWindowShape(990, 535);
+    
     width = 640;
     height = 480;
     
@@ -15,12 +17,10 @@ void testApp::setup(){
 
     sMotion.allocate(width, height);
 
-    
     bPlay = true;
     bConvert = false;
     bRecording = false;
     movieCounter = 0;
-    
     
     //  Load data folder
     //
@@ -35,6 +35,7 @@ void testApp::update(){
     
     
     if ( bConvert ){
+        
         //  If it have to convert a movie into stopMotion
         //
         movieIn.update();
@@ -50,7 +51,8 @@ void testApp::update(){
         }
         
     } else {
-        //
+        
+        //  Grab info from the video camera
         //
         videoIn.update();
         if (videoIn.isFrameNew()){

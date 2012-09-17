@@ -303,24 +303,25 @@ void StopMotion::draw(int _x, int _y, int _width, int _height){
         ofDrawBitmapString( "Frame: " + ofToString( nFrame ) + "/" + ofToString( buffer.size() ), 5, 15 );
         ofDrawBitmapString( "TimeStamp: " + ofToString( buffer[nFrame].timeStamp * 0.02 ) + "s", 5, 30 );
         
-        //  Point
-        //
-        ofSetColor(255, 50);
-        ofCircle(buffer[nFrame].point, 20);
-        ofSetColor(0,50);
-        ofCircle(buffer[nFrame].point, 3);
-        ofSetColor(255);
-        ofCircle(buffer[nFrame].point, 2);
-        
         //  Line
         //
         ofNoFill();
         ofSetColor(255);
-        ofBeginShape();
-        for (int i = 0; i < nFrame; i++){
-            ofVertex(buffer[i].point);
+        if ( buffer.size() > 0){
+            ofBeginShape();
+            for (int i = 0; i <= nFrame; i++){
+                ofVertex(buffer[i].point);
+            }
+            ofEndShape();
         }
-        ofEndShape();
+        
+        //  Point
+        //
+        ofFill();
+        ofSetColor(255, 10);
+        ofCircle(buffer[nFrame].point, 20);
+        ofSetColor(255,0,0);
+        ofCircle(buffer[nFrame].point, 3);
         
         ofPopMatrix();
         ofPopStyle();
