@@ -309,9 +309,11 @@ void StopMotion::draw(int _x, int _y, int _width, int _height){
         ofSetColor(255);
         if ( buffer.size() > 0){
             ofBeginShape();
+            ofVertex(buffer[0].point);
             for (int i = 0; i <= nFrame; i++){
-                ofVertex(buffer[i].point);
+                ofCurveVertex(buffer[i].point);
             }
+            ofVertex(buffer[nFrame].point);
             ofEndShape();
         }
         
