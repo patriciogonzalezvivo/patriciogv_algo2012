@@ -13,18 +13,20 @@
 
 //  How to increment
 //
-enum AnimAlgo {
-    ALGO_LINEAR,
-    ALGO_POWER,
-    ALGO_XENO
+enum AnimShaper {
+    SHAPE_LINEAR,
+    SHAPE_POWER,
+    SHAPE_SIN_IN,
+    SHAPE_SIN_OUT,
+    SHAPE_XENO
 };
 
 //  What to do once it arrives to destination
 //
-enum AnimMode {
-    MODE_STOP,
-    MODE_PONG,
-    MODE_REPLAY
+enum AnimLooper {
+    LOOP_NONE,
+    LOOP_PONG,
+    LOOP_REPLAY
 };
 
 class SuperDot : public ofPoint {
@@ -43,8 +45,8 @@ public:
     bool    mouseClick(int _x, int _y);
     
     ofColor     color;
-    AnimAlgo    algorithm;
-    AnimMode    mode;
+    AnimShaper  shape;
+    AnimLooper  loop;
     
     float       shaper;             //  Only use on ALGO_POWER
     float       incrementFactor;    //  0.0 - 1.0

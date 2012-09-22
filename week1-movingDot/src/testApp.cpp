@@ -16,6 +16,8 @@ void testApp::update(){
     for(int i = 0; i < dots.size(); i++){
         dots[i].update();
     }
+    
+    ofSetWindowTitle(ofToString(ofGetFrameRate()));
 }
 
 //--------------------------------------------------------------
@@ -124,8 +126,6 @@ void testApp::mousePressed(int x, int y, int button){
         if ( ( points.size() > 1 ) && ( points.size() % 2 == 0 ) ){
             SuperDot newDot;
             newDot.init( points[ points.size()-2 ], points[ points.size()-1 ]);
-            newDot.algorithm = ALGO_LINEAR;
-            newDot.mode = MODE_PONG;
             
             dots.push_back( newDot );
             selectedDot = dots.size() - 1;

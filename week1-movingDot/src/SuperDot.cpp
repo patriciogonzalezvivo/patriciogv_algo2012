@@ -9,7 +9,8 @@
 #include "SuperDot.h"
 
 SuperDot::SuperDot(){
-    algorithm = ALGO_LINEAR;
+    shape = SHAPE_LINEAR;
+    loop = LOOP_PONG;
     
     color = ofColor(255);
     
@@ -35,39 +36,44 @@ bool SuperDot::update(){
     prev = *this;
     
     if (bMoving){
-        if ( algorithm == ALGO_LINEAR){
-            percentage += incrementFactor;
-            set( (1.0f - percentage ) * (*org) + ( percentage ) * (*dst) );
-            
-            if ( percentage >= 1.0 )
-                wawArrive();
-            
-        } else if ( algorithm == ALGO_POWER){
-            percentage += incrementFactor;
-            
-            float positionPorcentage = powf(percentage, shaper);
-            set( (1.0f - positionPorcentage ) * (*org) + ( positionPorcentage ) * (*dst) );
-            
-            if ( percentage >= 1.0 )
-                wawArrive();
-            
-        } else if ( algorithm == ALGO_XENO){
+        if ( shape == SHAPE_XENO){
             set( incrementFactor * (*dst) + ( 1.0f - incrementFactor) * (*this) );
             
             if ( distance(*dst) <= 1 )
+                wawArrive();
+        } else {
+            percentage += incrementFactor;
+            
+            if ( shape == SHAPE_LINEAR){
+                set( (1.0f - percentage ) * (*org) + ( percentage ) * (*dst) );
+                
+            } else if ( shape == SHAPE_POWER){
+                float positionPorcentage = powf(percentage, shaper);
+                set( (1.0f - positionPorcentage ) * (*org) + ( positionPorcentage ) * (*dst) );
+                
+            } else if ( shape == SHAPE_SIN_IN){
+                float positionPorcentage = sin( percentage * PI/2 );
+                set( (1.0f - positionPorcentage ) * (*org) + ( positionPorcentage ) * (*dst) );
+            } else if ( shape == SHAPE_SIN_OUT){
+                float positionPorcentage = cos( percentage * PI/2 );
+                set( (1.0f - positionPorcentage ) * (*org) + ( positionPorcentage ) * (*dst) );
+            }
+
+            
+            if ( percentage >= 1.0 )
                 wawArrive();
         }
     }
 }
 
 void SuperDot::wawArrive(){
-    if (mode == MODE_STOP){
+    if (loop == LOOP_NONE){
         bMoving = false;
-    } else if ( mode == MODE_REPLAY){
+    } else if ( loop == LOOP_REPLAY){
         set( *org );
         percentage = 0.0;
         bMoving = true;
-    } else if ( mode == MODE_PONG){
+    } else if ( loop == LOOP_PONG){
         ofPoint *tmp = dst;
         init( dst, org );
     }
@@ -98,33 +104,42 @@ void SuperDot::draw(){
     ofPushMatrix();
     ofTranslate(*dst);
     
+    ofSetColor(255,0,255,50);
+    ofRect(60,5,50,13);
+    ofRect(85,18,180,13);
+    
+    ofSetColor(255);
     stringstream text;
-    
     text << "GO and ";
-    
-    if ( mode == MODE_STOP){
+    if ( loop == LOOP_NONE){
         text << "STOP" << endl;
-    } else if ( mode == MODE_REPLAY ){
+    } else if ( loop == LOOP_REPLAY ){
         text << "REPLAY" << endl;
-    } else if ( mode == MODE_PONG ){
+    } else if ( loop == LOOP_PONG ){
         text << "PONG" << endl;
     }
     
     text << "Increment ";
-    if ( algorithm == ALGO_LINEAR){
-        text << "LINEAR by " << incrementFactor << endl;
-        text << "Percentage: " << percentage*100 << "%" << endl;
-        text << "Total Time: " << (1.0/incrementFactor)/ofGetFrameRate() << "s" << endl;
-        
-    } else if ( algorithm == ALGO_POWER){
-        text << "POWER by " << incrementFactor << " over " << shaper << endl;
-        text << "Percentage: " << percentage*100 << "%" << endl;
-        text << "Total Time: " << (1.0/incrementFactor)/ofGetFrameRate() << "s" << endl;
-        
-    } else if ( algorithm == ALGO_XENO){
-        text << "XENO at " << incrementFactor*100 << "%"<< endl;
-    }
     
+    if ( shape == SHAPE_XENO){
+        text << "XENO at " << incrementFactor*100 << "%"<< endl;
+    } else {
+    
+        if ( shape == SHAPE_LINEAR){
+            text << "LINEAR by " << incrementFactor << endl;
+            
+        } else if ( shape == SHAPE_POWER){
+            text << "POWER by " << incrementFactor << " over " << shaper << endl;
+            
+        } else if ( shape == SHAPE_SIN_IN){
+            text << "SIN IN by " << incrementFactor << endl;
+        } else if ( shape == SHAPE_SIN_OUT){
+            text << "SIN OUT by " << incrementFactor << endl;
+        }
+        
+        text << "Percentage: " << percentage*100 << "%" << endl;
+        text << "Total Time: " << (1.0/incrementFactor)/ofGetFrameRate() << "s" << endl;
+    }
     text << "Speed: " << ofToString(speed) << " px/sec" << endl;
     
     ofDrawBitmapString( text.str() , 5 , 15);
@@ -155,24 +170,28 @@ bool SuperDot::mouseClick(int _x, int _y){
     if (( _x > dst->x + 5) && ( _y > dst->y + 5) &&
         ( _x < dst->x + 200 ) && ( _y < dst->y + 15 )){
         
-        if ( mode == MODE_STOP){
-            mode = MODE_REPLAY;
-        } else if ( mode == MODE_REPLAY ){
-            mode = MODE_PONG ;
-        } else if ( mode == MODE_PONG ){
-            mode = MODE_STOP;
+        if ( loop == LOOP_NONE){
+            loop = LOOP_REPLAY;
+        } else if ( loop == LOOP_REPLAY ){
+            loop = LOOP_PONG ;
+        } else if ( loop == LOOP_PONG ){
+            loop = LOOP_NONE;
         }
         
         hitSomething = true;
     } else if (( _x > dst->x + 5) && ( _y > dst->y + 15) &&
           ( _x < dst->x + 200 ) && ( _y < dst->y + 30 )){
         
-        if ( algorithm == ALGO_LINEAR){
-            algorithm = ALGO_POWER;
-        } else if ( algorithm == ALGO_POWER){
-            algorithm = ALGO_XENO;
-        } else if ( algorithm == ALGO_XENO){
-            algorithm = ALGO_LINEAR;
+        if ( shape == SHAPE_LINEAR){
+            shape = SHAPE_POWER;
+        } else if ( shape == SHAPE_POWER){
+            shape = SHAPE_SIN_IN;
+        } else if ( shape == SHAPE_SIN_IN){
+            shape = SHAPE_SIN_OUT;
+        } else if ( shape == SHAPE_SIN_OUT){
+            shape = SHAPE_XENO;
+        } else if ( shape == SHAPE_XENO){
+            shape = SHAPE_LINEAR;
         }
         
         hitSomething = true;
