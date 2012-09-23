@@ -20,7 +20,7 @@ void testApp::update(){
 	
 	for (int i = 0; i < particles.size(); i++){
 		float radius = 50 + i * 20;
-		float angle = ofGetElapsedTimef() * (1 + i / 10.0);
+		float angle = ofGetElapsedTimef() * (1 + i / 20.0);
         
 		float x = xorig + radius * cos(angle* ofMap(ofGetMouseX(),0,ofGetScreenWidth(),0.0,1.0));
 		float y = yorig + radius * -sin(angle* ofMap(ofGetMouseY(),0,ofGetScreenHeight(),0.0,1.0));

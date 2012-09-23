@@ -32,7 +32,7 @@ void wParticle::moveTo(float _x, float _y){
         y = temp.y = _y;
     }
 	points.push_back(temp);
-	if (points.size() > 200){
+	if (points.size() > 100){
 		points.erase(points.begin());
 	}
 }
