@@ -1,12 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-
-//  Growing pattern on sunflower
-//  Source used: http://www.mathsisfun.com/numbers/nature-golden-ratio-fibonacci.html
-//
-
-#define GOLDEN_RATIO 1.61803398874989484820
+#define BUFFER_SIZE 100
 
 class testApp : public ofBaseApp{
 public:
@@ -24,4 +19,6 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 		
+    float bufferA[BUFFER_SIZE];
+    float bufferB[BUFFER_SIZE];
 };

@@ -11,6 +11,7 @@ void testApp::setup(){
     
     
     vector<ofTTFCharacter> letters = font.getStringAsPoints("John Whitney");
+    
     for(int i = 0; i < letters.size(); i++){
         vector<ofPolyline> letterOutLine = letters[i].getOutline();
         
@@ -20,6 +21,7 @@ void testApp::setup(){
             for(int k = 0; k < letterOutLine[j].getVertices().size(); k++){
                 wParticle newDot;
                 newDot.set(letterOutLine[j].getVertices()[k]);
+                
                 stringDots.push_back(newDot);
             }
         }
