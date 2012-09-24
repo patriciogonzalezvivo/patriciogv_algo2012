@@ -20,13 +20,12 @@ void testApp::draw(){
 
     ofPushMatrix();
     ofTranslate(ofGetWidth()*0.5, ofGetHeight()*0.5);
-
-    //  Using translation and rotate
-    //
-    for(int i = 0; i < 1000; i++ ){
-        ofRotate(GOLDEN_RATIO*360, 0, 0, 1.0);
-        ofTranslate(i, i);
-        ofCircle(0, 0, i*0.01);
+    
+    ofPoint lastPoint = ofPoint(0,0);
+    for(int i = 0; i < ofGetFrameNum(); i++ ){
+        lastPoint.x += i * cos(GOLDEN_RATIO*TWO_PI*i);
+        lastPoint.y += i * sin(GOLDEN_RATIO*TWO_PI*i);
+        ofCircle(lastPoint, i*0.01);
     }
     
     ofPopMatrix();
