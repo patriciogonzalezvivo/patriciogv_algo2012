@@ -19,7 +19,10 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    void drawParticlesLine(float _alpha);
-		
-    vector<wParticle> particles;
+    ofTrueTypeFont  font;
+    vector<wParticle> stringDots;
+    
+    float   pct;
+    int     stringWidth, stringHeight;
+    
 };

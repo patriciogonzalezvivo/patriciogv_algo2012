@@ -16,10 +16,12 @@ public:
     
     wParticle();
     
+    void set(ofPoint _pos);
     void moveTo(float _x, float _y);
     
-    void drawDot(float _alpha);
-    void drawTrail(float _alpha);
+    void drawTrail(ofFloatColor _color);
+    
+    ofPoint origin;
     
 private:
     vector <ofPoint> points;

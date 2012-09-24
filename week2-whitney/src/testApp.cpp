@@ -7,93 +7,75 @@ void testApp::setup(){
     ofSetCircleResolution(100);
     ofEnableSmoothing();
     
-    for(int i = 0; i < 30; i++){
-        wParticle newParticle;
-        particles.push_back(newParticle);
+    font.loadFont("verdana.ttf", 60, true, true, true);
+    
+    
+    vector<ofTTFCharacter> letters = font.getStringAsPoints("John Whitney");
+    for(int i = 0; i < letters.size(); i++){
+        vector<ofPolyline> letterOutLine = letters[i].getOutline();
+        
+        for (int j = 0; j < letterOutLine.size(); j++ ){
+            letterOutLine[j].simplify();
+            letterOutLine[j].getResampledByCount(2000);
+            for(int k = 0; k < letterOutLine[j].getVertices().size(); k++){
+                wParticle newDot;
+                newDot.set(letterOutLine[j].getVertices()[k]);
+                stringDots.push_back(newDot);
+            }
+        }
     }
+    
+    stringWidth = font.getStringBoundingBox("John Whitney", 0, 0).width;
+    stringHeight = font.getStringBoundingBox("John Whitney", 0, 0).height;
+    
+    ofSetFullscreen(true);
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-    float xorig = ofGetWidth()*0.5;
-	float yorig = ofGetHeight()*0.5;
-	
-	for (int i = 0; i < particles.size(); i++){
-		float radius = 50 + i * 20;
-		float angle = ofGetElapsedTimef() * (1 + i / 20.0);
-        
-		float x = xorig + radius * cos(angle* ofMap(ofGetMouseX(),0,ofGetScreenWidth(),0.0,1.0));
-		float y = yorig + radius * -sin(angle* ofMap(ofGetMouseY(),0,ofGetScreenHeight(),0.0,1.0));
-		
-		particles[i].moveTo(x,y);
-	}
     
-    ofSetWindowTitle(ofToString(ofGetFrameRate()));
+    pct = powf( abs(sin( ofGetElapsedTimef()*0.1)), 5.0);
+    
+    for (int i = 0; i < stringDots.size(); i++){
+        
+        float radius = pct * 200;
+        float angle = ofGetElapsedTimef() * (1 + i / 20.0);
+        
+        float x = stringDots[i].origin.x + radius * cos(angle* 0.9);
+        float y = stringDots[i].origin.y + radius * -sin(angle* 0.8);
+        
+        stringDots[i].moveTo(x, y);
+    }
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
     ofBackground(0);
     
-    float sinSwitcher = abs(sin(ofGetElapsedTimef()*0.1));
+    ofPushMatrix();
+    ofTranslate(ofGetWidth()*0.5-stringWidth*0.5, ofGetHeight()*0.5);
     
-    if (!ofGetMousePressed()){
-        drawParticlesLine((1.0-sinSwitcher)*0.8);
-    }
-    
-    for (int i = 0; i < particles.size(); i++){
+    for (int i = 1; i < stringDots.size(); i++){
+        ofSetLineWidth(2);
         
-        if (!ofGetMousePressed()){
-            particles[i].drawTrail(sinSwitcher*0.5);
+        float dist = stringDots[i-1].distance(stringDots[i]);
+        ofFloatColor color = ofFloatColor(1.0,0.0,0.0);
+        color.setHue(abs(sin(ofGetElapsedTimef()*0.5))*ofMap(i,0,stringDots.size(),0.0,1.0));
+        color.setSaturation(pct);
+        
+        if ( dist < 80){
+            ofSetColor(ofFloatColor(color,1.0-ofMap(dist, 0.0, 80.0, 0.0, 1.0)));
+            ofLine(stringDots[i-1],stringDots[i]);
         }
         
-        int closest = 10000;
-        for ( int j = 0; j < particles.size(); j++){
-            if (i != j){
-                int dist = particles[i].distance(particles[j]);
-                
-                if (dist < closest){
-                    closest = dist;
-                }
-                
-                if ((dist < 100) && ofGetMousePressed()){
-                    ofSetColor(255, ofMap(closest,0,100,100,0,true) );
-                    ofLine(particles[i], particles[j]);
-                }
-            }
-        }
-        
-        particles[i].drawDot( ofMap(closest,0,100,1.0,0.0,true) );
+        ofSetColor(255);
+        ofSetLineWidth(1);
+        stringDots[i].drawTrail( color );
     }
     
-    ofSetColor(255);
-    ofDrawBitmapString("Wait until", 5,15);
-    ofSetColor(ofFloatColor(1.0-sinSwitcher*0.5));
-    ofDrawBitmapString("figure", 5,30);
-    ofSetColor(255);
-    ofDrawBitmapString("becomes", 5,45);
-    ofSetColor(ofFloatColor(sinSwitcher*0.5));
-    ofDrawBitmapString("ground", 5,60);
-}
-
-void testApp::drawParticlesLine(float _alpha){
-    ofPolyline macroLine;
-    macroLine.addVertex(particles[0]);
-    for (int i = 0 ; i < particles.size() ; i++){
-        macroLine.curveTo(particles[i]);
-    }
-    macroLine.curveTo(particles[particles.size()-1]);
-    macroLine = macroLine.getResampledByCount( 1000 );
+    ofPopMatrix();
     
-    ofSetColor(255);
-    ofMesh lineMesh;
-    lineMesh.setMode(OF_PRIMITIVE_LINE_STRIP);
-    for (int i = 0 ; i < macroLine.getVertices().size() ; i++){
-        lineMesh.addColor(ofFloatColor(1.0, _alpha));
-        lineMesh.addVertex(macroLine.getVertices()[i]);
-    }
-    ofSetColor(255);
-    lineMesh.draw();
+//    ofDrawBitmapString("Pct: " + ofToString(pct), 15,15);
 }
 
 //--------------------------------------------------------------

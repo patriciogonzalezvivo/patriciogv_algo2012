@@ -12,14 +12,13 @@ wParticle::wParticle(){
     
 }
 
+void wParticle::set(ofPoint _pos){
+    x = origin.x = _pos.x;
+    y = origin.y = _pos.y;
+}
+
 void wParticle::moveTo(float _x, float _y){
     ofPoint temp;
-    
-    // Force it
-    //
-//	x = temp.x = _x;
-//	y = temp.y = _y;
-    
     
     float catchUpSpeed = 0.1;
     if ( points.size() > 0){
@@ -32,25 +31,12 @@ void wParticle::moveTo(float _x, float _y){
         y = temp.y = _y;
     }
 	points.push_back(temp);
-	if (points.size() > 100){
+	if (points.size() > 50){
 		points.erase(points.begin());
 	}
 }
 
-void wParticle::drawDot(float _alpha){
-	
-	ofFill();
-    //ofSetColor(255,0,127);
-    //ofSphere(x, y, z, 5);
-    
-    ofSetColor(255);
-    ofCircle(x, y, 1);
-    
-    ofSetColor(ofFloatColor(1.0,_alpha*0.5));
-    ofCircle(x, y, 5);
-}
-
-void wParticle::drawTrail(float _alpha){
+void wParticle::drawTrail(ofFloatColor _color){
 	
     ofSetColor(255);
     ofMesh lineMesh;
@@ -59,7 +45,7 @@ void wParticle::drawTrail(float _alpha){
     for (int i = 0 ; i < points.size() ; i++){
         float alpha = ofMap(i+1, 1,points.size(), 0.0,1.0);
         
-        lineMesh.addColor(ofFloatColor(1.0, alpha*_alpha));
+        lineMesh.addColor(ofFloatColor(_color, alpha*0.3));
         lineMesh.addVertex(points[i]);
     }
     
