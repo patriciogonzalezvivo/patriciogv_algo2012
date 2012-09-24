@@ -6,7 +6,6 @@ void testApp::setup(){
     ofSetCircleResolution(100);
     ofSetVerticalSync(true);
     ofEnableSmoothing();
-    
 }
 
 //--------------------------------------------------------------
@@ -16,16 +15,20 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    ofBackground(0);
+    ofBackgroundGradient(ofColor::green, ofColor::gray);
 
     ofPushMatrix();
     ofTranslate(ofGetWidth()*0.5, ofGetHeight()*0.5);
     
-    ofPoint lastPoint = ofPoint(0,0);
+    ofPoint pos = ofPoint(0,0);
+    
     for(int i = 0; i < ofGetFrameNum(); i++ ){
-        lastPoint.x += i * cos(GOLDEN_RATIO*TWO_PI*i);
-        lastPoint.y += i * sin(GOLDEN_RATIO*TWO_PI*i);
-        ofCircle(lastPoint, i*0.01);
+        float grow = i * ofMap(ofGetElapsedTimef(), 0.0, 100.0, 0.0, 1.0,true);
+        pos.x += grow * cos(GOLDEN_RATIO*TWO_PI*i);
+        pos.y += grow * sin(GOLDEN_RATIO*TWO_PI*i);
+        
+        ofSetColor(ofFloatColor(1.0,1.0-0.5*((float)i/ofGetFrameNum()),0.1));
+        ofCircle(pos, grow*0.01);
     }
     
     ofPopMatrix();
@@ -33,7 +36,7 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-
+    ofToggleFullscreen();
 }
 
 //--------------------------------------------------------------
