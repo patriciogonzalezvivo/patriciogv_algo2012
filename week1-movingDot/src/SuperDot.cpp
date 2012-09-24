@@ -48,7 +48,7 @@ bool SuperDot::update(){
                 set( (1.0f - percentage ) * (*org) + ( percentage ) * (*dst) );
                 
             } else if ( shape == SHAPE_POWER){
-                float positionPorcentage = ;
+                float positionPorcentage = powf(percentage,shaper);
                 set( (1.0f - positionPorcentage ) * (*org) + ( positionPorcentage ) * (*dst) );
                 
             } else if ( shape == SHAPE_SIN_IN){
