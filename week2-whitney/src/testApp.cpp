@@ -9,9 +9,9 @@ void testApp::setup(){
     
     font.loadFont("verdana.ttf", 60, true, true, true);
     
+    string text = "John Whitney";
     
-    vector<ofTTFCharacter> letters = font.getStringAsPoints("John Whitney");
-    
+    vector<ofTTFCharacter> letters = font.getStringAsPoints(text);
     for(int i = 0; i < letters.size(); i++){
         vector<ofPolyline> letterOutLine = letters[i].getOutline();
         
@@ -27,8 +27,8 @@ void testApp::setup(){
         }
     }
     
-    stringWidth = font.getStringBoundingBox("John Whitney", 0, 0).width;
-    stringHeight = font.getStringBoundingBox("John Whitney", 0, 0).height;
+    stringWidth = font.getStringBoundingBox(text, 0, 0).width;
+    stringHeight = font.getStringBoundingBox(text, 0, 0).height;
     
     ofSetFullscreen(true);
 }
