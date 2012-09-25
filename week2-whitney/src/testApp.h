@@ -23,6 +23,6 @@ public:
     vector<wParticle> stringDots;
     
     float   pct;
-    int     stringWidth, stringHeight;
+    int     stringWidth;
     
 };
