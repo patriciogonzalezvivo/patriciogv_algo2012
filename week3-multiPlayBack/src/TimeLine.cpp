@@ -83,7 +83,7 @@ ofPoint	 TimeLine::getVelocityForTime( float _time ){
 	// veclocity = pos at time 1 - pos at time 0...
 	
 	ofPoint prevPt = getPositionForTime( MAX(_time - 0.09f, 0));		// check for where we were 0.05 seconds ago
-	ofPoint currPt = getPositionForTime(_time);							// check for where we are now.
+	ofPoint currPt = getPositionForTime( _time );							// check for where we are now.
 	
 	ofPoint diff;
 	diff.x = currPt.x - prevPt.x;
@@ -94,37 +94,20 @@ ofPoint	 TimeLine::getVelocityForTime( float _time ){
 
 float TimeLine::getAngleForTime( float _time ){
     ofPoint vel = getVelocityForTime( _time );
-    
-    // since velocity is a line, we want to know how long it is.
     return atan2(vel.y, vel.x);
 }
 
 void TimeLine::draw(){
     
     if (points.size() > 0){
-        //  For making super smooth and gradient lines use ofMeshes.
-        //  Them let you add vertex asociated to colors.
-        //  OpenGL it's going to be in charge of making the gradient ; )
-        //
-        
-        ofMesh lineMesh;
-        lineMesh.setMode(OF_PRIMITIVE_LINE_STRIP);  //  There are other modes like: points, triangles and quads
-        
-        for (int i = 0 ; i < points.size() ; i++){
-            
-            //  Map the position on the array with the alpha to geting alfa gradient
-            //
-            //float alpha = ofMap(i+1, 1,points.size(), 0.0,1.0);
-            
-            //lineMesh.addColor(1.0); //ofFloatColor(_color, alpha*0.3) );   //  We are using ofFloatColors that goes from 0.0 - 1.0
-            //  instead of 0-255 that's way you have better quality
-            lineMesh.addVertex(points[i]);
+        ofPushStyle();
+        ofNoFill();
+        ofBeginShape();
+        for (int i = 0; i < points.size(); i++) {
+            ofVertex(points[i]);
         }
-        
-        //  Once this object call ofMesh it's done you can draw it.
-        //
-        ofSetColor(255);
-        lineMesh.draw();
+        ofEndShape();
+        ofPopStyle();
     }
 }
 

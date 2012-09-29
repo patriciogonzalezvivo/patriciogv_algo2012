@@ -22,28 +22,23 @@ void testApp::draw(){
     
     ofSetColor(180);
     for (int i = 0; i < storedLines.size(); i++){
+        ofSetColor(255,50);
         storedLines[i].draw();
-        
-        ofSetColor(255,0,0,10);
-        drawPlayBack(storedLines[i], ofGetElapsedTimef()*0.9, 10);
-        ofSetColor(255,0,0,200);
-        drawPlayBack(storedLines[i], ofGetElapsedTimef()*0.99, 30);
-        ofSetColor(255,0,0);
-        drawPlayBack(storedLines[i], ofGetElapsedTimef(), 50);
         
         ofPushStyle();
         int total = 5;
         for(int j = 0; j < total; j++){
-            float factor = ofMap(j,0.0,total,0.0,1.0);
+            float factor = ofMap(j,0.0,total,1.0,0.0);
             
             ofFloatColor color;
             color.set(1.0, 0.0, 0.0);
-            color.setHue(0.3);
+            color.setHue( ofMap(i,0.0,storedLines.size(),0.0,1.0) );
+            color.a = factor;
             
-            float time = ofGetElapsedTimef()*(1.0-factor);
+            float time = ofGetElapsedTimef()*(1.0-j*0.01);
             
-            ofSetColor(color,factor);
-            drawPlayBack(storedLines[i], time, 30*factor);
+            ofSetColor(color);
+            drawPlayBack(storedLines[i], time, 50*factor);
         }
         ofPopStyle();
     }
@@ -54,7 +49,7 @@ void testApp::drawPlayBack(TimeLine &_tLine, float _onTime, float _size){
         ofPushStyle();
         // figure out what time we are at, and make sure we playback cyclically (!)
         // use the duration here and make sure our timeToCheck is in the range of 0 - duration
-        float timeToCheck = _onTime - _tLine[_tLine.size()-1].time;
+        float timeToCheck = _onTime;
         
         while (timeToCheck > _tLine.getDuration() && _tLine.getDuration() > 0){
             timeToCheck -= _tLine.getDuration();
