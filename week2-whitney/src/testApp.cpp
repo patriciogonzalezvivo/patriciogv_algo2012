@@ -13,7 +13,7 @@ void testApp::setup(){
     
     //  This is the sentence that is going to be vectorice
     //
-    string text = "John Whitney";
+    string text = "Maxine";
     
     //  Here we extract the letters (ofTTFCharater) of the font string
     //
