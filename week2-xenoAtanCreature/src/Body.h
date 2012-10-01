@@ -6,9 +6,29 @@
 //
 //
 
-#ifndef week2_xenoAtanCreature_Body_h
-#define week2_xenoAtanCreature_Body_h
+#ifndef BODY
+#define BODY
 
+#include "ofMain.h"
 
+class Body : public ofPoint {
+public:
+    
+    Body();
+    
+    void    setDst(Body *_dst);
+    
+    void    update();
+    void    draw();
+
+    ofColor color;
+    float   angle, size, delay;
+    float   catchUpSpeed;
+    
+private:
+    
+    ofPoint prevPos;
+    Body    *dst;
+};
 
 #endif
