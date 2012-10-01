@@ -88,7 +88,9 @@ void testApp::draw(){
     
     ofSetColor(255);
     for (int i = 0; i < trees.size(); i++){
-        ofSetColor(255, ofMap(i, 0, trees.size(),0, 255));
+        
+        ofSetColor(255, ofMap(i, 0, trees.size(),100, 255));
+        
         trees[i].draw();
     }
 }
