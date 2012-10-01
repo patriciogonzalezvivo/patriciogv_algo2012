@@ -5,11 +5,6 @@ void testApp::setup(){
     ofEnableAlphaBlending();
     ofSetVerticalSync(true);
     ofEnableSmoothing();
-    
-    loopingSound.loadSound("drawbar_c4_a.aif");
-	loopingSound.setVolume(0);
-	loopingSound.setLoop(true);
-	loopingSound.play();
 }
 
 //--------------------------------------------------------------

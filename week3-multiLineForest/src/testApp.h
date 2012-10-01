@@ -19,6 +19,11 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 	
-    TimeLine            actualLine;
-    vector<TimeLine>    storedLines;
+    void makeTreeFromLine( TimeLine& _timeLine);
+    void addBranch(ofMesh &_mesh, ofPoint _root, float _direction, float _depth );
+    
+    TimeLine        actualLine;
+    vector<ofMesh>  trees;
+    
+    int             refPoint;
 };

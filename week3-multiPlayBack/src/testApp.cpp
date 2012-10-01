@@ -35,7 +35,7 @@ void testApp::draw(){
             color.setHue( ofMap(i,0.0,storedLines.size(),0.0,1.0) );
             color.a = factor;
             
-            float time = ofGetElapsedTimef()*(1.0-j*0.01);
+            float time = storedLines[i].getTimeForPct( abs(sin(ofGetElapsedTimef()*(1.0-j*0.01)))); //ofGetElapsedTimef()*(1.0-j*0.01);
             
             ofSetColor(color);
             drawPlayBack(storedLines[i], time, 50*factor);

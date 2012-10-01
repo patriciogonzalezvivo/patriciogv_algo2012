@@ -48,6 +48,7 @@ public:
 private:
     vector<TimePoint>   points;
     float               startTime;
+    
 };
 
 
