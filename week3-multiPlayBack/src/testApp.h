@@ -23,4 +23,6 @@ public:
     
     TimeLine            actualLine;
     vector<TimeLine>    storedLines;
+    
+    bool    bPingPongMode;
 };

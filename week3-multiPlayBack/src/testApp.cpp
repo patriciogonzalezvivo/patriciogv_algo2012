@@ -6,6 +6,7 @@ void testApp::setup(){
     ofSetVerticalSync(true);
     ofEnableSmoothing();
     
+    bPingPongMode = true;
 }
 
 //--------------------------------------------------------------
@@ -35,7 +36,7 @@ void testApp::draw(){
             color.setHue( ofMap(i,0.0,storedLines.size(),0.0,1.0) );
             color.a = factor;
             
-            float time = storedLines[i].getTimeForPct( abs(sin(ofGetElapsedTimef()*(1.0-j*0.01)))); //ofGetElapsedTimef()*(1.0-j*0.01);
+            float time = storedLines[i].getTimeForPct( abs(sin(ofGetElapsedTimef()*0.8-j*0.1)));
             
             ofSetColor(color);
             drawPlayBack(storedLines[i], time, 50*factor);
@@ -62,7 +63,7 @@ void testApp::drawPlayBack(TimeLine &_tLine, float _onTime, float _size){
         ofTranslate( _tLine.getPositionForTime(timeToCheck));
         
         ofRotateZ( _tLine.getAngleForTime(timeToCheck) * RAD_TO_DEG);
-        ofRect(0,0,_size + _tLine.getVelocityForTime(timeToCheck).length() * 0.2, _size);
+        ofRect(0,0,_size + _tLine.getVelocityForTime( timeToCheck ).length() * 0.2, _size);
         
         ofPopMatrix();
         ofPopStyle();
@@ -71,7 +72,11 @@ void testApp::drawPlayBack(TimeLine &_tLine, float _onTime, float _size){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-    storedLines.clear();
+    if (key == ' '){
+        storedLines.clear();
+    } else if (key == 'p'){
+        bPingPongMode = !bPingPongMode;
+    }
 }
 
 //--------------------------------------------------------------

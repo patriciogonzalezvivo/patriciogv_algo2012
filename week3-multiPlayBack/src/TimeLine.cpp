@@ -54,7 +54,7 @@ float TimeLine::getTimeForPct( float _pct ){
     return getDuration()*_pct;
 }
 
-ofPoint	 TimeLine::getPositionForTime( float _time ){
+ofPoint TimeLine::getPositionForTime( float _time ){
 	
 	// are we recording?
 	if ( !isFinish() ){
@@ -80,20 +80,23 @@ ofPoint	 TimeLine::getPositionForTime( float _time ){
 	return pos;
 }
 
-ofPoint	 TimeLine::getVelocityForTime( float _time ){
+ofPoint TimeLine::getVelocityForTime( float _time ){
 	
 	// to get the velcoity, look back a bit of time, and at the current time
 	// and get the difference
 	// veclocity = pos at time 1 - pos at time 0...
-	
-	ofPoint prevPt = getPositionForTime( MAX(_time - 0.09f, 0));		// check for where we were 0.05 seconds ago
-	ofPoint currPt = getPositionForTime( _time );							// check for where we are now.
-	
-	ofPoint diff;
-	diff.x = currPt.x - prevPt.x;
-	diff.y = currPt.y - prevPt.y;
-	
-	return diff;
+	if ( _time > 0){
+        ofPoint prevPt = getPositionForTime( MAX(_time - 0.09f, 0));		// check for where we were 0.05 seconds ago
+        ofPoint currPt = getPositionForTime( _time );							// check for where we are now.
+        
+        ofPoint diff;
+        diff.x = currPt.x - prevPt.x;
+        diff.y = currPt.y - prevPt.y;
+        
+        return diff;
+    } else {
+        return ofPoint(0,0,0);
+    }
 }
 
 float TimeLine::getAngleForTime( float _time ){

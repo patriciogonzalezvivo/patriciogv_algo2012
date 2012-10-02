@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "Body.h"
 
-#define BODY_PARTS 10
+#define BODY_PARTS 15
 
 class testApp : public ofBaseApp{
 public:

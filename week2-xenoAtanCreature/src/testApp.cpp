@@ -19,8 +19,7 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update(){
-    
-    
+
     mouse.x = mouseX + cos(ofGetElapsedTimef()*2) * 100;
     mouse.y = mouseY + sin(ofGetElapsedTimef()*2) * 100;
     
@@ -32,7 +31,6 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     ofBackground(0);
-    
     
     for(int i = 0; i < BODY_PARTS; i++){
         worm[i].draw();
