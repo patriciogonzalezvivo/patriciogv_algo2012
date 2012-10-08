@@ -15,7 +15,8 @@ Particle::Particle(){
     acc.set(0,0,0);
     
     color.set(1.0, 0.0, 0.0);
-    color.setHue(ofRandom(0.3,0.8));
+//    color.setHue(ofRandom(0.3,0.8));
+    color.setHue(ofRandom(0.8,1.0));
     
 	damping = ofRandom(0.01f,0.1f);
 }

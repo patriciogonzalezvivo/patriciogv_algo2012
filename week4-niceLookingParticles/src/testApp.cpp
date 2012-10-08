@@ -44,8 +44,6 @@ void testApp::update(){
     for (int i = particles.size()-1; i >= 0; i--){
         if ( particles[i].life < 0 ){
             particles.erase(particles.begin()+i);
-            
-            
         }
     }
     
@@ -60,8 +58,8 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    //ofBackground(1,82,149);
-    ofBackground(0);
+    ofBackground(50, 4, 15);
+    //ofBackground(0);
     
     
     for (int i = 0; i < particles.size(); i++){
