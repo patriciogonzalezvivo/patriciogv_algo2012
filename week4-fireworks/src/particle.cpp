@@ -1,6 +1,4 @@
 #include "particle.h"
-#include "ofMain.h"
-
 
 //------------------------------------------------------------
 Particle::Particle(){
