@@ -32,10 +32,10 @@ void testApp::update(){
         
         toEpicenter -= particles[i];// - toEpicenter;
         toEpicenter.normalize();
-        toEpicenter *= cos(ofGetElapsedTimef()) * 0.1;
+        toEpicenter *= cos(ofGetElapsedTimef()*0.1) * 0.1;
         particles[i].addForce( toEpicenter );
         
-        particles[i].addNoise( ofGetElapsedTimef()*0.001, ofRandom(1.0f));//0.76);
+        particles[i].addNoise( PI , 0.3 );
         
         particles[i].infinitWalls();
         particles[i].update();
