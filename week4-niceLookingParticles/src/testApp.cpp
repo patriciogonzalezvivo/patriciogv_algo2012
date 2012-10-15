@@ -14,6 +14,8 @@ void testApp::setup(){
         newParticle.init(ofRandom(30));
         particles.push_back(newParticle);
     }
+    
+    ofSetFullscreen(true);
 }
 
 //--------------------------------------------------------------
@@ -69,6 +71,7 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
+    ofToggleFullscreen();
 
 }
 

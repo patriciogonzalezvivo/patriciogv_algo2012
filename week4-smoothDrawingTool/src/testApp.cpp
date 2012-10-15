@@ -8,6 +8,8 @@ void testApp::setup(){
     ofEnableSmoothing();
 	ofSetFrameRate(60);
     ofSetCircleResolution(100);
+    
+    ofSetFullscreen(true);
 }
 
 //--------------------------------------------------------------
@@ -34,7 +36,8 @@ void testApp::draw(){
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed  (int key){ 
+void testApp::keyPressed  (int key){
+    ofToggleFullscreen();
 }
 
 //--------------------------------------------------------------

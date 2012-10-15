@@ -8,7 +8,7 @@ void testApp::setup(){
 	ofSetFrameRate(60);
 	
 	ofBackground(255, 255, 255);
-	
+	ofSetFullscreen(true);
 }
 
 //--------------------------------------------------------------
@@ -42,6 +42,7 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){
+    ofToggleFullscreen();
 }
 
 //--------------------------------------------------------------

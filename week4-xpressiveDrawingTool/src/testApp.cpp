@@ -9,6 +9,7 @@ void testApp::setup(){
 	ofSetFrameRate(60);
     ofSetCircleResolution(100);
     
+    ofSetFullscreen(true);
 }
 
 //--------------------------------------------------------------
@@ -36,8 +37,13 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){
-    actualLine.clear();
-    lines.clear();
+    
+    if (key == ' '){
+        actualLine.clear();
+        lines.clear();
+    } else {
+        ofToggleFullscreen();
+    }
 }
 
 //--------------------------------------------------------------
