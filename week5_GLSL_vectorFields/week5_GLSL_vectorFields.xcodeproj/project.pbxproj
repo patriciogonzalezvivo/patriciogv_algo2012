@@ -12,7 +12,6 @@
 		3D446394162BD89000A52EE2 /* ofxWater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D44636F162BD89000A52EE2 /* ofxWater.cpp */; };
 		3D446395162BD89000A52EE2 /* ofxFXObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D446372162BD89000A52EE2 /* ofxFXObject.cpp */; };
 		3D4463A0162BD9CA00A52EE2 /* vectorField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D44639E162BD9CA00A52EE2 /* vectorField.cpp */; };
-		3D4463A4162BE34800A52EE2 /* particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4463A2162BE34800A52EE2 /* particle.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -102,8 +101,6 @@
 		3D44637A162BD89000A52EE2 /* ofxRotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxRotate.h; sourceTree = "<group>"; };
 		3D44639E162BD9CA00A52EE2 /* vectorField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vectorField.cpp; sourceTree = "<group>"; };
 		3D44639F162BD9CA00A52EE2 /* vectorField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vectorField.h; sourceTree = "<group>"; };
-		3D4463A2162BE34800A52EE2 /* particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = particle.cpp; sourceTree = "<group>"; };
-		3D4463A3162BE34800A52EE2 /* particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = particle.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -332,8 +329,6 @@
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				3D44639F162BD9CA00A52EE2 /* vectorField.h */,
 				3D44639E162BD9CA00A52EE2 /* vectorField.cpp */,
-				3D4463A3162BE34800A52EE2 /* particle.h */,
-				3D4463A2162BE34800A52EE2 /* particle.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -438,7 +433,6 @@
 				3D446394162BD89000A52EE2 /* ofxWater.cpp in Sources */,
 				3D446395162BD89000A52EE2 /* ofxFXObject.cpp in Sources */,
 				3D4463A0162BD9CA00A52EE2 /* vectorField.cpp in Sources */,
-				3D4463A4162BE34800A52EE2 /* particle.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

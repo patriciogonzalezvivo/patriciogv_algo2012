@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 
-#include "particle.h"
 #include "vectorField.h"
 
 //  ofxFX addon need from https://github.com/patriciogonzalezvivo/ofxFX
@@ -30,8 +29,11 @@ public:
     ofxGaussianBlur blur;
     ofxNormals      normals;
     
-    vectorField     VF;
-    vector <particle> particles;
+    ofFbo           pingpong[2];
+    ofShader        shader;
     
-    int width, height,scale;
+    vectorField     VF;
+    
+    int             timer, width, height,scale;
+    bool            bDrawField;
 };
