@@ -25,6 +25,9 @@ void testApp::setup(){
     bDrawVideo = true;
     bDrawField = false;
     bGetNormals = false;
+    
+    bBrightSize = true;
+    bUpdateTrail = true;
 }
 
 //--------------------------------------------------------------
@@ -80,9 +83,7 @@ void testApp::update(){
             //
             ofPixels pixels;
             pixels.setFromPixels(video.getPixels(), video.getWidth(), video.getHeight(), 3);
-            
-            ofPixels brightpixels;
-            grayscale.getTextureReference().readToPixels(brightpixels);
+        
             for (int x = 0; x < width/scale; x++){
                 for(int y = 0; y < height/scale; y++){
                     Particle myParticle;
@@ -92,12 +93,18 @@ void testApp::update(){
                                     ofPoint(0,0));
                     ofColor pixelColor = pixels.getColor(x*scale, y*scale);
                     myParticle.color.set(pixelColor);
-                    myParticle.size = scale * (brightpixels.getColor(x*scale, y*scale).r/255.0f) ;
+                    myParticle.size = scale;
                     particles.push_back(myParticle);
                 }
             }
         }
     }
+    
+    
+    //ofPixels pixels;
+    //pixels.setFromPixels(video.getPixels(), video.getWidth(), video.getHeight(), 3);
+    //ofPixels brightpixels;
+    //grayscale.getTextureReference().readToPixels(brightpixels);
     
     for (int i = 0; i < particles.size(); i++){
         if ((particles[i].x > 0) && (particles[i].x < ofGetWidth()) &&
@@ -105,6 +112,11 @@ void testApp::update(){
             ofPoint force = VF.getForceFromPos( particles[i]  );
             particles[i].addForce( force );
             particles[i].update();
+            
+            //int pixelX = ofMap(particles[i].x,0,ofGetWidth(),0,width);
+            //int pixelY = ofMap(particles[i].y,0,ofGetHeight(),0,height);
+            //particles[i].color.set( pixels.getColor( pixelX, pixelY) );
+            //particles[i].size = scale * (brightpixels.getColor( pixelY, pixelY).r/255.0f) ;
         }
 	}
     

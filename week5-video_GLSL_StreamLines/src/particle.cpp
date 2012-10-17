@@ -36,7 +36,6 @@ void Particle::update(){
         trail.push_back(*this);
     }
     
-    
     if( trail.size() > 500){
         trail.erase(trail.begin());
     }
@@ -45,17 +44,7 @@ void Particle::update(){
 
 //------------------------------------------------------------
 void Particle::draw(){
-    
     ofMesh mesh;
-    /*
-    mesh.setMode(OF_PRIMITIVE_LINE_STRIP);
-    for (int i = 0; i < trail.size(); i++){
-        float alpha = ofMap(i+1, 1,trail.size(), 0.0, 0.9);
-        
-        mesh.addColor(ofFloatColor( color, alpha) );
-        mesh.addVertex(trail[i]);
-    }*/
-    
     mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
     for (int i = 0; i < trail.size(); i++){
         

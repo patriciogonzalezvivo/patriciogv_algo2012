@@ -38,4 +38,7 @@ public:
     bool            bDrawVideo;
     bool            bDrawField;
     bool            bGetNormals;
+    
+    bool            bBrightSize;
+    bool            bUpdateTrail;
 };
