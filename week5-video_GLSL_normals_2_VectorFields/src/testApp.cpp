@@ -72,7 +72,7 @@ void testApp::setup(){
     shader.linkProgram();
     
     VF.setupField(width/scale,height/scale,ofGetWidth(), ofGetHeight());
-    bDrawField = true;
+    bDrawField = false;
 }
 
 //--------------------------------------------------------------
