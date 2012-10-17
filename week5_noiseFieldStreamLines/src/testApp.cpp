@@ -5,7 +5,7 @@
 void testApp::setup(){	
 	ofEnableAlphaBlending();
 	ofSetVerticalSync(true);
-    //ofEnableSmoothing();
+    ofEnableSmoothing();
 	ofSetFrameRate(60);
 	
     width = 64;
@@ -33,13 +33,17 @@ void testApp::update(){
 
     
 	for (int i = 0; i < particles.size(); i++){
-        ofPoint force = VF.getForceFromPos( particles[i]  );
-        particles[i].addForce( force );
-        particles[i].update();
-        particles[i].infinitWalls();        
+        
+        if ((particles[i].x > 0) && (particles[i].x < ofGetWidth()) &&
+            (particles[i].y > 0) && (particles[i].y < ofGetHeight())){
+            ofPoint force = VF.getForceFromPos( particles[i]  );
+            particles[i].addForce( force );
+            particles[i].update();
+            //particles[i].infinitWalls();
+        }
 	}
     
-    VF.noiseField(0.01,0.0001,3);
+    //VF.noiseField(0.01,0.0001,3);
     //VF.fadeField(0.99f);
     
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
