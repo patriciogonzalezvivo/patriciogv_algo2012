@@ -15,7 +15,7 @@ public:
     void    infinitWalls();
     
     void    update();
-    void    draw();
+    void    draw(bool _drawTrail = true);
 	
     ofFloatColor color;
     

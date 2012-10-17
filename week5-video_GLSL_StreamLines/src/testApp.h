@@ -33,12 +33,16 @@ public:
     vectorField     VF;
     vector <Particle> particles;
     
-    int             timer, width, height,scale;
+    ofFbo           canvas;
+    ofPixels        pixels;
+    ofPixels        brightpixels;
+    
+    float   prevMouseX;
+    float   prevMouseY;
+    
+    int             width, height,scale;
     
     bool            bDrawVideo;
     bool            bDrawField;
     bool            bGetNormals;
-    
-    bool            bBrightSize;
-    bool            bUpdateTrail;
 };

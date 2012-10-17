@@ -43,49 +43,52 @@ void Particle::update(){
 }
 
 //------------------------------------------------------------
-void Particle::draw(){
-    ofMesh mesh;
-    mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
-    for (int i = 0; i < trail.size(); i++){
-        
-        int i_m_1 = MAX(i-1,0);
-        int i_p_1 = MIN(i+1, trail.size()-1);
-        
-        ofPoint pta = trail[i_m_1];
-        ofPoint ptb = trail[i];
-        ofPoint ptc = trail[i_p_1];
-        
-        ofPoint diff = ptc - pta;
-        float angle = atan2(diff.y, diff.x);
-        angle += PI/2;
-        
-        float width = size*0.8 + diff.length()*0.2;
-        
-        ofPoint offsetA;
-        offsetA.x = ptb.x + width * cos(angle);
-        offsetA.y = ptb.y + width * sin(angle);
-        offsetA.z = 0.0;
-        
-        ofPoint offsetB;
-        offsetB.x = ptb.x - width * cos(angle);
-        offsetB.y = ptb.y - width * sin(angle);
-        offsetB.z = 0.0;
-        
-        //  Map the position on the array with the alpha to geting alfa gradient
-        //
-        float alpha = ofMap(i+1, 1,trail.size(), 0.0, 0.9);
-        
-        mesh.addColor(ofFloatColor( color, alpha) );
-        mesh.addVertex(offsetA);
-        mesh.addColor(ofFloatColor( color, alpha) );
-        mesh.addVertex(offsetB);
-    }
+void Particle::draw(bool _drawTrail){
     
-    // draw the mesh
-    //
-    ofSetColor( 255 );
-    ofFill();
-    mesh.draw();
+    if (_drawTrail){
+        ofMesh mesh;
+        mesh.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
+        for (int i = 0; i < trail.size(); i++){
+            
+            int i_m_1 = MAX(i-1,0);
+            int i_p_1 = MIN(i+1, trail.size()-1);
+            
+            ofPoint pta = trail[i_m_1];
+            ofPoint ptb = trail[i];
+            ofPoint ptc = trail[i_p_1];
+            
+            ofPoint diff = ptc - pta;
+            float angle = atan2(diff.y, diff.x);
+            angle += PI/2;
+            
+            float width = size*0.8 + diff.length()*0.2;
+            
+            ofPoint offsetA;
+            offsetA.x = ptb.x + width * cos(angle);
+            offsetA.y = ptb.y + width * sin(angle);
+            offsetA.z = 0.0;
+            
+            ofPoint offsetB;
+            offsetB.x = ptb.x - width * cos(angle);
+            offsetB.y = ptb.y - width * sin(angle);
+            offsetB.z = 0.0;
+            
+            //  Map the position on the array with the alpha to geting alfa gradient
+            //
+            float alpha = ofMap(i+1, 1,trail.size(), 0.0, 0.9);
+            
+            mesh.addColor(ofFloatColor( color, alpha) );
+            mesh.addVertex(offsetA);
+            mesh.addColor(ofFloatColor( color, alpha) );
+            mesh.addVertex(offsetB);
+        }
+        
+        // draw the mesh
+        //
+        ofSetColor( 255 );
+        ofFill();
+        mesh.draw();
+    }
     
     ofSetColor(color);
     ofCircle(*this, size);

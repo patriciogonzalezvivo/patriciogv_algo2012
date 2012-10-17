@@ -9,7 +9,7 @@ void testApp::setup(){
     
     width = 640;
     height = 480;
-    scale = 10;
+    scale = 5;
     video.initGrabber(width, height);
     
     grayscale.allocate(width, height);
@@ -17,22 +17,21 @@ void testApp::setup(){
     blur.setRadius(5);
     normals.allocate(width, height);
     
-    timer = 0;
+    canvas.allocate(ofGetWidth(),ofGetHeight());
+    canvas.begin();
+    ofClear(0);
+    canvas.end();
     
     VF.setupField(width/scale,height/scale,ofGetWidth(), ofGetHeight());
     VF.noiseField(1.0);
 
-    bDrawVideo = true;
+    bDrawVideo = false;
     bDrawField = false;
-    bGetNormals = false;
-    
-    bBrightSize = true;
-    bUpdateTrail = true;
+    bGetNormals = true;
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-    timer++;
     video.update();
     
     if ( video.isFrameNew() ){
@@ -78,11 +77,14 @@ void testApp::update(){
             //  Clear the particles
             //
             particles.clear();
+            canvas.begin();
+            ofClear(0);
+            canvas.end();
             
             //  Insert one particle for each pixel and give them a color
             //
-            ofPixels pixels;
             pixels.setFromPixels(video.getPixels(), video.getWidth(), video.getHeight(), 3);
+            grayscale.getTextureReference().readToPixels(brightpixels);
         
             for (int x = 0; x < width/scale; x++){
                 for(int y = 0; y < height/scale; y++){
@@ -100,12 +102,6 @@ void testApp::update(){
         }
     }
     
-    
-    //ofPixels pixels;
-    //pixels.setFromPixels(video.getPixels(), video.getWidth(), video.getHeight(), 3);
-    //ofPixels brightpixels;
-    //grayscale.getTextureReference().readToPixels(brightpixels);
-    
     for (int i = 0; i < particles.size(); i++){
         if ((particles[i].x > 0) && (particles[i].x < ofGetWidth()) &&
             (particles[i].y > 0) && (particles[i].y < ofGetHeight())){
@@ -113,12 +109,22 @@ void testApp::update(){
             particles[i].addForce( force );
             particles[i].update();
             
-            //int pixelX = ofMap(particles[i].x,0,ofGetWidth(),0,width);
-            //int pixelY = ofMap(particles[i].y,0,ofGetHeight(),0,height);
+            //int pixelX = ofMap(particles[i].x,0,ofGetWidth(),0,width-1,true);
+            //int pixelY = ofMap(particles[i].y,0,ofGetHeight(),0,height-1,true);
             //particles[i].color.set( pixels.getColor( pixelX, pixelY) );
             //particles[i].size = scale * (brightpixels.getColor( pixelY, pixelY).r/255.0f) ;
         }
 	}
+    
+    /*
+    canvas.begin();
+    ofSetColor(ofFloatColor(0.0,0.004));
+    ofRect(0,0,ofGetWidth(),ofGetHeight());
+    for (int i = 0; i < particles.size(); i++){
+		particles[i].draw(false);
+	}
+    canvas.end();
+    */
     
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
 }
@@ -132,6 +138,9 @@ void testApp::draw(){
         video.draw(0,0,ofGetWidth(),ofGetHeight());
     }
     
+    ofSetColor(255);
+    //canvas.draw(0, 0);
+    
     for (int i = 0; i < particles.size(); i++){
 		particles[i].draw();
 	}
@@ -142,6 +151,9 @@ void testApp::draw(){
         VF.draw();
         ofEnableSmoothing();
     }
+    
+    ofSetColor(200,0,0);
+    ofDrawBitmapString("Press 'v' to show/hide video, 'f' to show/hide the vectorField and SPACE_BAR to make a streamLine from the image ", 15,15);
 }
 
 //--------------------------------------------------------------
@@ -153,6 +165,7 @@ void testApp::keyPressed(int key){
         bDrawField = !bDrawField;
     } else {
         bGetNormals = true;
+        
     }
     
 }
@@ -169,12 +182,19 @@ void testApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-
+    float diffx = x - prevMouseX;
+	float diffy = y - prevMouseY;
+	
+	VF.addVectorCircle((float)x, (float)y, diffx*0.3, diffy*0.3, 60, 0.3f);
+	
+	prevMouseX = x;
+	prevMouseY = y;
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
+    prevMouseX = x;
+	prevMouseY = y;
 }
 
 //--------------------------------------------------------------
