@@ -63,7 +63,6 @@ void testApp::draw(){
     ofBackground(50, 4, 15);
     //ofBackground(0);
     
-    
     for (int i = 0; i < particles.size(); i++){
         particles[i].draw(glow);
     }
