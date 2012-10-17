@@ -109,10 +109,12 @@ void testApp::update(){
             particles[i].addForce( force );
             particles[i].update();
             
-            //int pixelX = ofMap(particles[i].x,0,ofGetWidth(),0,width-1,true);
-            //int pixelY = ofMap(particles[i].y,0,ofGetHeight(),0,height-1,true);
-            //particles[i].color.set( pixels.getColor( pixelX, pixelY) );
-            //particles[i].size = scale * (brightpixels.getColor( pixelY, pixelY).r/255.0f) ;
+            /*
+            int pixelX = ofMap(particles[i].x,0,ofGetWidth(),0,width-1,true);
+            int pixelY = ofMap(particles[i].y,0,ofGetHeight(),0,height-1,true);
+            particles[i].color.set( pixels.getColor( pixelX, pixelY) );
+            particles[i].size = scale * (brightpixels.getColor( pixelY, pixelY).r/255.0f) ;
+             */
         }
 	}
     
@@ -138,7 +140,7 @@ void testApp::draw(){
         video.draw(0,0,ofGetWidth(),ofGetHeight());
     }
     
-    ofSetColor(255);
+    //ofSetColor(255);
     //canvas.draw(0, 0);
     
     for (int i = 0; i < particles.size(); i++){
