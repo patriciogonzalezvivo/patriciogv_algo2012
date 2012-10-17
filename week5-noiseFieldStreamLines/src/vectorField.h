@@ -6,34 +6,36 @@
 
 class vectorField : public ofRectangle {
 public:
-	vectorField();
+    
+    vectorField();
     virtual ~vectorField();
 		
-    void    setupField(int innerW, int innerH, int outerW, int outerH);   // pass in internal dimensions and outer dimensions
+    void    setupField(int _cols, int _rows, int _width, int _height);   // pass in internal dimensions and outer dimensions
 	
     int     size();
     void    clear();
-    void    fadeField(float fadeAmount);
-    void    randomizeField(float scale);
+    void    fadeField(float _fadeAmount);
+    void    randomizeField(float _scale);
+    void    noiseField(float _scale = 1.0f, float _speed = 0.01, float _turbulence = 3, bool _signed = true);
     
-    ofVec2f& operator [](int _index);
+    void    draw();
+
+    ofPoint& operator [](int _index);
     
     int     getIndexFor(float _x, float _y);
-    ofVec2f	getForceFromPos(float xpos, float ypos);
+    ofPoint	getForceFromPos(ofPoint pos);
+    ofPoint	getForceFromPos(float xpos, float ypos);
 
     void    addOutwardCircle(float x, float y, float radius, float strength);
     void    addInwardCircle(float x, float y, float radius, float strength);
     void    addClockwiseCircle(float x, float y, float radius, float strength);
     void    addCounterClockwiseCircle(float x, float y, float radius, float strength);
     void    addVectorCircle(float x, float y, float vx, float vy, float radius, float strength);
-    
-    void    draw();
-    
+
 private:
-    ofVec2f *field;
+    ofPoint *field;
     
-    int fieldWidth, fieldHeight, fieldSize;
-    
+    int     cols, rows, nTotal;
 };
 
 #endif // VECTORFIELD_H

@@ -5,7 +5,6 @@
 void testApp::setup(){	
 	ofEnableAlphaBlending();
 	ofSetVerticalSync(true);
-    //ofEnableSmoothing();
 	ofSetFrameRate(60);
 	
     width = 64;
@@ -26,6 +25,8 @@ void testApp::setup(){
     }
     
     bDrawField = false;
+    bSignedNoise = true;
+    bFullscreen = false;
 }
 
 //--------------------------------------------------------------
@@ -39,8 +40,7 @@ void testApp::update(){
         particles[i].infinitWalls();        
 	}
     
-    VF.noiseField(0.01,0.0001,3);
-    //VF.fadeField(0.99f);
+    VF.noiseField(0.01,0.0001,3,bSignedNoise);
     
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
 }
@@ -57,6 +57,9 @@ void testApp::draw(){
 	for (int i = 0; i < particles.size(); i++){
 		particles[i].draw();
 	}
+    
+    ofSetColor(255,100);
+    ofDrawBitmapString("Press 's' to toogle between signed and unsigned noise and SPACE_BART to see the vector field", 15,15);
 	
 }
 
@@ -64,9 +67,14 @@ void testApp::draw(){
 void testApp::keyPressed  (int key){ 
 	
 	if (key == ' '){
-		//VF.clear();
         bDrawField = !bDrawField;
-	}
+	} else if (key == 's'){
+        bSignedNoise = !bSignedNoise;
+    } else if(key == 'f'){
+        bFullscreen = !bFullscreen;
+        ofSetFullscreen(bFullscreen);
+        
+    }
 }
 
 //--------------------------------------------------------------

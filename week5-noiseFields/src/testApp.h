@@ -31,6 +31,8 @@ public:
 	int     width, height;
     
     bool    bDrawField;
+    bool    bSignedNoise;
+    bool    bFullscreen;
 };
 
 #endif
