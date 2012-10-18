@@ -73,7 +73,6 @@ void testApp::keyPressed  (int key){
     } else if(key == 'f'){
         bFullscreen = !bFullscreen;
         ofSetFullscreen(bFullscreen);
-        
     }
 }
 
