@@ -24,16 +24,20 @@ vectorField::~vectorField(){
 //------------------------------------------------------------------------------------
 void vectorField::setupField(int _cols, int _rows, int _width, int _height){
 	
-	cols           = _cols;
-	rows            = _rows;
-	width           = _width;
-	height          = _height;
+	cols    = _cols;
+	rows    = _rows;
+	width   = _width;
+	height  = _height;
 	
     nTotal = cols * rows;
+    
 	for(int i = 0; i < 2; i++){
+        
         if (buffer[i] != NULL){
             delete [] buffer[i];
         }
+        
+        cout << "Creating buffer"<< i << " width " << nTotal << " elements"<< endl;
         buffer[i] = new ofPoint[nTotal];
     }
     
@@ -105,7 +109,7 @@ void vectorField::propagate(){
     
     //  Following http://freespace.virgin.net/hugo.elias/graphics/x_water.htm
     //
-    int actual = timer;     // Buffer 1
+    int actual = timer%2;     // Buffer 1
     int next = (timer+1)%2; // Buffer 2
     
     //  damping = some non-integer between 0 and 1
@@ -114,16 +118,15 @@ void vectorField::propagate(){
     
     //  for every non-edge element:
     //
-    for (int i = 1; i < cols-1; i++){
-        for (int j = 1; j < rows-1; j++){
-            
+    for (int j = 1; j < rows-1; j++){
+        for (int i = 1; i < cols-1; i++){
             int pos = j * cols + i;
             
             int neightboad[4] = {pos - 1,  pos + 1, pos - cols, pos + cols };
             
-            ofPoint Smoothed;
+            ofPoint Smoothed = ofPoint(0,0,0);
             for(int k = 0; k < 4; k++){
-                Smoothed += buffer[actual][ neightboad[k] ];
+                Smoothed = Smoothed + buffer[actual][neightboad[k]];
             }
             
             buffer[next][pos] = Smoothed * 0.5 - buffer[next][pos];
