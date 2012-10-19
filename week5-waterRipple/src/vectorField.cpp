@@ -10,7 +10,7 @@ vectorField::vectorField(){
     x = 0;
     y = 0;
     
-    timer = 0;
+    activeBuffer = 0;
 }
 
 vectorField::~vectorField(){
@@ -46,7 +46,7 @@ void vectorField::setupField(int _cols, int _rows, int _width, int _height){
 
 ofPoint& vectorField::operator[](int _index){
     if (( _index > 0 ) && (_index < nTotal))
-        return buffer[timer%2][_index];
+        return buffer[activeBuffer%2][_index];
     else {
         ofPoint empty = ofPoint(0,0,0);
         return empty;
@@ -56,7 +56,7 @@ ofPoint& vectorField::operator[](int _index){
 //------------------------------------------------------------------------------------
 void vectorField::clear(){
     for (int i = 0; i < nTotal; i++){
-        buffer[timer%2][i].set(0,0,0);
+        buffer[activeBuffer%2][i].set(0,0,0);
     }
 }
 
@@ -64,7 +64,7 @@ void vectorField::clear(){
 //------------------------------------------------------------------------------------
 void vectorField::fadeField(float fadeAmount){
 	for (int i = 0; i < nTotal; i++){
-        buffer[timer%2][i].set(buffer[timer%2][i].x*fadeAmount,buffer[timer%2][i].y*fadeAmount,0.0);
+        buffer[activeBuffer%2][i].set(buffer[activeBuffer%2][i].x*fadeAmount,buffer[activeBuffer%2][i].y*fadeAmount,0.0);
     }
 }
 
@@ -74,7 +74,7 @@ void vectorField::randomizeField(float scale){
         // random between -1 and 1
         float x = (float)(ofRandom(-1,1)) * scale;
         float y = (float)(ofRandom(-1,1)) * scale;
-        buffer[timer%2][i].set(x,y);
+        buffer[activeBuffer%2][i].set(x,y);
     }
 }
 
@@ -100,43 +100,39 @@ void vectorField::noiseField( float _scale  ,float _speed, float _turbulence, bo
             }
             
             ofPoint force = ofPoint(u,v,0.0) ;
-            buffer[timer%2][ pos ] = buffer[timer%2][ pos ] * (1.0-_scale) + force * _scale;
+            buffer[activeBuffer%2][ pos ] = buffer[activeBuffer%2][ pos ] * (1.0-_scale) + force * _scale;
         }
     }
 }
 
 void vectorField::propagate(){
-    
+
     //  Following http://freespace.virgin.net/hugo.elias/graphics/x_water.htm
     //
-    int actual = timer%2;     // Buffer 1
-    int next = (timer+1)%2; // Buffer 2
+    int one = activeBuffer%2;      // Buffer 1
+    int two = (activeBuffer+1)%2;  // Buffer 2
     
     //  damping = some non-integer between 0 and 1
     //
-    float damping = 0.9;
+    float damping = 0.999;
     
     //  for every non-edge element:
     //
-    for (int j = 1; j < rows-1; j++){
-        for (int i = 1; i < cols-1; i++){
-            int pos = j * cols + i;
+    for (int y = 1; y < rows-1; y++){
+        for (int x = 1; x < cols-1; x++){
             
-            int neightboad[4] = {pos - 1,  pos + 1, pos - cols, pos + cols };
+            buffer[two][x][y] = (buffer[one][x-1][y] +
+                                 buffer[one][x+1][y] +
+                                 buffer[one][x][y-1] +
+                                 buffer[one][x][y+1]) * 0.5 - buffer[two][x][y];
             
-            ofPoint Smoothed = ofPoint(0,0,0);
-            for(int k = 0; k < 4; k++){
-                Smoothed = Smoothed + buffer[actual][neightboad[k]];
-            }
-            
-            buffer[next][pos] = Smoothed * 0.5 - buffer[next][pos];
-            buffer[next][pos] = buffer[actual][pos] * damping;
+            buffer[two][x][y] *= damping;
         }
     }
     
     //  Swap the buffers
     //
-    timer++;
+    activeBuffer = two;
 }
 
 //------------------------------------------------------------------------------------
@@ -153,8 +149,8 @@ void vectorField::draw(){
             // pos externally
             float px = 	i * scalex;
             float py = 	j * scaley;
-            float px2 = px + buffer[timer%2][pos].x * 5;
-            float py2 = py + buffer[timer%2][pos].y * 5;
+            float px2 = px + buffer[activeBuffer%2][pos].x * 5;
+            float py2 = py + buffer[activeBuffer%2][pos].y * 5;
 			
             ofLine(px,py, px2, py2);
 			
@@ -208,7 +204,7 @@ ofPoint vectorField::getForceFromPos(float xpos, float ypos){
     if (pos == 0)
         return ofPoint(0,0);
 	
-	return ofPoint(buffer[timer%2][pos].x * 0.1, buffer[timer%2][pos].y * 0.1, 0.0 );  // scale here as values are pretty large.
+	return ofPoint(buffer[activeBuffer%2][pos].x * 0.1, buffer[activeBuffer%2][pos].y * 0.1, 0.0 );  // scale here as values are pretty large.
 }
 
 //------------------------------------------------------------------------------------
@@ -256,8 +252,8 @@ void vectorField::addInwardCircle(float x, float y, float radius, float strength
                 float strongness = strength * pct;
                 float unit_px = ( fieldPosX - i) / distance;
                 float unit_py = ( fieldPosY - j) / distance;
-                buffer[timer%2][pos].x += unit_px * strongness;
-                buffer[timer%2][pos].y += unit_py * strongness;
+                buffer[activeBuffer%2][pos].x += unit_px * strongness;
+                buffer[activeBuffer%2][pos].y += unit_py * strongness;
             }
         }
     }
@@ -309,8 +305,8 @@ void vectorField::addOutwardCircle(float x, float y, float radius, float strengt
                 float strongness = strength * pct;
                 float unit_px = ( fieldPosX - i) / distance;
                 float unit_py = ( fieldPosY - j) / distance;
-                buffer[timer%2][pos].x -= unit_px * strongness;
-                buffer[timer%2][pos].y -= unit_py * strongness;
+                buffer[activeBuffer%2][pos].x -= unit_px * strongness;
+                buffer[activeBuffer%2][pos].y -= unit_py * strongness;
             }
         }
     }
@@ -363,8 +359,8 @@ void vectorField::addClockwiseCircle(float x, float y, float radius, float stren
                 float strongness = strength * pct;
                 float unit_px = ( fieldPosX - i) / distance;
                 float unit_py = ( fieldPosY - j) / distance;
-                buffer[timer%2][pos].x += unit_py * strongness;   /// Note: px and py switched, for perpendicular
-                buffer[timer%2][pos].y -= unit_px * strongness;
+                buffer[activeBuffer%2][pos].x += unit_py * strongness;   /// Note: px and py switched, for perpendicular
+                buffer[activeBuffer%2][pos].y -= unit_px * strongness;
             }
         }
     }
@@ -419,8 +415,8 @@ void vectorField::addCounterClockwiseCircle(float x, float y, float radius, floa
                 float strongness = strength * pct;
                 float unit_px = ( fieldPosX - i) / distance;
                 float unit_py = ( fieldPosY - j) / distance;
-                buffer[timer%2][pos].x -= unit_py * strongness;   /// Note: px and py switched, for perpendicular
-                buffer[timer%2][pos].y += unit_px * strongness;
+                buffer[activeBuffer%2][pos].x -= unit_py * strongness;   /// Note: px and py switched, for perpendicular
+                buffer[activeBuffer%2][pos].y += unit_px * strongness;
             }
         }
     }
@@ -471,8 +467,8 @@ void vectorField::addVectorCircle(float x, float y, float vx, float vy, float ra
 				
 				float pct = 1.0f - (distance / fieldRadius);
                 float strongness = strength * pct;
-                buffer[timer%2][pos].x += vx * strongness;
-                buffer[timer%2][pos].y += vy * strongness;
+                buffer[activeBuffer%2][pos].x += vx * strongness;
+                buffer[activeBuffer%2][pos].y += vy * strongness;
             }
         }
     }

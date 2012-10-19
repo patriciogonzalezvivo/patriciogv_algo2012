@@ -21,7 +21,7 @@ void testApp::update(){
 void testApp::draw(){
     ofBackground(0);
     
-    ofSetColor(130,0,0, 200);
+    ofSetColor(0,130,130, 200);
     VF.draw();
 }
 

@@ -38,7 +38,7 @@ private:
     ofPoint *buffer[2];
     
     int     cols, rows, nTotal;
-    int     timer;
+    int     activeBuffer;
 };
 
 #endif // VECTORFIELD_H
