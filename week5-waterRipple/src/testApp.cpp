@@ -13,6 +13,7 @@ void testApp::setup(){
 void testApp::update(){
    
     VF.propagate();
+    VF.fadeField(0.99);
     
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
 }
@@ -46,7 +47,8 @@ void testApp::mouseDragged(int x, int y, int button){
 	float diffy = y - prevMouseY;
 	
 	VF.addVectorCircle((float)x, (float)y, diffx*0.3, diffy*0.3, 60, 0.3f);
-	
+//	VF.addOutwardCircle((float)x, (float)y, 60, 0.3f);
+    
 	prevMouseX = x;
 	prevMouseY = y;
 }

@@ -107,8 +107,6 @@ void vectorField::noiseField( float _scale  ,float _speed, float _turbulence, bo
 
 void vectorField::propagate(){
 
-    //  Following http://freespace.virgin.net/hugo.elias/graphics/x_water.htm
-    //
     int one = activeBuffer%2;      // Buffer 1
     int two = (activeBuffer+1)%2;  // Buffer 2
     
@@ -118,15 +116,21 @@ void vectorField::propagate(){
     
     //  for every non-edge element:
     //
-    for (int y = 1; y < rows-1; y++){
-        for (int x = 1; x < cols-1; x++){
+    for (int r = 1; r < rows-1; r++){
+        for (int c = 1; c < cols-1; c++){
             
-            buffer[two][x][y] = (buffer[one][x-1][y] +
-                                 buffer[one][x+1][y] +
-                                 buffer[one][x][y-1] +
-                                 buffer[one][x][y+1]) * 0.5 - buffer[two][x][y];
+            int i = r * cols + c;
             
-            buffer[two][x][y] *= damping;
+            int A = i-1;
+            int B = i+1;
+            int C = i-cols;
+            int D = i+cols;
+            
+            buffer[two][i] = (buffer[one][A] +
+                              buffer[one][B] +
+                              buffer[one][C] +
+                              buffer[one][D] ) * 0.5 - buffer[two][i];
+            buffer[two][i] *= damping;
         }
     }
     
