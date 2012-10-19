@@ -114,16 +114,16 @@ void vectorField::propagate(){
     
     //  for every non-edge element:
     //
-    for (int x = 1; x < cols-1; x++){
-        for (int y = 1; y < rows-1; y++){
+    for (int i = 1; i < cols-1; i++){
+        for (int j = 1; j < rows-1; j++){
             
-            int pos = y * width + x;
+            int pos = j * cols + i;
             
-            int neightboad[4] = {pos - 1,  pos + 1, pos - width, pos + width };
+            int neightboad[4] = {pos - 1,  pos + 1, pos - cols, pos + cols };
             
             ofPoint Smoothed;
-            for(int i = 0; i < 4; i++){
-                Smoothed += buffer[actual][ neightboad[i] ];
+            for(int k = 0; k < 4; k++){
+                Smoothed += buffer[actual][ neightboad[k] ];
             }
             
             buffer[next][pos] = Smoothed * 0.5 - buffer[next][pos];
