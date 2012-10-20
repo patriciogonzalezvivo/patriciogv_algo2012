@@ -19,16 +19,30 @@ void testApp::setup(){
                                     ofMap(y,0,height,0,ofGetHeight()),
                                     0.0),
                             ofPoint(0,0));
+            myParticle.size = 2;
             particles.push_back(myParticle);
         }
     }
     
-    bDrawField = true;
+    bDrawField = false;
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
    
+    for (int i = 0; i < particles.size(); i++){
+		
+//		particles[i].addAttractionForce(ofPoint(mouseX,mouseY), 1000, 0.07f);
+		
+		for (int j = 0; j < i; j++){
+//			particles[i].addRepulsionForce(particles[j], 200, 0.001);
+//            particles[i].addCounterClockwiseForce(particles[j], 80, 0.09);
+            
+            particles[i].addRepulsionForce(particles[j], 10, 0.7);
+//            particles[i].addAttractionForce(particles[j], 50, 0.001f);
+		}
+	}
+    
     for (int i = 0; i < particles.size(); i++){
         
         if ((particles[i].x > 0) && (particles[i].x < ofGetWidth()) &&
@@ -40,7 +54,7 @@ void testApp::update(){
         }
 	}
     
-    VF.propagate();
+//    VF.propagate();
     VF.fadeField(0.99);
     VF.noiseField(0.01,0.0001,3,true);
     
@@ -56,7 +70,7 @@ void testApp::draw(){
     }
     
     for (int i = 0; i < particles.size(); i++){
-		particles[i].draw();
+		particles[i].draw(false);
 	}
 }
 
@@ -100,8 +114,8 @@ void testApp::mouseDragged(int x, int y, int button){
     float diffx = x - prevMouseX;
 	float diffy = y - prevMouseY;
 	
-//	VF.addVectorCircle((float)x, (float)y, diffx*0.3, diffy*0.3, 60, 0.3f);
-    VF.addOutwardCircle((float)x, (float)y, 60, 0.3f);
+	VF.addVectorCircle((float)x, (float)y, diffx*0.3, diffy*0.3, 60, 0.3f);
+//    VF.addOutwardCircle((float)x, (float)y, 60, 0.3f);
     
 	prevMouseX = x;
 	prevMouseY = y;

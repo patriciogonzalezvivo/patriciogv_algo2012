@@ -13,7 +13,8 @@ void testApp::setup(){
     
     grayscale.allocate(width, height);
     blur.allocate(width, height);
-    blur.setRadius(5);
+    blur.setRadius(10);
+    blur.setPasses(10);
     normals.allocate(width, height);
     
     timer = 0;
@@ -91,7 +92,10 @@ void testApp::update(){
         blur.update();
         normals << blur;
         normals.update();
+        blur << normals;
+        blur.update();
         
+        /*
         if ( bDrawField ){
             ofPixels normPixels;
             normals.getTextureReference().readToPixels(normPixels);
@@ -117,7 +121,7 @@ void testApp::update(){
                     VF[index] = VF[index]*(1.0-pct) + norm * pct;
                 }
             }
-        }
+        }*/
     }
 
     if (bCapture){
@@ -131,7 +135,7 @@ void testApp::update(){
         pingpong[ timer%2 ].begin();
         
         shader.begin();
-        shader.setUniformTexture("normals", normals.getTextureReference(), 1);
+        shader.setUniformTexture("normals", blur.getTextureReference(), 1);
         
         ofSetColor(255);
         pingpong[ (timer+1)%2 ].draw(0, 0);
@@ -165,8 +169,9 @@ void testApp::draw(){
     }
     
     if ( bDrawField ){
-        ofSetColor(130,0,0, 200);
-        VF.draw();
+        //ofSetColor(130,0,0, 200);
+        ofSetColor(255);
+        blur.draw(0,0,ofGetWidth(),ofGetHeight());
     }
 }
 
