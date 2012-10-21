@@ -165,11 +165,12 @@ void vectorField::draw(){
 			
             float angle = atan2(buffer[activeBuffer%2][pos].y,buffer[activeBuffer%2][pos].x);
             
-            ofColor color;
-            color.set(255,0,0);
-            color.setHue(ofMap(angle,-PI,PI,0,255));
+//            ofColor color;
+//            color.set(255,0,0);
+//            color.setHue(ofMap(angle,-PI,PI,0,255));
             
-            ofSetColor(color);
+//            ofSetColor(color);
+            ofSetColor(100);
             ofLine(px,py, px2, py2);
 			
 			// draw an baseline to show direction

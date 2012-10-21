@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 
+#include "ofxFX.h"
+
 #include "vectorField.h"
 #include "particle.h"
 
@@ -21,11 +23,21 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 		
-    vector <Particle> particles;
+    ofVideoGrabber  video;
+    
+    ofPixels brightPixels;
+    
+    ofxGrayscale    grayscale;
+    ofxGaussianBlur blur;
+    ofxNormals      normals;
+    
+    vector<Particle> particles;
     vectorField     VF;
     
     float   prevMouseX;
     float   prevMouseY;
+    
+    int     width, height,scale;
     
     bool    bDrawField;
 };

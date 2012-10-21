@@ -12,17 +12,19 @@ public:
     
     void    addForce( ofPoint &_force );
     
-    void    infinitWalls();
-    
     void    addRepulsionForce(ofPoint p, float radius, float scale);
     void    addAttractionForce(ofPoint p, float radius, float scale);
+    void    addRepulsionForce(Particle &p, float scale);
     void    addRepulsionForce(Particle &p, float radius, float scale);
     void    addAttractionForce(Particle &p, float radius, float scale);
     void    addClockwiseForce(Particle &p, float radius, float scale);
     void    addCounterClockwiseForce(Particle &p, float radius, float scale);
     
+    void    infinitWalls();
+    void    bounceOffWalls();
+    
     void    update();
-    void    draw(bool _drawTrail = true);
+    void    draw();
 	
     ofFloatColor color;
     
