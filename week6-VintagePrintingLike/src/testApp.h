@@ -1,7 +1,11 @@
 #pragma once
 
 #include "ofMain.h"
-#include "Particle.h"
+
+#include "ofxFX.h"
+
+#include "vectorField.h"
+#include "particle.h"
 
 class testApp : public ofBaseApp{
 public:
@@ -18,8 +22,22 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
-	
-	vector<Particle> particles;
+		
+    ofVideoGrabber  video;
     
-    ofImage glow;
+    ofPixels brightPixels;
+    
+    ofxGrayscale    grayscale;
+    ofxGaussianBlur blur;
+    ofxNormals      normals;
+    
+    vector<Particle*> particles;
+    vectorField     VF;
+    
+    float   prevMouseX;
+    float   prevMouseY;
+    
+    int     width, height,scale;
+    
+    bool    bDrawField;
 };
