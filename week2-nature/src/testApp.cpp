@@ -24,6 +24,7 @@ void testApp::draw(){
     
     for(int i = 0; i < ofGetFrameNum(); i++ ){
         float grow = i * ofMap(ofGetElapsedTimef(), 0.0, 100.0, 0.0, 1.0,true);
+        
         pos.x += grow * cos(GOLDEN_RATIO*TWO_PI*i);
         pos.y += grow * sin(GOLDEN_RATIO*TWO_PI*i);
         
