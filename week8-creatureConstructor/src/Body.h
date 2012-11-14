@@ -10,8 +10,12 @@
 
 #include "ofMain.h"
 
+#include "ofxXmlSettings.h"
+
 #include "spring.h"
 
+//  Triangulation
+//
 #include <iostream>
 #include <stdlib.h> // for C qsort
 #include <cmath>
@@ -32,7 +36,9 @@ public:
     Body();
     ~Body();
     
-    void    init(string _file, ofPoint _initPos);
+    bool    init( string _imgfile, ofPoint _initPos);
+    bool    load( string _file, ofPoint _initPos );
+    bool    save( string _file );
     
     void    clear();
     void    restart();
@@ -43,12 +49,10 @@ public:
     
     void    addVertex(ofPoint _pos);
     int     getIndexAt(ofPoint _pos);
-    bool    addSpring(unsigned int _from, unsigned int _to);
+    bool    addSpring(unsigned int _from, unsigned int _to, float _k = 0.2f);
     
     void    update();
     void    draw();
-    
-    ofMesh  mesh;
     
 private:
     void    _mousePressed(ofMouseEventArgs &e);
@@ -58,17 +62,22 @@ private:
     void    _calculateTriangles();
     void    _updateMesh();
     void    _updateSpringsConectedTo(int _index);
+    int     _getIndexForId(int _nId);
     
     vector<Vertex*>     vertices;
     vector<Spring>      springs;
     vector<Triangle>    triangles;
     
+    ofMesh  mesh;
+    
     ofImage image;
-    ofPoint centerImage;
+    string  imageFile;
+    ofPoint imageCenter;
     
     ofPoint origin;
     
-    int     nSelectedVertex;
+    int     nVertexSelected;
+    int     nVertexHover;
     int     nTriangles;
     
     bool    bRightClick;

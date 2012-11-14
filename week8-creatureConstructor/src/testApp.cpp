@@ -5,7 +5,8 @@ void testApp::setup(){
     ofEnableAlphaBlending();
     ofSetVerticalSync(true);
     
-    thing.init("u02.png", ofPoint(800,300));
+//    thing.init("ouroboros.png", ofPoint(800,300));
+    thing.load("ouroboros.xml", ofPoint(800,300) );
     thing.startEditMode();
     
     bPlay = false;
@@ -35,6 +36,9 @@ void testApp::keyPressed(int key){
         thing.restart();
     } else if (key == 'c'){
         thing.clear();
+    } else if (key == 's'){
+        string filename = "t"+ofToString(ofGetDay())+"-"+ofToString(ofGetHours())+"-"+ofToString(ofGetMinutes())+"-"+ofToString(ofGetSeconds());
+        thing.save(filename+".xml");
     }
 }
 

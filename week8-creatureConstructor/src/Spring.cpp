@@ -12,8 +12,8 @@ void Spring::update(){
 		return;
 	}
 	
-	float theirDistance = (*vertexA - *vertexB).length();
-	float springForce = (springiness * (distance - theirDistance));
+	float mutualDist = (*vertexA - *vertexB).length();
+	float springForce = (k * (dist - mutualDist));
 	ofPoint frcToAdd = (*vertexA - *vertexB).normalized() * springForce;
 	
 	vertexA->addForce(frcToAdd);

@@ -8,23 +8,134 @@
 #include "Body.h"
 
 Body::Body(){
-    bEdit = false;
-    bRightClick = false;
-    nSelectedVertex = -1;
-    origin.set(0,0);
+    bEdit           = false;
+    bRightClick     = false;
+    nVertexSelected = -1;
+    imageFile       = "none";
+    origin          = ofPoint(-1,-1);
+    imageCenter     = ofPoint(-1,-1);
 }
 
 Body::~Body(){
     clear();
 }
 
-void Body::init(string _file, ofPoint _initPos){
-    image.loadImage(_file);
-    centerImage.set(image.getWidth()*0.5, image.getHeight()*0.5);
+bool Body::init(string _file, ofPoint _initPos){
+    if ( image.loadImage(_file) ){
+        imageFile = _file;
+        imageCenter.set(image.getWidth()*0.5, image.getHeight()*0.5);
+        
+        origin = _initPos;
     
-    origin = _initPos;
+        clear();
+        
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// ----------------------------------------------------- SETUP
+bool Body::load( string _file, ofPoint _initPos ){
     
-    clear();
+    ofxXmlSettings XML;
+    if (XML.loadFile(_file)){
+        if (init( XML.getValue("texture", "image.png") ,_initPos)){
+            
+            //  Load the Vertex
+            //
+            int nVertex     = XML.getNumTags("vertex");
+            for (int i = 0; i < nVertex; i++){
+                if ( XML.pushTag("vertex",i ) ){
+                    ofPoint pos = ofPoint(ofPoint(XML.getValue("pos:x", 0.0),
+                                                  XML.getValue("pos:y", 0.0) ) );
+                    addVertex( pos );
+                    vertices[ vertices.size()-1 ]->nId = XML.getValue("nId", 1);
+                                          
+                    XML.popTag();
+                }
+            }
+            
+            //  Load the Spring
+            //
+            int nSprings    = XML.getNumTags("spring");
+            for (int i = 0; i < nSprings; i++){
+                if ( XML.pushTag("spring",i ) ){
+                    int A   = XML.getValue("A", -1);
+                    int B   = XML.getValue("B", -1);
+                    float k = XML.getValue("k", 0.5);
+                    
+                    addSpring( _getIndexForId(A), _getIndexForId(B), k);
+                    XML.popTag();
+                }
+            }
+        }
+        _calculateTriangles();
+        _updateMesh();
+        
+        return true;
+    } else {
+        return false;
+    }
+}
+
+int Body::_getIndexForId(int _nId){
+    int rta = -1;
+    
+    for(int i = 0; i < vertices.size(); i++){
+        if ( vertices[i]->nId == _nId){
+            rta = i;
+            break;
+        }
+    }
+    
+    return rta;
+}
+
+bool Body::save( string _file ){
+    
+    ofxXmlSettings XML;
+    XML.loadFile(_file);
+    
+    //  Image Ref
+    //
+    XML.setValue("texture",imageFile);
+                 
+    //  Add Verteces
+    //
+    for (int i = 0; i < vertices.size() ; i++){
+        XML.addTag("vertex");
+    }
+    
+    for (int i = 0; i < vertices.size(); i++){
+        if ( XML.pushTag("vertex",i ) ){
+            
+            XML.setValue("pos:x", vertices[i]->getTexCoord().x);
+            XML.setValue("pos:y", vertices[i]->getTexCoord().y);
+            XML.setValue("nId", vertices[i]->nId);
+            
+            XML.popTag();
+        }
+    }
+    
+    //  Add Springs
+    //
+    for (int i = 0; i < springs.size() ; i++){
+        XML.addTag("spring");
+    }
+    
+    for (int i = 0; i < springs.size(); i++){
+        if ( XML.pushTag("spring",i ) ){
+            
+            XML.setValue("A", springs[i].vertexA->nId);
+            XML.setValue("B", springs[i].vertexB->nId);
+            XML.setValue("k", springs[i].k );
+            
+            XML.popTag();
+        }
+    }
+
+    return XML.saveFile(_file);
 }
 
 void Body::startEditMode(){
@@ -64,7 +175,7 @@ void Body::clear(){
 
 void Body::restart(){
     for(int i = 0; i < vertices.size(); i++){
-        ofPoint toCenter = vertices[i]->getTexCoord() - centerImage;
+        ofPoint toCenter = vertices[i]->getTexCoord() - imageCenter;
         float angle = atan2(toCenter.y,toCenter.x);
         float radio = toCenter.length();
         
@@ -80,13 +191,12 @@ void Body::addVertex(ofPoint _pos){
     
     newVertex->setTexCoord(_pos);
     
-    ofPoint toCenter = _pos - centerImage;
+    ofPoint toCenter = _pos - imageCenter;
     float angle = atan2(toCenter.y,toCenter.x);
     float radio = toCenter.length();
     
     newVertex->x = origin.x + cos(angle)*radio;
     newVertex->y = origin.y + sin(angle)*radio;
-//    newVertex->vel.set(0,0);
     newVertex->nId = vertices.size();
     
     vertices.push_back(newVertex);
@@ -104,16 +214,16 @@ int Body::getIndexAt(ofPoint _pos){
     return rta;
 }
 
-bool Body::addSpring(unsigned int _from, unsigned int _to){
+bool Body::addSpring(unsigned int _from, unsigned int _to, float _k ){
     bool rta = false;
     
     if ( (_from < vertices.size()) && (_to < vertices.size()) && (_to != _from) ){
         Spring newSpring;
         
-		newSpring.springiness	= 0.2f;
-		newSpring.vertexA     = vertices[ _from];
-		newSpring.vertexB     = vertices[ _to];
-        newSpring.distance		= vertices[ _from]->getTexCoord().distance( vertices[ _to]->getTexCoord() );
+		newSpring.k         = _k;
+		newSpring.vertexA   = vertices[ _from];
+		newSpring.vertexB   = vertices[ _to];
+        newSpring.dist      = vertices[ _from]->getTexCoord().distance( vertices[ _to]->getTexCoord() );
         
         springs.push_back(newSpring);
         rta = true;
@@ -145,7 +255,7 @@ void Body::draw(){
         
         ofSetColor(100);
         ofPushMatrix();
-        ofTranslate(centerImage);
+        ofTranslate(imageCenter);
         ofLine(5,0,-5,0);
         ofLine(0,5,0,-5);
         ofPopMatrix();
@@ -162,18 +272,28 @@ void Body::draw(){
             ofLine(springs[i].vertexA->getTexCoord(), springs[i].vertexB->getTexCoord());
         }
         
+        ofPoint mouse = ofPoint(ofGetMouseX(),ofGetMouseY());
+        nVertexHover = getIndexAt(mouse);
+        
         ofSetColor(0,180);
-        ofFill();
+        
         for (int i = 0; i < vertices.size(); i++){
+            if ( i == nVertexHover){
+                ofNoFill();
+                ofCircle( vertices[i]->getTexCoord(), 5);
+            }
+            
+            ofFill();
             ofCircle(vertices[i]->getTexCoord(),3);
         }
         
-        if(nSelectedVertex != -1){
-            ofPoint mouse = ofPoint(ofGetMouseX(),ofGetMouseY());
+        //  There is spring setting in progress here
+        //
+        if(nVertexSelected != -1){
             ofNoFill();
             ofSetColor(0,200);
-            ofCircle( vertices[nSelectedVertex]->getTexCoord(), 5);
-            ofLine( vertices[nSelectedVertex]->getTexCoord(), mouse);
+            ofCircle( vertices[nVertexSelected]->getTexCoord(), 5);
+            ofLine( vertices[nVertexSelected]->getTexCoord(), mouse);
         }
         
         ofPopStyle();
@@ -200,7 +320,7 @@ void Body::_mousePressed(ofMouseEventArgs &e){
         if (index == -1){
             addVertex(mouse);
         } else {
-            nSelectedVertex = index;
+            nVertexSelected = index;
         }
         
         if (e.button != 0) {
@@ -213,9 +333,9 @@ void Body::_mouseDragged(ofMouseEventArgs &e){
     ofPoint mouse = ofPoint(e.x,e.y);
     
     if (bRightClick){
-        if (nSelectedVertex != -1){
-            vertices[nSelectedVertex]->setTexCoord(mouse);
-            _updateSpringsConectedTo(nSelectedVertex);
+        if (nVertexSelected != -1){
+            vertices[nVertexSelected]->setTexCoord(mouse);
+            _updateSpringsConectedTo(nVertexSelected);
         }
     }
 }
@@ -225,18 +345,18 @@ void Body::_mouseReleased(ofMouseEventArgs &e){
         ofPoint mouse = ofPoint(e.x,e.y);
         int index = getIndexAt(mouse);
         
-        if ( nSelectedVertex != -1){
+        if ( nVertexSelected != -1){
             if ( index == -1 ){
                 addVertex(mouse);
                 index = vertices.size()-1;
             }
-            addSpring(nSelectedVertex, index);
+            addSpring(nVertexSelected, index);
         }
         
         _calculateTriangles();
         _updateMesh();
         
-        nSelectedVertex = -1;
+        nVertexSelected = -1;
         bRightClick = false;
     }
 }
@@ -246,7 +366,7 @@ void Body::_updateSpringsConectedTo(int _index){
     
     for (int i = 0; i < springs.size(); i++){
         if ( (springs[i].vertexA->nId == nId) || ( springs[i].vertexB->nId == nId) ){
-            springs[i].distance = springs[i].vertexA->getTexCoord().distance(springs[i].vertexB->getTexCoord());
+            springs[i].dist = springs[i].vertexA->getTexCoord().distance(springs[i].vertexB->getTexCoord());
         }
     }
 }
@@ -260,7 +380,7 @@ bool comparisonFunction(  Vertex * a, Vertex * b ) {
 void Body::_calculateTriangles(){
     //  Prepare the vertices
     //
-    nSelectedVertex = -1;
+    nVertexSelected = -1;
     int nv = vertices.size();
     
     if (nv >= 3){

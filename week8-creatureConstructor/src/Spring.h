@@ -15,8 +15,8 @@ public:
     Vertex * vertexA;
     Vertex * vertexB;
 		
-    float distance;
-    float springiness;	 // this is the k, Springiness constant
+    float dist;
+    float k;	 // this is the k, Springiness constant
 };
 
 #endif
