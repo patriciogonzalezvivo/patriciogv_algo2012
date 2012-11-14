@@ -57,6 +57,19 @@ void creature::clear(){
     springs.clear();
 }
 
+void creature::restart(){
+    for(int i = 0; i < particles.size(); i++){
+        ofPoint toCenter = particles[i]->org - centerImage;
+        float angle = atan2(toCenter.y,toCenter.x);
+        float radio = toCenter.length();
+        
+        particles[i]->pos.x = origin.x + cos(angle)*radio;
+        particles[i]->pos.y = origin.y + sin(angle)*radio;
+        
+        particles[i]->vel.set(0,0);
+    }
+}
+
 void creature::addParticle(ofPoint _pos){
     particle *newParticle = new particle();
     
@@ -68,8 +81,8 @@ void creature::addParticle(ofPoint _pos){
     
     newParticle->pos.x = origin.x + cos(angle)*radio;
     newParticle->pos.y = origin.y + sin(angle)*radio;
-    
     newParticle->vel.set(0,0);
+    newParticle->nId = particles.size();
     
     particles.push_back(newParticle);
     
@@ -130,29 +143,29 @@ void creature::update(){
 void creature::draw(){
     if (bEdit){
         ofPushStyle();
-        ofSetColor(255);
+        ofSetColor(255,100);
         image.draw(0, 0);
         
-        ofSetColor(35, 211, 255);
+        ofSetColor(100);
         ofPushMatrix();
         ofTranslate(centerImage);
         ofLine(5,0,-5,0);
         ofLine(0,5,0,-5);
         ofPopMatrix();
         
-        ofSetColor(35, 211, 255);
+        ofSetColor(150);
         ofPushMatrix();
         ofTranslate(origin);
         ofLine(5,0,-5,0);
         ofLine(0,5,0,-5);
         ofPopMatrix();
         
-        ofSetColor(35, 211, 255);
+        ofSetColor(0,100);
         for (int i = 0; i < springs.size(); i++){
             ofLine(springs[i].particleA->org, springs[i].particleB->org);
         }
         
-        ofSetColor(21, 48, 144);
+        ofSetColor(0,200);
         ofFill();
         for (int i = 0; i < particles.size(); i++){
             ofCircle(particles[i]->org,3);
@@ -169,14 +182,6 @@ void creature::draw(){
         ofPopStyle();
     }
     
-//    for (int i = 0; i < particles.size(); i++){
-//		particles[i]->draw();
-//	}
-//	
-//	for (int i = 0; i < springs.size(); i++){
-//		springs[i].draw();
-//	}
-    
     _updateMesh();
     
     ofSetColor(255);
@@ -185,7 +190,7 @@ void creature::draw(){
     image.unbind();
     
     if (bEdit){
-        ofSetColor(35, 211, 255,100);
+        ofSetColor(0,50);
         mesh.drawWireframe();
     }
 }
@@ -213,6 +218,7 @@ void creature::_mouseDragged(ofMouseEventArgs &e){
     if (bRightClick){
         if (nSelectedParticle != -1){
             particles[nSelectedParticle]->org = mouse;
+            _updateSpringsConectedTo(nSelectedParticle);
         }
     }
 }
@@ -231,11 +237,21 @@ void creature::_mouseReleased(ofMouseEventArgs &e){
             
             addSpring(nSelectedParticle, index);
         }
-        nSelectedParticle = -1;
-        bRightClick = false;
-        
         
         _calculateTriangles();
+        
+        nSelectedParticle = -1;
+        bRightClick = false;
+    }
+}
+
+void creature::_updateSpringsConectedTo(int _index){
+    int nId = particles[_index]->nId;
+    
+    for (int i = 0; i < springs.size(); i++){
+        if ( (springs[i].particleA->nId == nId) || ( springs[i].particleB->nId == nId) ){
+            springs[i].distance = springs[i].particleA->org.distance(springs[i].particleB->org);
+        }
     }
 }
 

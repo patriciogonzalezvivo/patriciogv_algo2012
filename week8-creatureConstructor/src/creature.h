@@ -34,6 +34,7 @@ public:
     void    init(string _file, ofPoint _initPos);
     
     void    clear();
+    void    restart();
     
     void    startEditMode();
     void    stopEditMode();
@@ -55,6 +56,7 @@ private:
     
     void    _calculateTriangles();
     void    _updateMesh();
+    void    _updateSpringsConectedTo(int _index);
     
     vector<particle*>   particles;
     vector<spring>      springs;

@@ -7,25 +7,34 @@ void testApp::setup(){
     
     thing.init("u02.png", ofPoint(800,300));
     thing.startEditMode();
+    
+    bPlay = false;
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 
-    thing.update();
+    if (bPlay){
+        thing.update();
+    }
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
     
     thing.draw();
-
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
     if(key == 'e'){
         thing.togleEditMode();
+    } else if (key == 'p'){
+        bPlay = !bPlay;
+    } else if (key == 'r'){
+        thing.restart();
+    } else if (key == 'c'){
+        thing.clear();
     }
 }
 

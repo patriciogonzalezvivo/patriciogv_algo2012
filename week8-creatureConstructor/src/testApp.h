@@ -20,4 +20,5 @@ public:
     void gotMessage(ofMessage msg);
 
     creature    thing;
+    bool        bPlay;
 };
