@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "creature.h"
+#include "Body.h"
 
 class testApp : public ofBaseApp{
 public:
@@ -19,6 +19,6 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
-    creature    thing;
+    Body        thing;
     bool        bPlay;
 };

@@ -1,20 +1,24 @@
 //
-//  creature.cpp
+//  Body.cpp
 //
 //  Created by Patricio Gonzalez Vivo on 11/13/12.
 //
 //
 
-#include "creature.h"
+#include "Body.h"
 
-creature::creature(){
+Body::Body(){
     bEdit = false;
     bRightClick = false;
-    nSelectedParticle = -1;
+    nSelectedVertex = -1;
     origin.set(0,0);
 }
 
-void creature::init(string _file, ofPoint _initPos){
+Body::~Body(){
+    clear();
+}
+
+void Body::init(string _file, ofPoint _initPos){
     image.loadImage(_file);
     centerImage.set(image.getWidth()*0.5, image.getHeight()*0.5);
     
@@ -23,25 +27,25 @@ void creature::init(string _file, ofPoint _initPos){
     clear();
 }
 
-void creature::startEditMode(){
+void Body::startEditMode(){
     if (!bEdit){
-        ofAddListener(ofEvents().mousePressed, this, &creature::_mousePressed);
-        ofAddListener(ofEvents().mouseDragged, this, &creature::_mouseDragged);
-        ofAddListener(ofEvents().mouseReleased, this, &creature::_mouseReleased);
+        ofAddListener(ofEvents().mousePressed, this, &Body::_mousePressed);
+        ofAddListener(ofEvents().mouseDragged, this, &Body::_mouseDragged);
+        ofAddListener(ofEvents().mouseReleased, this, &Body::_mouseReleased);
         bEdit = true;
     }
 }
 
-void creature::stopEditMode(){
+void Body::stopEditMode(){
     if (bEdit){
-        ofRemoveListener(ofEvents().mousePressed, this, &creature::_mousePressed);
-        ofRemoveListener(ofEvents().mouseDragged, this, &creature::_mouseDragged);
-        ofRemoveListener(ofEvents().mouseReleased, this, &creature::_mouseReleased);
+        ofRemoveListener(ofEvents().mousePressed, this, &Body::_mousePressed);
+        ofRemoveListener(ofEvents().mouseDragged, this, &Body::_mouseDragged);
+        ofRemoveListener(ofEvents().mouseReleased, this, &Body::_mouseReleased);
         bEdit = false;
     }
 }
 
-void creature::togleEditMode(){
+void Body::togleEditMode(){
     if(!bEdit){
         startEditMode();
     } else {
@@ -49,51 +53,50 @@ void creature::togleEditMode(){
     }
 }
 
-void creature::clear(){
-    for(int i = 0; i < particles.size(); i++){
-        delete particles[i];
+void Body::clear(){
+    for(int i = 0; i < vertices.size(); i++){
+        delete vertices[i];
     }
-    particles.clear();
+    vertices.clear();
+    triangles.clear();
     springs.clear();
 }
 
-void creature::restart(){
-    for(int i = 0; i < particles.size(); i++){
-        ofPoint toCenter = particles[i]->org - centerImage;
+void Body::restart(){
+    for(int i = 0; i < vertices.size(); i++){
+        ofPoint toCenter = vertices[i]->getTexCoord() - centerImage;
         float angle = atan2(toCenter.y,toCenter.x);
         float radio = toCenter.length();
         
-        particles[i]->pos.x = origin.x + cos(angle)*radio;
-        particles[i]->pos.y = origin.y + sin(angle)*radio;
+        vertices[i]->x = origin.x + cos(angle)*radio;
+        vertices[i]->y = origin.y + sin(angle)*radio;
         
-        particles[i]->vel.set(0,0);
+        //vertices[i]->vel.set(0,0);
     }
 }
 
-void creature::addParticle(ofPoint _pos){
-    particle *newParticle = new particle();
+void Body::addVertex(ofPoint _pos){
+    Vertex *newVertex = new Vertex();
     
-    newParticle->org = _pos;
+    newVertex->setTexCoord(_pos);
     
     ofPoint toCenter = _pos - centerImage;
     float angle = atan2(toCenter.y,toCenter.x);
     float radio = toCenter.length();
     
-    newParticle->pos.x = origin.x + cos(angle)*radio;
-    newParticle->pos.y = origin.y + sin(angle)*radio;
-    newParticle->vel.set(0,0);
-    newParticle->nId = particles.size();
+    newVertex->x = origin.x + cos(angle)*radio;
+    newVertex->y = origin.y + sin(angle)*radio;
+//    newVertex->vel.set(0,0);
+    newVertex->nId = vertices.size();
     
-    particles.push_back(newParticle);
-    
-    _calculateTriangles();
+    vertices.push_back(newVertex);
 }
 
-int creature::getIndexAt(ofPoint _pos){
+int Body::getIndexAt(ofPoint _pos){
     int rta = -1;
     
-    for (int i = 0; i < particles.size(); i++) {
-        if (_pos.distance( particles[i]->org ) < 10){
+    for (int i = 0; i < vertices.size(); i++) {
+        if (_pos.distance( vertices[i]->getTexCoord() ) < 10){
             rta = i;
         }
     }
@@ -101,16 +104,16 @@ int creature::getIndexAt(ofPoint _pos){
     return rta;
 }
 
-bool creature::addSpring(unsigned int _from, unsigned int _to){
+bool Body::addSpring(unsigned int _from, unsigned int _to){
     bool rta = false;
     
-    if ( (_from < particles.size()) && (_to < particles.size()) && (_to != _from) ){
-        spring newSpring;
+    if ( (_from < vertices.size()) && (_to < vertices.size()) && (_to != _from) ){
+        Spring newSpring;
         
 		newSpring.springiness	= 0.2f;
-		newSpring.particleA     = particles[ _from];
-		newSpring.particleB     = particles[ _to];
-        newSpring.distance		= particles[ _from]->org.distance( particles[ _to]->org );
+		newSpring.vertexA     = vertices[ _from];
+		newSpring.vertexB     = vertices[ _to];
+        newSpring.distance		= vertices[ _from]->getTexCoord().distance( vertices[ _to]->getTexCoord() );
         
         springs.push_back(newSpring);
         rta = true;
@@ -119,28 +122,22 @@ bool creature::addSpring(unsigned int _from, unsigned int _to){
     return rta;
 }
 
-void creature::update(){
-    for (int i = 0; i < particles.size(); i++){
-		particles[i]->resetForce();
-	}
-	
+void Body::update(){
 	for (int i = 0; i < springs.size(); i++){
 		springs[i].update();
 	}
 	
-    for (int i = 0; i < particles.size(); i++){
-//		particles[i]->addForce(0,0.1f);
-		particles[i]->addRepulsionForce(ofGetMouseX(), ofGetMouseY(), 300, 0.7f);
-	}
-	
-	for (int i = 0; i < particles.size(); i++){
-		particles[i]->bounceOffWalls();
-		particles[i]->addDampingForce();
-		particles[i]->update();
+    for (int i = 0; i < vertices.size(); i++){
+//		vertices[i]->addForce(0,0.1f);
+		vertices[i]->addRepulsionForce(ofPoint (ofGetMouseX(), ofGetMouseY()),
+                                        300,
+                                        0.7f);
+        vertices[i]->bounceOffWalls();
+		vertices[i]->update();
 	}
 }
 
-void creature::draw(){
+void Body::draw(){
     if (bEdit){
         ofPushStyle();
         ofSetColor(255,100);
@@ -160,23 +157,23 @@ void creature::draw(){
         ofLine(0,5,0,-5);
         ofPopMatrix();
         
-        ofSetColor(0,100);
+        ofSetColor(0,80);
         for (int i = 0; i < springs.size(); i++){
-            ofLine(springs[i].particleA->org, springs[i].particleB->org);
+            ofLine(springs[i].vertexA->getTexCoord(), springs[i].vertexB->getTexCoord());
         }
         
-        ofSetColor(0,200);
+        ofSetColor(0,180);
         ofFill();
-        for (int i = 0; i < particles.size(); i++){
-            ofCircle(particles[i]->org,3);
+        for (int i = 0; i < vertices.size(); i++){
+            ofCircle(vertices[i]->getTexCoord(),3);
         }
         
-        if(nSelectedParticle != -1){
+        if(nSelectedVertex != -1){
             ofPoint mouse = ofPoint(ofGetMouseX(),ofGetMouseY());
             ofNoFill();
-            ofSetColor(112, 31, 215);
-            ofCircle( particles[nSelectedParticle]->org, 5);
-            ofLine( particles[nSelectedParticle]->org, mouse);
+            ofSetColor(0,200);
+            ofCircle( vertices[nSelectedVertex]->getTexCoord(), 5);
+            ofLine( vertices[nSelectedVertex]->getTexCoord(), mouse);
         }
         
         ofPopStyle();
@@ -195,15 +192,15 @@ void creature::draw(){
     }
 }
 
-void creature::_mousePressed(ofMouseEventArgs &e){
+void Body::_mousePressed(ofMouseEventArgs &e){
 	if(bEdit){
         ofPoint mouse = ofPoint(e.x,e.y);
         int index = getIndexAt(mouse);
         
         if (index == -1){
-            addParticle(mouse);
+            addVertex(mouse);
         } else {
-            nSelectedParticle = index;
+            nSelectedVertex = index;
         }
         
         if (e.button != 0) {
@@ -212,77 +209,76 @@ void creature::_mousePressed(ofMouseEventArgs &e){
     }
 }
 
-void creature::_mouseDragged(ofMouseEventArgs &e){
+void Body::_mouseDragged(ofMouseEventArgs &e){
     ofPoint mouse = ofPoint(e.x,e.y);
     
     if (bRightClick){
-        if (nSelectedParticle != -1){
-            particles[nSelectedParticle]->org = mouse;
-            _updateSpringsConectedTo(nSelectedParticle);
+        if (nSelectedVertex != -1){
+            vertices[nSelectedVertex]->setTexCoord(mouse);
+            _updateSpringsConectedTo(nSelectedVertex);
         }
     }
 }
 
-void creature::_mouseReleased(ofMouseEventArgs &e){
+void Body::_mouseReleased(ofMouseEventArgs &e){
     if (bEdit){
         ofPoint mouse = ofPoint(e.x,e.y);
         int index = getIndexAt(mouse);
         
-        if ( nSelectedParticle != -1){
-            
+        if ( nSelectedVertex != -1){
             if ( index == -1 ){
-                addParticle(mouse);
-                index = getIndexAt(mouse);
+                addVertex(mouse);
+                index = vertices.size()-1;
             }
-            
-            addSpring(nSelectedParticle, index);
+            addSpring(nSelectedVertex, index);
         }
         
         _calculateTriangles();
+        _updateMesh();
         
-        nSelectedParticle = -1;
+        nSelectedVertex = -1;
         bRightClick = false;
     }
 }
 
-void creature::_updateSpringsConectedTo(int _index){
-    int nId = particles[_index]->nId;
+void Body::_updateSpringsConectedTo(int _index){
+    int nId = vertices[_index]->nId;
     
     for (int i = 0; i < springs.size(); i++){
-        if ( (springs[i].particleA->nId == nId) || ( springs[i].particleB->nId == nId) ){
-            springs[i].distance = springs[i].particleA->org.distance(springs[i].particleB->org);
+        if ( (springs[i].vertexA->nId == nId) || ( springs[i].vertexB->nId == nId) ){
+            springs[i].distance = springs[i].vertexA->getTexCoord().distance(springs[i].vertexB->getTexCoord());
         }
     }
 }
 
 // comparison routine for sort...
 //
-bool comparisonFunction(  particle * a, particle * b ) {
-	return a->org.x < b->org.x;
+bool comparisonFunction(  Vertex * a, Vertex * b ) {
+	return a->getTexCoord().x < b->getTexCoord().x;
 }
 
-void creature::_calculateTriangles(){
-    //  Prepare the particles
+void Body::_calculateTriangles(){
+    //  Prepare the vertices
     //
-    nSelectedParticle = -1;
-    int nv = particles.size();
+    nSelectedVertex = -1;
+    int nv = vertices.size();
     
     if (nv >= 3){
-        sort( particles.begin(), particles.end(), comparisonFunction );
+        sort( vertices.begin(), vertices.end(), comparisonFunction );
         
         //  Extract the origin postions
         //
-        vector<ofPoint> vertices;
-        for (int i = 0 ; i < particles.size(); i++) {
-            ofPoint newPoint = particles[i]->org;
-            vertices.push_back( newPoint );
+        vector<ofPoint> tmpVertices;
+        for (int i = 0 ; i < vertices.size(); i++) {
+            ofPoint newPoint = vertices[i]->getTexCoord();
+            tmpVertices.push_back( newPoint );
         }
         
         //  Add 3 more slots ( required by the Triangulate call)
         //
-        vertices.push_back( ofPoint(0,0) );
-        vertices.push_back( ofPoint(0,0) );
-        vertices.push_back( ofPoint(0,0) );
+        tmpVertices.push_back( ofPoint(0,0) );
+        tmpVertices.push_back( ofPoint(0,0) );
+        tmpVertices.push_back( ofPoint(0,0) );
         
         //  Allocate space for triangles indices
         //
@@ -291,18 +287,18 @@ void creature::_calculateTriangles(){
         //  Make the triangulation
         //
         nTriangles = 0;
-        Triangulate( nv, &vertices[0], &triangles[0], nTriangles );
+        Triangulate( nv, &tmpVertices[0], &triangles[0], nTriangles );
     }
 }
 
-void creature::_updateMesh(){
+void Body::_updateMesh(){
 	mesh.clear();
     
-    //  Pass the position of the particles
+    //  Pass the position of the vertices
     //
-	for (int i = 0; i < particles.size(); i++){
-        mesh.addVertex( particles[i]->pos );
-        mesh.addTexCoord( ofVec2f(particles[i]->org.x,particles[i]->org.y ) );
+	for (int i = 0; i < vertices.size(); i++){
+        mesh.addVertex( *vertices[i] );
+        mesh.addTexCoord( vertices[i]->getTexCoord() );
     }
 
     //  Pass the triagles indices of how to arrange them
@@ -361,6 +357,8 @@ int CircumCircle(double xp, double yp, double x1, double y1, double x2,
     drsqr = dx * dx + dy * dy;
     return((drsqr <= rsqr) ? true : false);
 }
+
+
 ///////////////////////////////////////////////////////////////////////////////
 // Triangulate() :
 //   Triangulation subroutine
@@ -374,10 +372,10 @@ int CircumCircle(double xp, double yp, double x1, double y1, double x2,
 //   qsort(p,nv,sizeof(XYZ),XYZCompare);
 ///////////////////////////////////////////////////////////////////////////////
 
-int Triangulate(int nv, ofPoint pxyz[], ITRIANGLE v[], int &ntri){
+int Triangulate(int nv, ofPoint pxyz[], Triangle v[], int &ntri){
     int *complete = NULL;
-    IEDGE *edges = NULL;
-    IEDGE *p_EdgeTemp;
+    Edge *edges = NULL;
+    Edge *p_EdgeTemp;
     int nedge = 0;
     int trimax, emax = 200;
     int status = 0;
@@ -391,7 +389,7 @@ int Triangulate(int nv, ofPoint pxyz[], ITRIANGLE v[], int &ntri){
     trimax = 4 * nv;
     complete = new int[trimax];
     /* Allocate memory for the edge list */
-    edges = new IEDGE[emax];
+    edges = new Edge[emax];
     /*
      Find the maximum and minimum vertex bounds.
      This is to allow calculation of the bounding triangle
@@ -460,7 +458,7 @@ int Triangulate(int nv, ofPoint pxyz[], ITRIANGLE v[], int &ntri){
                 /* Check that we haven't exceeded the edge list size */
                 if(nedge + 3 >= emax){
                     emax += 100;
-                    p_EdgeTemp = new IEDGE[emax];
+                    p_EdgeTemp = new Edge[emax];
                     for (int i = 0; i < nedge; i++) { // Fix by John Bowman
                         p_EdgeTemp[i] = edges[i];
                     }

@@ -10,9 +10,9 @@
 		169d3c72fde6c5590a1616f500a456b4 /* ofxCvFloatImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7b6a03390302d5a2c9f0e4ab630ae8d6 /* ofxCvFloatImage.cpp */; };
 		1d5f3298c2fa073628012944b1efde88 /* ofxCvContourFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = c76de5c29bdbd2caa1dd0021a7376220 /* ofxCvContourFinder.cpp */; };
 		250a95ba26587be85db0a353e6e1dea2 /* ofxCvColorImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ce9c7160245b19131dae61282ee6cb53 /* ofxCvColorImage.cpp */; };
-		3DEFFBF41652F36C00B28A3C /* particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFFBF01652F36C00B28A3C /* particle.cpp */; };
-		3DEFFBF51652F36C00B28A3C /* spring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFFBF21652F36C00B28A3C /* spring.cpp */; };
-		3DEFFBFD16530B6800B28A3C /* creature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFFBFB16530B6800B28A3C /* creature.cpp */; };
+		3DEFFBF51652F36C00B28A3C /* Spring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFFBF21652F36C00B28A3C /* Spring.cpp */; };
+		3DEFFBFD16530B6800B28A3C /* Body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFFBFB16530B6800B28A3C /* Body.cpp */; };
+		3DEFFC4C1653E1B200B28A3C /* Vertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DEFFC4A1653E1B200B28A3C /* Vertex.cpp */; };
 		63020f16c7e8ded9801112417e67ad38 /* ofxCvImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = c6151136d101f857dae12722e3c42f4a /* ofxCvImage.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -84,12 +84,12 @@
 		319268d200f1ba567e4ccff97a1babd8 /* cxeigen.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = cxeigen.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv/cxeigen.hpp; sourceTree = SOURCE_ROOT; };
 		33ff03222909c1a0ece437531183b507 /* cv.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = cv.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv/cv.h; sourceTree = SOURCE_ROOT; };
 		36f0ff7f8d7342d220cc6319cac5ad59 /* dummy.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = dummy.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/dummy.h; sourceTree = SOURCE_ROOT; };
-		3DEFFBF01652F36C00B28A3C /* particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = particle.cpp; sourceTree = "<group>"; };
-		3DEFFBF11652F36C00B28A3C /* particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = particle.h; sourceTree = "<group>"; };
-		3DEFFBF21652F36C00B28A3C /* spring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = spring.cpp; sourceTree = "<group>"; };
-		3DEFFBF31652F36C00B28A3C /* spring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spring.h; sourceTree = "<group>"; };
-		3DEFFBFB16530B6800B28A3C /* creature.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = creature.cpp; sourceTree = "<group>"; };
-		3DEFFBFC16530B6800B28A3C /* creature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = creature.h; sourceTree = "<group>"; };
+		3DEFFBF21652F36C00B28A3C /* Spring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spring.cpp; sourceTree = "<group>"; };
+		3DEFFBF31652F36C00B28A3C /* Spring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spring.h; sourceTree = "<group>"; };
+		3DEFFBFB16530B6800B28A3C /* Body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Body.cpp; sourceTree = "<group>"; };
+		3DEFFBFC16530B6800B28A3C /* Body.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Body.h; sourceTree = "<group>"; };
+		3DEFFC4A1653E1B200B28A3C /* Vertex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vertex.cpp; sourceTree = "<group>"; };
+		3DEFFC4B1653E1B200B28A3C /* Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
 		3c232045833313b99efe0b14840b6108 /* ofxCvMain.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCvMain.h; path = ../../../addons/ofxOpenCv/src/ofxCvMain.h; sourceTree = SOURCE_ROOT; };
 		452417865e4bfb10c9cbf8a2e12a0b57 /* internal.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = internal.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/internal.hpp; sourceTree = SOURCE_ROOT; };
 		45410dd818bb205166e67e89e7443a54 /* any.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = any.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/any.h; sourceTree = SOURCE_ROOT; };
@@ -470,12 +470,12 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
-				3DEFFBFC16530B6800B28A3C /* creature.h */,
-				3DEFFBFB16530B6800B28A3C /* creature.cpp */,
-				3DEFFBF11652F36C00B28A3C /* particle.h */,
-				3DEFFBF01652F36C00B28A3C /* particle.cpp */,
-				3DEFFBF31652F36C00B28A3C /* spring.h */,
-				3DEFFBF21652F36C00B28A3C /* spring.cpp */,
+				3DEFFBFC16530B6800B28A3C /* Body.h */,
+				3DEFFBFB16530B6800B28A3C /* Body.cpp */,
+				3DEFFC4B1653E1B200B28A3C /* Vertex.h */,
+				3DEFFC4A1653E1B200B28A3C /* Vertex.cpp */,
+				3DEFFBF31652F36C00B28A3C /* Spring.h */,
+				3DEFFBF21652F36C00B28A3C /* Spring.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -675,9 +675,9 @@
 				e212c821d1064b92dd953a42edc08aa7 /* ofxCvHaarFinder.cpp in Sources */,
 				63020f16c7e8ded9801112417e67ad38 /* ofxCvImage.cpp in Sources */,
 				d3301f6a0b43bb293ed97c1d5d26c840 /* ofxCvShortImage.cpp in Sources */,
-				3DEFFBF41652F36C00B28A3C /* particle.cpp in Sources */,
-				3DEFFBF51652F36C00B28A3C /* spring.cpp in Sources */,
-				3DEFFBFD16530B6800B28A3C /* creature.cpp in Sources */,
+				3DEFFBF51652F36C00B28A3C /* Spring.cpp in Sources */,
+				3DEFFBFD16530B6800B28A3C /* Body.cpp in Sources */,
+				3DEFFC4C1653E1B200B28A3C /* Vertex.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

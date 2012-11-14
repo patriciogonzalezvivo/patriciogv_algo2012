@@ -1,12 +1,12 @@
 //
-//  creature.h
+//  Body.h
 //
 //  Created by Patricio Gonzalez Vivo on 11/13/12.
 //
 //
 
-#ifndef CREATURE
-#define CREATURE
+#ifndef BODY
+#define BODY
 
 #include "ofMain.h"
 
@@ -21,15 +21,16 @@ const int       MaxVertices = 500;
 const int       MaxTriangles = 1000;
 const double    EPSILON = 0.000001;
 
-struct          IEDGE{   int p1, p2; };
-struct          ITRIANGLE{   int p1, p2, p3; };
-int             Triangulate(int nv, ofPoint pxyz[], ITRIANGLE v[], int &ntri);
+struct          Edge{   int p1, p2; };
+struct          Triangle{   int p1, p2, p3; };
+int             Triangulate(int nv, ofPoint pxyz[], Triangle v[], int &ntri);
 int             CircumCircle(double, double, double, double, double, double, double, double, double&, double&, double&);
 
 
-class creature {
+class Body {
 public:
-    creature();
+    Body();
+    ~Body();
     
     void    init(string _file, ofPoint _initPos);
     
@@ -40,7 +41,7 @@ public:
     void    stopEditMode();
     void    togleEditMode();
     
-    void    addParticle(ofPoint _pos);
+    void    addVertex(ofPoint _pos);
     int     getIndexAt(ofPoint _pos);
     bool    addSpring(unsigned int _from, unsigned int _to);
     
@@ -58,16 +59,16 @@ private:
     void    _updateMesh();
     void    _updateSpringsConectedTo(int _index);
     
-    vector<particle*>   particles;
-    vector<spring>      springs;
-    vector<ITRIANGLE>   triangles;
+    vector<Vertex*>     vertices;
+    vector<Spring>      springs;
+    vector<Triangle>    triangles;
     
     ofImage image;
     ofPoint centerImage;
     
     ofPoint origin;
     
-    int     nSelectedParticle;
+    int     nSelectedVertex;
     int     nTriangles;
     
     bool    bRightClick;
