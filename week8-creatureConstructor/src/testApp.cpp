@@ -5,13 +5,14 @@ void testApp::setup(){
     ofEnableAlphaBlending();
     ofSetVerticalSync(true);
     
-//    thing.init("ouroboros.png", ofPoint(800,270));
-    thing.load("ouroboros.xml", ofPoint(800,270) );
+//    thing.init("sun.png", ofPoint(800,ofGetHeight()*0.5));
+    thing.load("sun.xml", ofPoint(800,270) );
     thing.startEditMode();
     bEdit = true;
     
     VF.setupField( ofGetWidth()/20, ofGetHeight()/20, ofGetWidth(), ofGetHeight());
     bPlay = false;
+    bNoise = false;
 }
 
 //--------------------------------------------------------------
@@ -19,6 +20,8 @@ void testApp::update(){
 
     if (bPlay){
         VF.fadeField(0.99);
+        if (bNoise)
+            VF.noiseField();
         
         thing.update( &VF );
     }
@@ -48,6 +51,8 @@ void testApp::keyPressed(int key){
     } else if (key == 's'){
         string filename = "t"+ofToString(ofGetDay())+"-"+ofToString(ofGetHours())+"-"+ofToString(ofGetMinutes())+"-"+ofToString(ofGetSeconds());
         thing.save(filename+".xml");
+    } else if (key == 'n'){
+        bNoise = !bNoise;
     }
 }
 

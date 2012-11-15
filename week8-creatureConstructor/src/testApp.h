@@ -29,4 +29,5 @@ public:
     
     bool        bEdit;
     bool        bPlay;
+    bool        bNoise;
 };
