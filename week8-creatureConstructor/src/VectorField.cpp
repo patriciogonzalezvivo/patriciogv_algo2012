@@ -32,12 +32,10 @@ void VectorField::setupField(int _cols, int _rows, int _width, int _height){
     nTotal = cols * rows;
     
 	for(int i = 0; i < 2; i++){
-        
         if (buffer[i] != NULL){
             delete [] buffer[i];
         }
         
-        cout << "Creating buffer"<< i << " width " << nTotal << " elements"<< endl;
         buffer[i] = new ofPoint[nTotal];
     }
     

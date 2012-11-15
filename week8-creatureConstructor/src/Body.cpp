@@ -11,6 +11,9 @@ Body::Body(){
     bEdit           = false;
     bRightClick     = false;
     nVertexSelected = -1;
+    nVertexHover    = -1;
+    nVertexSelected = -1;
+    nSpringHover    = -1;
     imageFile       = "none";
     origin          = ofPoint(-1,-1);
     imageCenter     = ofPoint(-1,-1);
@@ -20,6 +23,7 @@ Body::~Body(){
     clear();
 }
 
+// ----------------------------------------------------- SETUP
 bool Body::init(string _file, ofPoint _initPos){
     if ( image.loadImage(_file) ){
         imageFile = _file;
@@ -35,7 +39,6 @@ bool Body::init(string _file, ofPoint _initPos){
     }
 }
 
-// ----------------------------------------------------- SETUP
 bool Body::load( string _file, ofPoint _initPos ){
     
     ofxXmlSettings XML;
@@ -77,19 +80,6 @@ bool Body::load( string _file, ofPoint _initPos ){
     } else {
         return false;
     }
-}
-
-int Body::_getIndexForId(int _nId){
-    int rta = -1;
-    
-    for(int i = 0; i < vertices.size(); i++){
-        if ( vertices[i]->nId == _nId){
-            rta = i;
-            break;
-        }
-    }
-    
-    return rta;
 }
 
 bool Body::save( string _file ){
@@ -143,6 +133,10 @@ void Body::startEditMode(){
         ofAddListener(ofEvents().mousePressed, this, &Body::_mousePressed);
         ofAddListener(ofEvents().mouseDragged, this, &Body::_mouseDragged);
         ofAddListener(ofEvents().mouseReleased, this, &Body::_mouseReleased);
+        nVertexSelected = -1;
+        nVertexHover    = -1;
+        nVertexSelected = -1;
+        nSpringHover    = -1;
         bEdit = true;
     }
 }
@@ -152,6 +146,10 @@ void Body::stopEditMode(){
         ofRemoveListener(ofEvents().mousePressed, this, &Body::_mousePressed);
         ofRemoveListener(ofEvents().mouseDragged, this, &Body::_mouseDragged);
         ofRemoveListener(ofEvents().mouseReleased, this, &Body::_mouseReleased);
+        nVertexSelected = -1;
+        nVertexHover    = -1;
+        nVertexSelected = -1;
+        nSpringHover    = -1;
         bEdit = false;
     }
 }
@@ -186,6 +184,62 @@ void Body::restart(){
     }
 }
 
+// -------------------------------------------- INFO ( Maths ) 
+int Body::_getIndexForId(int _nId){
+    int rta = -1;
+    
+    for(int i = 0; i < vertices.size(); i++){
+        if ( vertices[i]->nId == _nId){
+            rta = i;
+            break;
+        }
+    }
+    
+    return rta;
+}
+
+ofPoint Body::_getNormalPoint(ofPoint p, ofPoint a, ofPoint b) {
+    ofPoint ap = p - a;
+    ofPoint ab = b - a;
+    ab.normalize();
+    ab *= ap.dot(ab);
+    return a+ab;
+}
+
+int Body::getVertexIndexAt( ofPoint _pos, float _maxDist ){
+    int rta = -1;
+    
+    for (int i = 0; i < vertices.size(); i++) {
+        if (_pos.distance( vertices[i]->getTexCoord() ) < _maxDist){
+            rta = i;
+        }
+    }
+    
+    return rta;
+}
+
+int Body::getSpringIndexAt( ofPoint _pos, float _maxDist ){
+    int rta = -1;
+    
+    for (int i = 0; i < springs.size() ; i++) {
+        
+        ofPoint a = springs[i].vertexA->getTexCoord();
+        ofPoint b = springs[i].vertexB->getTexCoord();
+        float   distance = springs[i].dist;
+        
+        ofPoint normalPoint = _getNormalPoint(_pos, a, b);
+        
+        if ( (b-a).length() == (normalPoint - a).length() + (b - normalPoint).length() ){
+            if (_pos.distance(normalPoint) < _maxDist){
+                rta = i;
+                break;
+            }
+        }
+    }
+    
+    return rta;
+}
+//---------------------------------------------------- ACCIONS ( PHYSICS )
 void Body::addVertex(ofPoint _pos){
     Vertex *newVertex = new Vertex();
     
@@ -200,18 +254,6 @@ void Body::addVertex(ofPoint _pos){
     newVertex->nId = vertices.size();
     
     vertices.push_back(newVertex);
-}
-
-int Body::getIndexAt(ofPoint _pos){
-    int rta = -1;
-    
-    for (int i = 0; i < vertices.size(); i++) {
-        if (_pos.distance( vertices[i]->getTexCoord() ) < 10){
-            rta = i;
-        }
-    }
-    
-    return rta;
 }
 
 bool Body::addSpring(unsigned int _from, unsigned int _to, float _k ){
@@ -230,6 +272,16 @@ bool Body::addSpring(unsigned int _from, unsigned int _to, float _k ){
     }
     
     return rta;
+}
+
+void Body::_updateSpringsConectedTo(int _index){
+    int nId = vertices[_index]->nId;
+    
+    for (int i = 0; i < springs.size(); i++){
+        if ( (springs[i].vertexA->nId == nId) || ( springs[i].vertexB->nId == nId) ){
+            springs[i].dist = springs[i].vertexA->getTexCoord().distance(springs[i].vertexB->getTexCoord());
+        }
+    }
 }
 
 void Body::update(VectorField *_VF){
@@ -260,133 +312,7 @@ void Body::update(VectorField *_VF){
 	}
 }
 
-void    update(VectorField &_VF){
-    
-}
-
-void Body::draw(){
-    if (bEdit){
-        ofPushStyle();
-        ofSetColor(255,100);
-        image.draw(0, 0);
-        
-        ofSetColor(100);
-        ofPushMatrix();
-        ofTranslate(imageCenter);
-        ofLine(5,0,-5,0);
-        ofLine(0,5,0,-5);
-        ofPopMatrix();
-        
-        ofSetColor(150);
-        ofPushMatrix();
-        ofTranslate(origin);
-        ofLine(5,0,-5,0);
-        ofLine(0,5,0,-5);
-        ofPopMatrix();
-        
-        ofSetColor(0,80);
-        for (int i = 0; i < springs.size(); i++){
-            ofLine(springs[i].vertexA->getTexCoord(), springs[i].vertexB->getTexCoord());
-        }
-        
-        ofPoint mouse = ofPoint(ofGetMouseX(),ofGetMouseY());
-        nVertexHover = getIndexAt(mouse);
-        
-        ofSetColor(0,180);
-        
-        for (int i = 0; i < vertices.size(); i++){
-            if ( i == nVertexHover){
-                ofNoFill();
-                ofCircle( vertices[i]->getTexCoord(), 5);
-            }
-            
-            ofFill();
-            ofCircle(vertices[i]->getTexCoord(),3);
-        }
-        
-        //  There is spring setting in progress here
-        //
-        if(nVertexSelected != -1){
-            ofNoFill();
-            ofSetColor(0,200);
-            ofCircle( vertices[nVertexSelected]->getTexCoord(), 5);
-            ofLine( vertices[nVertexSelected]->getTexCoord(), mouse);
-        }
-        
-        ofPopStyle();
-    }
-    
-    _updateMesh();
-    
-    ofSetColor(255);
-    image.bind();
-    mesh.draw();
-    image.unbind();
-    
-    if (bEdit){
-        ofSetColor(0,50);
-        mesh.drawWireframe();
-    }
-}
-
-void Body::_mousePressed(ofMouseEventArgs &e){
-	if(bEdit){
-        ofPoint mouse = ofPoint(e.x,e.y);
-        int index = getIndexAt(mouse);
-        
-        if (index == -1){
-            addVertex(mouse);
-        } else {
-            nVertexSelected = index;
-        }
-        
-        if (e.button != 0) {
-            bRightClick = true;
-        }
-    }
-}
-
-void Body::_mouseDragged(ofMouseEventArgs &e){
-    ofPoint mouse = ofPoint(e.x,e.y);
-    
-    if (bRightClick){
-        if (nVertexSelected != -1){
-            vertices[nVertexSelected]->setTexCoord(mouse);
-            _updateSpringsConectedTo(nVertexSelected);
-        }
-    }
-}
-
-void Body::_mouseReleased(ofMouseEventArgs &e){
-    if (bEdit){
-        ofPoint mouse = ofPoint(e.x,e.y);
-        int index = getIndexAt(mouse);
-        
-        if ( nVertexSelected != -1){
-            if ( index == -1 ){
-                addVertex(mouse);
-                index = vertices.size()-1;
-            }
-            addSpring(nVertexSelected, index);
-        }
-        
-        _calculateTriangles();
-        _updateMesh();
-        
-        nVertexSelected = -1;
-        bRightClick = false;
-    }
-}
-
-void Body::_updateSpringsConectedTo(int _index){
-    int nId = vertices[_index]->nId;
-    
-    for (int i = 0; i < springs.size(); i++){
-        if ( (springs[i].vertexA->nId == nId) || ( springs[i].vertexB->nId == nId) ){
-            springs[i].dist = springs[i].vertexA->getTexCoord().distance(springs[i].vertexB->getTexCoord());
-        }
-    }
-}
+//------------------------------------------------- RENDERING
 
 // comparison routine for sort...
 //
@@ -426,25 +352,6 @@ void Body::_calculateTriangles(){
         nTriangles = 0;
         Triangulate( nv, &tmpVertices[0], &triangles[0], nTriangles );
     }
-}
-
-void Body::_updateMesh(){
-	mesh.clear();
-    
-    //  Pass the position of the vertices
-    //
-	for (int i = 0; i < vertices.size(); i++){
-        mesh.addVertex( *vertices[i] );
-        mesh.addTexCoord( vertices[i]->getTexCoord() );
-    }
-
-    //  Pass the triagles indices of how to arrange them
-    //
-	for(int i = 0; i < nTriangles; i++){
-		mesh.addIndex(triangles[ i ].p1);
-		mesh.addIndex(triangles[ i ].p2);
-		mesh.addIndex(triangles[ i ].p3);
-	}
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -666,4 +573,180 @@ int Triangulate(int nv, ofPoint pxyz[], Triangle v[], int &ntri){
     delete[] edges;
     delete[] complete;
     return 0;
-} 
+}
+
+void Body::_updateMesh(){
+	mesh.clear();
+    
+    //  Pass the position of the vertices
+    //
+	for (int i = 0; i < vertices.size(); i++){
+        mesh.addVertex( *vertices[i] );
+        mesh.addTexCoord( vertices[i]->getTexCoord() );
+    }
+    
+    //  Pass the triagles indices of how to arrange them
+    //
+	for(int i = 0; i < nTriangles; i++){
+		mesh.addIndex(triangles[ i ].p1);
+		mesh.addIndex(triangles[ i ].p2);
+		mesh.addIndex(triangles[ i ].p3);
+	}
+}
+
+void Body::draw(){
+    if (bEdit){
+        ofPushStyle();
+        
+        //  Get Info
+        //
+        ofPoint mouse = ofPoint(ofGetMouseX(),ofGetMouseY());
+        
+        //  If nothing is selected then lisen hover states
+        //
+        if (nVertexSelected == -1 && nSpringSelected == -1){
+            nVertexHover = getVertexIndexAt(mouse);
+            nSpringHover = getSpringIndexAt(mouse);
+        }
+        
+        //  Draw Texture
+        //
+        ofSetColor(255,100);
+        image.draw(0, 0);
+        
+        //  Draw Springs
+        //
+        ofSetColor(0,80);
+        ofFloatColor lineColor = ofFloatColor(1.0,0.0,0.0);
+        for (int i = 0; i < springs.size(); i++){
+            ofPushStyle();
+            
+            if (nSpringHover == i){
+                ofSetLineWidth(3);
+            }
+            lineColor.setHue( 0.5 + springs[i].k );
+            
+            ofSetColor(lineColor,100);
+            ofLine(springs[i].vertexA->getTexCoord(), springs[i].vertexB->getTexCoord());
+            
+            if ( nSpringHover == i){
+                ofSetColor(lineColor, 255);
+                ofDrawBitmapString(ofToString(springs[i].k), mouse.x+5, mouse.y - 5);
+            }
+            ofPopStyle();
+        }
+        
+        //  Draw Vectors
+        //
+        ofSetColor(0,180);
+        for (int i = 0; i < vertices.size(); i++){
+            if ( i == nVertexHover){
+                ofNoFill();
+                ofCircle( vertices[i]->getTexCoord(), 5);
+            }
+            
+            ofFill();
+            ofCircle(vertices[i]->getTexCoord(),3);
+        }
+        
+        //  There is spring setting in progress here
+        //
+        if(nVertexSelected != -1){
+            ofNoFill();
+            ofSetColor(0,200);
+            ofCircle( vertices[nVertexSelected]->getTexCoord(), 5);
+            ofLine( vertices[nVertexSelected]->getTexCoord(), mouse);
+        }
+        
+        ofPopStyle();
+    }
+    
+    _updateMesh();
+    
+    ofSetColor(255);
+    image.bind();
+    mesh.draw();
+    image.unbind();
+    
+    if (bEdit){
+        ofSetColor(0,50);
+        mesh.drawWireframe();
+    }
+}
+
+//--------------------------------------------------- EVENTS
+void Body::_mousePressed(ofMouseEventArgs &e){
+	if(bEdit){
+        ofPoint mouse = ofPoint(e.x,e.y);
+        
+        //  If Nothing Selected
+        //
+        if ( nVertexSelected == -1 && nSpringSelected == -1){
+            
+            if ( nVertexHover != -1 ) {
+                //  If click over a vertex
+                //
+                nVertexSelected = nVertexHover;
+            } else if ( nSpringHover != -1) {
+                //  If click over a spring
+                //
+                nSpringSelected = nSpringHover;
+            } else {
+                //  If click over nothing
+                //
+                addVertex(mouse);
+            }
+            
+            if (e.button != 0) {
+                bRightClick = true;
+            }
+        }
+    }
+}
+
+void Body::_mouseDragged(ofMouseEventArgs &e){
+    ofPoint mouse = ofPoint(e.x,e.y);
+    
+    if (bRightClick){
+        
+        if (nVertexSelected != -1){
+            vertices[nVertexSelected]->setTexCoord(mouse);
+            _updateSpringsConectedTo(nVertexSelected);
+            _updateMesh();
+        } else if ( nSpringSelected != -1){
+            
+            ofPoint a = springs[nSpringSelected].vertexA->getTexCoord();
+            ofPoint b = springs[nSpringSelected].vertexB->getTexCoord();
+            float   distance = springs[nSpringSelected].dist;
+            
+            ofPoint normalPoint = _getNormalPoint(mouse, a, b);
+            
+            springs[nSpringSelected].k = ofMap((normalPoint-a).length()/(b-a).length(),
+                                               0.0,1.0,0.0,0.5);
+            
+        }
+        
+    }
+}
+
+void Body::_mouseReleased(ofMouseEventArgs &e){
+    if (bEdit){
+        ofPoint mouse = ofPoint(e.x,e.y);
+        int index = getVertexIndexAt(mouse);
+        
+        if ( nVertexSelected != -1){
+            if ( index == -1 ){
+                addVertex(mouse);
+                index = vertices.size()-1;
+            }
+            addSpring(nVertexSelected, index);
+        }
+        
+        _calculateTriangles();
+        _updateMesh();
+        
+        nVertexSelected = -1;
+        nSpringSelected = -1;
+        bRightClick = false;
+    }
+}

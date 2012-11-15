@@ -45,7 +45,8 @@ public:
     void    stopEditMode();
     void    togleEditMode();
     
-    int     getIndexAt(ofPoint _pos);
+    int     getVertexIndexAt( ofPoint _pos, float _maxDist = 10 );
+    int     getSpringIndexAt( ofPoint _pos, float _maxDist = 7 );
     
     void    addVertex(ofPoint _pos);
     bool    addSpring(unsigned int _from, unsigned int _to, float _k = 0.2f);
@@ -62,6 +63,7 @@ private:
     void    _updateMesh();
     void    _updateSpringsConectedTo(int _index);
     int     _getIndexForId(int _nId);
+    ofPoint _getNormalPoint(ofPoint p, ofPoint a, ofPoint b);
     
     vector<Vertex*>     vertices;
     vector<Spring>      springs;
@@ -75,8 +77,12 @@ private:
     
     ofPoint origin;
     
-    int     nVertexSelected;
     int     nVertexHover;
+    int     nVertexSelected;
+    
+    int     nSpringHover;
+    int     nSpringSelected;
+    
     int     nTriangles;
     
     bool    bRightClick;
