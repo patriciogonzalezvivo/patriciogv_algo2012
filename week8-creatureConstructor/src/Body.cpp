@@ -24,9 +24,9 @@ bool Body::init(string _file, ofPoint _initPos){
     if ( image.loadImage(_file) ){
         imageFile = _file;
         imageCenter.set(image.getWidth()*0.5, image.getHeight()*0.5);
-        
+
         origin = _initPos;
-    
+        
         clear();
         
         return true;
@@ -232,19 +232,36 @@ bool Body::addSpring(unsigned int _from, unsigned int _to, float _k ){
     return rta;
 }
 
-void Body::update(){
+void Body::update(VectorField *_VF){
 	for (int i = 0; i < springs.size(); i++){
 		springs[i].update();
 	}
 	
     for (int i = 0; i < vertices.size(); i++){
+        
+        //  Gravity
+        //
 //		vertices[i]->addForce(0,0.1f);
-		vertices[i]->addRepulsionForce(ofPoint (ofGetMouseX(), ofGetMouseY()),
-                                        300,
-                                        0.7f);
+        
+        //  Simple Mouse Interaction
+        //
+//		vertices[i]->addRepulsionForce(ofPoint (ofGetMouseX(), ofGetMouseY()), 300, 0.7f);
+        
+        //  If there is a VectorFeal use it
+        //
+        if(_VF != NULL){
+            if ( _VF->inside( *vertices[i] ) ){
+                vertices[i]->addForce(  _VF->getForceFromPos( *vertices[i] ) );
+            }
+        }
+        
         vertices[i]->bounceOffWalls();
 		vertices[i]->update();
 	}
+}
+
+void    update(VectorField &_VF){
+    
 }
 
 void Body::draw(){

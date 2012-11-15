@@ -5,10 +5,12 @@ void testApp::setup(){
     ofEnableAlphaBlending();
     ofSetVerticalSync(true);
     
-//    thing.init("ouroboros.png", ofPoint(800,300));
-    thing.load("ouroboros.xml", ofPoint(800,300) );
+//    thing.init("ouroboros.png", ofPoint(800,270));
+    thing.load("ouroboros.xml", ofPoint(800,270) );
     thing.startEditMode();
+    bEdit = true;
     
+    VF.setupField( ofGetWidth()/20, ofGetHeight()/20, ofGetWidth(), ofGetHeight());
     bPlay = false;
 }
 
@@ -16,12 +18,18 @@ void testApp::setup(){
 void testApp::update(){
 
     if (bPlay){
-        thing.update();
+        VF.fadeField(0.99);
+        
+        thing.update( &VF );
     }
+    
+    ofSetWindowTitle(ofToString(ofGetFrameRate()));
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    
+    VF.draw();
     
     thing.draw();
 }
@@ -29,7 +37,9 @@ void testApp::draw(){
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
     if(key == 'e'){
+        bEdit = !bEdit;
         thing.togleEditMode();
+        bPlay = !bEdit;
     } else if (key == 'p'){
         bPlay = !bPlay;
     } else if (key == 'r'){
@@ -54,12 +64,21 @@ void testApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-
+    if (!bEdit){
+        float diffx = x - prevMouseX;
+        float diffy = y - prevMouseY;
+        
+        VF.addVectorCircle((float)x, (float)y, diffx*0.3, diffy*0.3, 60, 0.3f);
+        
+        prevMouseX = x;
+        prevMouseY = y;
+    }
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-    
+    prevMouseX = x;
+	prevMouseY = y;
 }
 
 //--------------------------------------------------------------

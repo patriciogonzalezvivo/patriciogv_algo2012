@@ -4,32 +4,30 @@
 //  Created by Patricio Gonzalez Vivo on 11/13/12.
 //
 //
-
 #ifndef BODY
 #define BODY
 
 #include "ofMain.h"
-
 #include "ofxXmlSettings.h"
 
-#include "spring.h"
+#include "Spring.h"
+#include "VectorField.h"
 
 //  Triangulation
 //
 #include <iostream>
 #include <stdlib.h> // for C qsort
+#include <time.h>   // for random
 #include <cmath>
-#include <time.h> // for random
-
+//
 const int       MaxVertices = 500;
 const int       MaxTriangles = 1000;
 const double    EPSILON = 0.000001;
-
-struct          Edge{   int p1, p2; };
-struct          Triangle{   int p1, p2, p3; };
-int             Triangulate(int nv, ofPoint pxyz[], Triangle v[], int &ntri);
-int             CircumCircle(double, double, double, double, double, double, double, double, double&, double&, double&);
-
+//
+struct          Edge{ int p1, p2; };
+struct          Triangle{ int p1, p2, p3; };
+int             Triangulate( int nv, ofPoint pxyz[], Triangle v[], int &ntri );
+int             CircumCircle( double, double, double, double, double, double, double, double, double&, double&, double& );
 
 class Body {
 public:
@@ -47,11 +45,12 @@ public:
     void    stopEditMode();
     void    togleEditMode();
     
-    void    addVertex(ofPoint _pos);
     int     getIndexAt(ofPoint _pos);
+    
+    void    addVertex(ofPoint _pos);
     bool    addSpring(unsigned int _from, unsigned int _to, float _k = 0.2f);
     
-    void    update();
+    void    update(VectorField *_VF = NULL);
     void    draw();
     
 private:

@@ -1,7 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
+
 #include "Body.h"
+#include "VectorField.h"
 
 class testApp : public ofBaseApp{
 public:
@@ -20,5 +22,11 @@ public:
     void gotMessage(ofMessage msg);
 
     Body        thing;
+    VectorField VF;
+    
+    float       prevMouseX;
+    float       prevMouseY;
+    
+    bool        bEdit;
     bool        bPlay;
 };
