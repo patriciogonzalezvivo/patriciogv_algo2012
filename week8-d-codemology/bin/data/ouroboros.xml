@@ -1,0 +1,1561 @@
+<texture>ouroboros.png</texture>
+<vertex>
+    <pos>
+        <x>98.000000000</x>
+        <y>302.000000000</y>
+    </pos>
+    <nId>61</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>99.000000000</x>
+        <y>258.000000000</y>
+    </pos>
+    <nId>66</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>102.000000000</x>
+        <y>329.000000000</y>
+    </pos>
+    <nId>67</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>108.000000000</x>
+        <y>226.000000000</y>
+    </pos>
+    <nId>63</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>114.000000000</x>
+        <y>362.000000000</y>
+    </pos>
+    <nId>59</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>128.000000000</x>
+        <y>189.000000000</y>
+    </pos>
+    <nId>68</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>145.000000000</x>
+        <y>244.000000000</y>
+    </pos>
+    <nId>65</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>147.000000000</x>
+        <y>293.000000000</y>
+    </pos>
+    <nId>62</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>157.000000000</x>
+        <y>418.000000000</y>
+    </pos>
+    <nId>58</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>158.000000000</x>
+        <y>199.000000000</y>
+    </pos>
+    <nId>64</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>160.000000000</x>
+        <y>154.000000000</y>
+    </pos>
+    <nId>69</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>163.000000000</x>
+        <y>334.000000000</y>
+    </pos>
+    <nId>60</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>179.000000000</x>
+        <y>172.000000000</y>
+    </pos>
+    <nId>70</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>183.000000000</x>
+        <y>143.000000000</y>
+    </pos>
+    <nId>73</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>189.000000000</x>
+        <y>362.000000000</y>
+    </pos>
+    <nId>57</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>202.000000000</x>
+        <y>155.000000000</y>
+    </pos>
+    <nId>71</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>210.000000000</x>
+        <y>130.000000000</y>
+    </pos>
+    <nId>74</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>225.000000000</x>
+        <y>143.000000000</y>
+    </pos>
+    <nId>72</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>226.000000000</x>
+        <y>460.000000000</y>
+    </pos>
+    <nId>55</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>236.000000000</x>
+        <y>389.000000000</y>
+    </pos>
+    <nId>56</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>249.000000000</x>
+        <y>123.000000000</y>
+    </pos>
+    <nId>1</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>250.000000000</x>
+        <y>139.000000000</y>
+    </pos>
+    <nId>0</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>282.000000000</x>
+        <y>74.000000000</y>
+    </pos>
+    <nId>9</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>282.000000000</x>
+        <y>92.000000000</y>
+    </pos>
+    <nId>8</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>286.000000000</x>
+        <y>396.000000000</y>
+    </pos>
+    <nId>47</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>287.000000000</x>
+        <y>150.000000000</y>
+    </pos>
+    <nId>4</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>287.000000000</x>
+        <y>114.000000000</y>
+    </pos>
+    <nId>2</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>291.000000000</x>
+        <y>472.000000000</y>
+    </pos>
+    <nId>46</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>295.000000000</x>
+        <y>347.000000000</y>
+    </pos>
+    <nId>50</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>299.000000000</x>
+        <y>103.000000000</y>
+    </pos>
+    <nId>18</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>302.000000000</x>
+        <y>77.000000000</y>
+    </pos>
+    <nId>10</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>311.000000000</x>
+        <y>359.000000000</y>
+    </pos>
+    <nId>49</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>311.000000000</x>
+        <y>275.000000000</y>
+    </pos>
+    <nId>51</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>321.000000000</x>
+        <y>374.000000000</y>
+    </pos>
+    <nId>48</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>331.000000000</x>
+        <y>163.000000000</y>
+    </pos>
+    <nId>5</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>331.000000000</x>
+        <y>106.000000000</y>
+    </pos>
+    <nId>3</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>335.000000000</x>
+        <y>75.000000000</y>
+    </pos>
+    <nId>11</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>337.000000000</x>
+        <y>61.000000000</y>
+    </pos>
+    <nId>12</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>350.000000000</x>
+        <y>340.000000000</y>
+    </pos>
+    <nId>54</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>353.000000000</x>
+        <y>276.000000000</y>
+    </pos>
+    <nId>52</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>355.000000000</x>
+        <y>463.000000000</y>
+    </pos>
+    <nId>45</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>356.000000000</x>
+        <y>229.000000000</y>
+    </pos>
+    <nId>39</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>357.000000000</x>
+        <y>299.000000000</y>
+    </pos>
+    <nId>53</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>358.000000000</x>
+        <y>83.000000000</y>
+    </pos>
+    <nId>14</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>360.000000000</x>
+        <y>68.000000000</y>
+    </pos>
+    <nId>13</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>362.000000000</x>
+        <y>292.000000000</y>
+    </pos>
+    <nId>30</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>376.000000000</x>
+        <y>84.000000000</y>
+    </pos>
+    <nId>15</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>378.000000000</x>
+        <y>267.000000000</y>
+    </pos>
+    <nId>38</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>380.000000000</x>
+        <y>165.000000000</y>
+    </pos>
+    <nId>7</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>382.000000000</x>
+        <y>308.000000000</y>
+    </pos>
+    <nId>31</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>389.000000000</x>
+        <y>111.000000000</y>
+    </pos>
+    <nId>6</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>400.000000000</x>
+        <y>272.000000000</y>
+    </pos>
+    <nId>42</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>400.000000000</x>
+        <y>342.000000000</y>
+    </pos>
+    <nId>32</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>401.000000000</x>
+        <y>101.000000000</y>
+    </pos>
+    <nId>17</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>404.000000000</x>
+        <y>447.000000000</y>
+    </pos>
+    <nId>44</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>404.000000000</x>
+        <y>287.000000000</y>
+    </pos>
+    <nId>37</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>408.000000000</x>
+        <y>83.000000000</y>
+    </pos>
+    <nId>16</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>410.000000000</x>
+        <y>215.000000000</y>
+    </pos>
+    <nId>40</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>418.000000000</x>
+        <y>286.000000000</y>
+    </pos>
+    <nId>36</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>420.000000000</x>
+        <y>238.000000000</y>
+    </pos>
+    <nId>41</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>422.000000000</x>
+        <y>216.000000000</y>
+    </pos>
+    <nId>20</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>429.000000000</x>
+        <y>284.000000000</y>
+    </pos>
+    <nId>24</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>434.000000000</x>
+        <y>363.000000000</y>
+    </pos>
+    <nId>33</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>437.000000000</x>
+        <y>254.000000000</y>
+    </pos>
+    <nId>23</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>442.000000000</x>
+        <y>135.000000000</y>
+    </pos>
+    <nId>19</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>444.000000000</x>
+        <y>306.000000000</y>
+    </pos>
+    <nId>35</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>454.000000000</x>
+        <y>412.000000000</y>
+    </pos>
+    <nId>43</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>457.000000000</x>
+        <y>333.000000000</y>
+    </pos>
+    <nId>34</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>476.000000000</x>
+        <y>170.000000000</y>
+    </pos>
+    <nId>26</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>480.000000000</x>
+        <y>371.000000000</y>
+    </pos>
+    <nId>25</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>489.000000000</x>
+        <y>195.000000000</y>
+    </pos>
+    <nId>27</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>498.000000000</x>
+        <y>330.000000000</y>
+    </pos>
+    <nId>29</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>500.000000000</x>
+        <y>213.000000000</y>
+    </pos>
+    <nId>21</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>508.000000000</x>
+        <y>252.000000000</y>
+    </pos>
+    <nId>28</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>508.000000000</x>
+        <y>284.000000000</y>
+    </pos>
+    <nId>22</nId>
+</vertex>
+<spring>
+    <A>1</A>
+    <B>0</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>0</A>
+    <B>4</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>4</A>
+    <B>2</B>
+    <k>0.402777791</k>
+</spring>
+<spring>
+    <A>2</A>
+    <B>1</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>1</A>
+    <B>4</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>0</A>
+    <B>2</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>2</A>
+    <B>3</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>3</A>
+    <B>5</B>
+    <k>0.315789461</k>
+</spring>
+<spring>
+    <A>5</A>
+    <B>4</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>4</A>
+    <B>3</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>2</A>
+    <B>5</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>5</A>
+    <B>6</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>3</A>
+    <B>6</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>3</A>
+    <B>7</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>7</A>
+    <B>5</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>7</A>
+    <B>6</B>
+    <k>0.340840816</k>
+</spring>
+<spring>
+    <A>18</A>
+    <B>17</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>18</A>
+    <B>8</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>8</A>
+    <B>9</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>9</A>
+    <B>10</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>10</A>
+    <B>11</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>11</A>
+    <B>12</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>12</A>
+    <B>13</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>13</A>
+    <B>14</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>14</A>
+    <B>15</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>15</A>
+    <B>16</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>16</A>
+    <B>17</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>17</A>
+    <B>15</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>16</A>
+    <B>18</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>14</A>
+    <B>18</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>14</A>
+    <B>11</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>11</A>
+    <B>13</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>12</A>
+    <B>14</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>17</A>
+    <B>14</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>11</A>
+    <B>18</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>18</A>
+    <B>10</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>9</A>
+    <B>18</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>8</A>
+    <B>10</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>8</A>
+    <B>11</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>14</A>
+    <B>10</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>17</A>
+    <B>6</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>18</A>
+    <B>2</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>18</A>
+    <B>3</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>3</A>
+    <B>17</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>3</A>
+    <B>11</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>3</A>
+    <B>14</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>3</A>
+    <B>10</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>3</A>
+    <B>15</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>6</A>
+    <B>14</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>7</A>
+    <B>19</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>6</A>
+    <B>19</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>6</A>
+    <B>20</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>20</A>
+    <B>7</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>20</A>
+    <B>19</B>
+    <k>0.363309920</k>
+</spring>
+<spring>
+    <A>19</A>
+    <B>21</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>21</A>
+    <B>20</B>
+    <k>0.378631204</k>
+</spring>
+<spring>
+    <A>20</A>
+    <B>23</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>23</A>
+    <B>22</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>22</A>
+    <B>21</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>19</A>
+    <B>26</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>21</A>
+    <B>27</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>27</A>
+    <B>26</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>26</A>
+    <B>20</B>
+    <k>0.330286086</k>
+</spring>
+<spring>
+    <A>20</A>
+    <B>27</B>
+    <k>0.364908695</k>
+</spring>
+<spring>
+    <A>21</A>
+    <B>28</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>28</A>
+    <B>22</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>28</A>
+    <B>23</B>
+    <k>0.394450039</k>
+</spring>
+<spring>
+    <A>23</A>
+    <B>24</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>24</A>
+    <B>25</B>
+    <k>0.308702111</k>
+</spring>
+<spring>
+    <A>25</A>
+    <B>29</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>29</A>
+    <B>22</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>29</A>
+    <B>24</B>
+    <k>0.424749225</k>
+</spring>
+<spring>
+    <A>23</A>
+    <B>29</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>22</A>
+    <B>24</B>
+    <k>0.392405063</k>
+</spring>
+<spring>
+    <A>22</A>
+    <B>20</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>28</A>
+    <B>20</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>28</A>
+    <B>24</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>29</A>
+    <B>20</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>36</A>
+    <B>24</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>36</A>
+    <B>35</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>35</A>
+    <B>34</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>34</A>
+    <B>33</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>33</A>
+    <B>32</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>32</A>
+    <B>31</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>31</A>
+    <B>30</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>30</A>
+    <B>38</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>38</A>
+    <B>39</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>39</A>
+    <B>40</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>40</A>
+    <B>41</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>41</A>
+    <B>42</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>42</A>
+    <B>37</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>40</A>
+    <B>38</B>
+    <k>0.352467835</k>
+</spring>
+<spring>
+    <A>39</A>
+    <B>41</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>41</A>
+    <B>38</B>
+    <k>0.369865775</k>
+</spring>
+<spring>
+    <A>41</A>
+    <B>30</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>38</A>
+    <B>42</B>
+    <k>0.343811691</k>
+</spring>
+<spring>
+    <A>42</A>
+    <B>30</B>
+    <k>0.341099709</k>
+</spring>
+<spring>
+    <A>30</A>
+    <B>37</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>42</A>
+    <B>31</B>
+    <k>0.383333325</k>
+</spring>
+<spring>
+    <A>31</A>
+    <B>37</B>
+    <k>0.265611053</k>
+</spring>
+<spring>
+    <A>36</A>
+    <B>32</B>
+    <k>0.360693574</k>
+</spring>
+<spring>
+    <A>32</A>
+    <B>37</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>31</A>
+    <B>36</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>36</A>
+    <B>33</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>24</A>
+    <B>33</B>
+    <k>0.197414532</k>
+</spring>
+<spring>
+    <A>32</A>
+    <B>35</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>34</A>
+    <B>32</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>24</A>
+    <B>36</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>35</A>
+    <B>33</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>36</A>
+    <B>34</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>34</A>
+    <B>30</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>33</A>
+    <B>38</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>31</A>
+    <B>54</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>54</A>
+    <B>53</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>53</A>
+    <B>52</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>52</A>
+    <B>51</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>51</A>
+    <B>50</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>50</A>
+    <B>49</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>49</A>
+    <B>48</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>48</A>
+    <B>54</B>
+    <k>0.351548314</k>
+</spring>
+<spring>
+    <A>54</A>
+    <B>49</B>
+    <k>0.307852089</k>
+</spring>
+<spring>
+    <A>48</A>
+    <B>53</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>53</A>
+    <B>49</B>
+    <k>0.328449011</k>
+</spring>
+<spring>
+    <A>49</A>
+    <B>52</B>
+    <k>0.367772013</k>
+</spring>
+<spring>
+    <A>52</A>
+    <B>50</B>
+    <k>0.338888109</k>
+</spring>
+<spring>
+    <A>51</A>
+    <B>53</B>
+    <k>0.367026925</k>
+</spring>
+<spring>
+    <A>53</A>
+    <B>50</B>
+    <k>0.334064782</k>
+</spring>
+<spring>
+    <A>49</A>
+    <B>51</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>54</A>
+    <B>44</B>
+    <k>0.404256523</k>
+</spring>
+<spring>
+    <A>48</A>
+    <B>45</B>
+    <k>0.372259587</k>
+</spring>
+<spring>
+    <A>47</A>
+    <B>46</B>
+    <k>0.369849950</k>
+</spring>
+<spring>
+    <A>46</A>
+    <B>45</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>45</A>
+    <B>44</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>44</A>
+    <B>43</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>43</A>
+    <B>25</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>48</A>
+    <B>47</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>46</A>
+    <B>48</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>47</A>
+    <B>45</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>45</A>
+    <B>54</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>48</A>
+    <B>44</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>44</A>
+    <B>33</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>43</A>
+    <B>33</B>
+    <k>0.396286964</k>
+</spring>
+<spring>
+    <A>32</A>
+    <B>44</B>
+    <k>0.328095168</k>
+</spring>
+<spring>
+    <A>43</A>
+    <B>48</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>34</A>
+    <B>43</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>33</A>
+    <B>25</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>34</A>
+    <B>29</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>25</A>
+    <B>23</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>47</A>
+    <B>56</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>56</A>
+    <B>55</B>
+    <k>0.374829799</k>
+</spring>
+<spring>
+    <A>55</A>
+    <B>46</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>46</A>
+    <B>56</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>47</A>
+    <B>55</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>55</A>
+    <B>58</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>58</A>
+    <B>57</B>
+    <k>0.385577023</k>
+</spring>
+<spring>
+    <A>57</A>
+    <B>56</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>56</A>
+    <B>58</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>57</A>
+    <B>55</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>58</A>
+    <B>59</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>59</A>
+    <B>60</B>
+    <k>0.387912095</k>
+</spring>
+<spring>
+    <A>60</A>
+    <B>57</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>57</A>
+    <B>59</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>60</A>
+    <B>58</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>59</A>
+    <B>67</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>60</A>
+    <B>62</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>62</A>
+    <B>61</B>
+    <k>0.415592253</k>
+</spring>
+<spring>
+    <A>62</A>
+    <B>67</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>67</A>
+    <B>60</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>59</A>
+    <B>62</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>61</A>
+    <B>67</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>67</A>
+    <B>61</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>61</A>
+    <B>66</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>66</A>
+    <B>62</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>62</A>
+    <B>65</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>65</A>
+    <B>66</B>
+    <k>0.440311491</k>
+</spring>
+<spring>
+    <A>66</A>
+    <B>63</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>63</A>
+    <B>65</B>
+    <k>0.451269984</k>
+</spring>
+<spring>
+    <A>65</A>
+    <B>64</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>64</A>
+    <B>68</B>
+    <k>0.430000067</k>
+</spring>
+<spring>
+    <A>68</A>
+    <B>63</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>63</A>
+    <B>64</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>65</A>
+    <B>68</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>61</A>
+    <B>65</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>63</A>
+    <B>62</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>64</A>
+    <B>69</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>69</A>
+    <B>70</B>
+    <k>0.351095080</k>
+</spring>
+<spring>
+    <A>70</A>
+    <B>68</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>68</A>
+    <B>69</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>70</A>
+    <B>64</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>70</A>
+    <B>71</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>71</A>
+    <B>73</B>
+    <k>0.412871391</k>
+</spring>
+<spring>
+    <A>73</A>
+    <B>69</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>69</A>
+    <B>71</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>73</A>
+    <B>70</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>71</A>
+    <B>72</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>72</A>
+    <B>74</B>
+    <k>0.445098102</k>
+</spring>
+<spring>
+    <A>74</A>
+    <B>73</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>73</A>
+    <B>72</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>71</A>
+    <B>74</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>61</A>
+    <B>60</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>36</A>
+    <B>37</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>53</A>
+    <B>30</B>
+    <k>0.002177057</k>
+</spring>
+<spring>
+    <A>53</A>
+    <B>30</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>1</A>
+    <B>72</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>74</A>
+    <B>0</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>0</A>
+    <B>72</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>74</A>
+    <B>1</B>
+    <k>0.200000003</k>
+</spring>
