@@ -5,7 +5,7 @@ void testApp::setup(){
     ofEnableAlphaBlending();
     ofSetVerticalSync(true);
     
-    thing.init("bicefalo.png", ofPoint(800,ofGetHeight()*0.5));
+    thing.init("clouds.png", ofPoint(800,ofGetHeight()*0.5));
 //    thing.load("sun.xml", ofPoint(800,270) );
     thing.startEditMode();
     bEdit = true;

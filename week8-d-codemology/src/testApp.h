@@ -25,10 +25,10 @@ public:
     
     ofVboMesh   background;
     ofImage     frame;
-    ofImage     clouds;
     
     ofTrueTypeFont  font;
     
+    Body        clouds;
     Body        ouroboros;
     Body        bicefal;
     

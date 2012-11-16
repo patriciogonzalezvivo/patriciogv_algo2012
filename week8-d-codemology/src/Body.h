@@ -55,7 +55,7 @@ public:
     
     void    collideWith( Body *_body );
     
-    void    update(VectorField *_VF = NULL);
+    void    update(VectorField *_VF = NULL, bool _bounceOnWalls = true);
     void    draw();
     
     bool    bDebug;

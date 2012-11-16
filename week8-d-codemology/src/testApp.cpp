@@ -21,23 +21,25 @@ void testApp::setup(){
     loopPos.set(width*0.5, height*0.6);
     
     frame.loadImage("frame.png");
-    clouds.loadImage("clouds.png");
-    clouds.setAnchorPercent(0.5, 0.5);
-    
     font.loadFont("_aeiou2U.ttf", 20);
     
-    bicefal.load("bicefalo.xml", ofPoint( width*0.5, height*0.3),0.7);
-    ouroboros.load("ouroboros.xml", loopPos, 0.6 );
+    clouds.load("clouds.xml", loopPos);
+    bicefal.load("bicefalo.xml", ofPoint( width*0.5, height*0.35),0.7);
+    ouroboros.load("ouroboros.xml", loopPos, 0.7);
     
     ofPoint dir = ( *(ouroboros[ ouroboros.size() - 1]) - loopPos);
     initialAngle = atan2(dir.y,dir.x);
-    
+    counter = 0;
+    blockCounter = true;
+
     bPlay   = true;
     bNoise  = true;
     bLoop   = true;
     
     bDebug  = false;
-    bScreenShot = false;
+    clouds.bDebug = bDebug;
+    bicefal.bDebug = bDebug;
+    ouroboros.bDebug = bDebug;
 }
 
 //--------------------------------------------------------------
@@ -54,8 +56,11 @@ void testApp::update(){
         }
         
         bicefal.collideWith( &ouroboros );
-        bicefal.update();   // &VF );
+        bicefal.collideWith( &clouds );
+        bicefal.update( );//&VF );
     
+        clouds.collideWith( &ouroboros );
+        clouds.update( &VF , false );
         ouroboros.update( &VF );
         
         ofPoint dir = (*(ouroboros[ ouroboros.size() - 1]) - loopPos);
@@ -88,7 +93,10 @@ void testApp::draw(){
     ofSetColor(255,200);
     ofCircle(loopPos, 200);
     ofSetColor(255);
-    clouds.draw(loopPos);
+
+    
+    ofSetColor(255,200);
+    clouds.draw();
     
     ofSetColor(0);
     font.drawString("i = " + ofToString(counter), width*0.15, height*0.3);
@@ -101,9 +109,13 @@ void testApp::draw(){
         ofEnableSmoothing();
     }
     
-    ouroboros.draw();
+    ofSetColor(255);
     bicefal.draw();
     
+    ofSetColor(255);
+    ouroboros.draw();
+    
+    ofSetColor(255);
     frame.draw(0, 0);
     
     if (bScreenShot){
@@ -120,12 +132,14 @@ void testApp::keyPressed(int key){
         ouroboros.restart();
         bicefal.restart();
         counter = 0;
+        blockCounter = true;
     } else if (key == 'n'){
         bNoise = !bNoise;
     } else if (key == 'l'){
         bLoop = !bLoop;
     } else if (key == 'd'){
         bDebug = !bDebug;
+        clouds.bDebug = bDebug;
         bicefal.bDebug = bDebug;
         ouroboros.bDebug = bDebug;
     } else if (key == 's'){

@@ -310,7 +310,7 @@ void Body::collideWith( Body *_body ){
     }
 }
 
-void Body::update(VectorField *_VF){
+void Body::update(VectorField *_VF, bool _bounceOnWalls){
 	for (int i = 0; i < springs.size(); i++){
 		springs[i].update();
 	}
@@ -333,7 +333,9 @@ void Body::update(VectorField *_VF){
             }
         }
         
-        vertices[i]->bounceOffWalls();
+        if (_bounceOnWalls)
+            vertices[i]->bounceOffWalls();
+        
 		vertices[i]->update();
 	}
 }
@@ -689,7 +691,6 @@ void Body::draw(){
     
     _updateMesh();
     
-    ofSetColor(255);
     image.bind();
     mesh.draw();
     image.unbind();
