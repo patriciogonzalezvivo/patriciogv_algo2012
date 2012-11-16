@@ -11,13 +11,7 @@ void testApp::setup(){
     ofSetWindowShape(width, height);
     
     VF.setupField( width/20, height/20, width, height);
-    
-    background.setMode(OF_PRIMITIVE_LINES);
-    for (float i = 0; i < height; i += 5.0 ){
-        background.addVertex( ofPoint( 0, i ));
-        background.addVertex( ofPoint( width, i));
-    }
-    
+        
     loopPos.set(width*0.5, height*0.6);
     
     frame.loadImage("frame.png");
@@ -66,13 +60,25 @@ void testApp::update(){
         ofPoint dir = (*(ouroboros[ ouroboros.size() - 1]) - loopPos);
         float angle = atan2(dir.y,dir.x) - initialAngle;
         
-        if ( abs(angle) <= 0.01){
+        if ( abs(angle) <= 0.1){
             if (!blockCounter){
                 counter++;
                 blockCounter = true;
             }
+            
+            inkColor.lerp(ofColor(255,0,0), 0.1);
         } else {
             blockCounter = false;
+            inkColor.lerp(ofColor(0), 0.01);
+            
+//            if (counter > 3){
+//                ouroboros.restart();
+//                bicefal.restart();
+//                clouds.restart();
+//                counter = 0;
+//                blockCounter = true;
+//            }
+            
         }
     }
     
@@ -87,20 +93,18 @@ void testApp::draw(){
     
     ofBackground(255);
     
-    ofSetColor(0,100);
-//    background.draw();
-    
     ofSetColor(255,200);
     ofCircle(loopPos, 200);
     ofSetColor(255);
 
-    
     ofSetColor(255,200);
     clouds.draw();
     
-    ofSetColor(0);
+    ofSetColor(inkColor,200);
     font.drawString("i = " + ofToString(counter), width*0.15, height*0.3);
+    ofSetColor(0,200);
     font.drawString("i++", width*0.75, height*0.3);
+    
     
     if (bDebug){
         ofDisableSmoothing();
@@ -118,6 +122,9 @@ void testApp::draw(){
     ofSetColor(255);
     frame.draw(0, 0);
     
+    ofSetColor(0,200);
+    font.drawString("The Eternal Recurrence", width*0.5-190,1010);
+    
     if (bScreenShot){
         ofEndSaveScreenAsPDF();
         bScreenShot = false;
@@ -131,6 +138,7 @@ void testApp::keyPressed(int key){
     } else if (key == 'r'){
         ouroboros.restart();
         bicefal.restart();
+        clouds.restart();
         counter = 0;
         blockCounter = true;
     } else if (key == 'n'){
@@ -172,6 +180,7 @@ void testApp::mouseDragged(int x, int y, int button){
 void testApp::mousePressed(int x, int y, int button){
     prevMouseX = x;
 	prevMouseY = y;
+
 }
 
 //--------------------------------------------------------------

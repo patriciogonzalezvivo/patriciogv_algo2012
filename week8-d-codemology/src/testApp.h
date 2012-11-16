@@ -22,10 +22,10 @@ public:
     void gotMessage(ofMessage msg);
 
     VectorField VF;
-    
-    ofVboMesh   background;
+
     ofImage     frame;
     
+    ofColor     inkColor;
     ofTrueTypeFont  font;
     
     Body        clouds;
