@@ -35,4 +35,4 @@ private:
     ofPoint acc;
 };
 
-#endif // Vertex_H
+#endif

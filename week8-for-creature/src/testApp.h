@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 
+#include "ofxFX.h"
+
 #include "Body.h"
 #include "VectorField.h"
 
@@ -21,24 +23,33 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
+    //  Vector Field
+    //
     VectorField VF;
+    float       prevMouseX, prevMouseY;
 
-    ofImage     frame;
-    
-    ofColor     inkColor;
+    //  Images & Fonts
+    //
+    ofImage         background;
+    ofImage         frame;
     ofTrueTypeFont  font;
     
+    //  Caracters
+    //
     Body        clouds;
     Body        ouroboros;
-    Body        bicefal;
     
-    ofPoint     loopPos;
+    //  Loop Counter
+    //
+    ofColor     inkColor;
     float       initialAngle;
     bool        blockCounter;
-    
     int         counter;
     
-    float       prevMouseX, prevMouseY;
+    //  Global Variables
+    //
+    ofPoint     loopPos;
+    float       scale;
     int         width, height;
     bool        bDebug, bPlay, bNoise, bLoop, bScreenShot;
 };

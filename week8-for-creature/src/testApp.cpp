@@ -6,20 +6,18 @@ void testApp::setup(){
     ofSetVerticalSync(true);
 //    ofEnableSmoothing();
     
-    width = 1200;
-    height = 1048; //width * 1.4142; // A4 Ratio
+    scale = 0.7;
+    width = 1200*scale;
+    height = 1048*scale;
     ofSetWindowShape(width, height);
     
-    VF.setupField( width/20, height/20, width, height);
-        
-    loopPos.set(width*0.5, height*0.6);
-    
-    frame.loadImage("frame.png");
     font.loadFont("_aeiou2U.ttf", 20);
+    frame.loadImage("frame.png");
     
-    clouds.load("clouds.xml", loopPos);
-    bicefal.load("bicefalo.xml", ofPoint( width*0.5, height*0.35),0.7);
-    ouroboros.load("ouroboros.xml", loopPos, 0.7);
+    loopPos.set(width*0.5, height*0.5);
+    clouds.load("clouds.xml", loopPos,scale);
+    ouroboros.load("ouroboros.xml", loopPos, 0.7*scale);
+    VF.setupField( width/10, height/10, width, height);
     
     ofPoint dir = ( *(ouroboros[ ouroboros.size() - 1]) - loopPos);
     initialAngle = atan2(dir.y,dir.x);
@@ -30,9 +28,8 @@ void testApp::setup(){
     bNoise  = true;
     bLoop   = true;
     
-    bDebug  = false;
+    bDebug  = true;
     clouds.bDebug = bDebug;
-    bicefal.bDebug = bDebug;
     ouroboros.bDebug = bDebug;
 }
 
@@ -49,10 +46,6 @@ void testApp::update(){
             VF.addCounterClockwiseCircle( loopPos.x, loopPos.y, 200, 0.03);
         }
         
-        bicefal.collideWith( &ouroboros );
-        bicefal.collideWith( &clouds );
-        bicefal.update( );//&VF );
-    
         clouds.collideWith( &ouroboros );
         clouds.update( &VF , false );
         ouroboros.update( &VF );
@@ -93,19 +86,6 @@ void testApp::draw(){
     
     ofBackground(255);
     
-    ofSetColor(255,200);
-    ofCircle(loopPos, 200);
-    ofSetColor(255);
-
-    ofSetColor(255,200);
-    clouds.draw();
-    
-    ofSetColor(inkColor,200);
-    font.drawString("i = " + ofToString(counter), width*0.15, height*0.3);
-    ofSetColor(0,200);
-    font.drawString("i++", width*0.75, height*0.3);
-    
-    
     if (bDebug){
         ofDisableSmoothing();
         ofSetColor(0,20);
@@ -113,17 +93,26 @@ void testApp::draw(){
         ofEnableSmoothing();
     }
     
+    ofSetColor(255,100);
+    ofCircle(loopPos, 100);
     ofSetColor(255);
-    bicefal.draw();
+
+    ofSetColor(255);
+    clouds.draw();
+    
+    ofSetColor(inkColor,200);
+    font.drawString("i = " + ofToString(counter), width*0.15, height*0.3);
+    ofSetColor(0,200);
+    font.drawString("i++", width*0.75, height*0.3);
     
     ofSetColor(255);
     ouroboros.draw();
     
     ofSetColor(255);
-    frame.draw(0, 0);
+    frame.draw(0, 0,width,height);
     
     ofSetColor(0,200);
-    font.drawString("The Eternal Recurrence", width*0.5-190,1010);
+    font.drawString("The Eternal Recurrence", width*0.5- font.getStringBoundingBox("The Eternal Recurrence", 0, 0).width*0.5,height*0.95);
     
     if (bScreenShot){
         ofEndSaveScreenAsPDF();
@@ -137,7 +126,6 @@ void testApp::keyPressed(int key){
         bPlay = !bPlay;
     } else if (key == 'r'){
         ouroboros.restart();
-        bicefal.restart();
         clouds.restart();
         counter = 0;
         blockCounter = true;
@@ -148,7 +136,6 @@ void testApp::keyPressed(int key){
     } else if (key == 'd'){
         bDebug = !bDebug;
         clouds.bDebug = bDebug;
-        bicefal.bDebug = bDebug;
         ouroboros.bDebug = bDebug;
     } else if (key == 's'){
         bScreenShot = true;

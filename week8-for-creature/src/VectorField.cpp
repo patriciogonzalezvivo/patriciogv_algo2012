@@ -184,7 +184,7 @@ void VectorField::draw(){
 			
             float angle = atan2(buffer[activeBuffer%2][pos].y,buffer[activeBuffer%2][pos].x);
             
-            ofLine(px,py, px2, py2);
+            //ofLine(px,py, px2, py2);
 			
 			// draw an baseline to show direction
 			// get the line as vector, calculate length, then normalize. 
@@ -192,10 +192,11 @@ void VectorField::draw(){
 			
 			ofVec2f line;
 			line.set(px2-px, py2-py);
-			float length = line.length();
+			float length = 7.0 - line.length();
 			line.normalize();
-			line.rotate(90);  // these are angles in degrees
-			ofLine(px - line.x*length*0.2, py - line.y*length*0.2, px + line.x*length*0.2, py + line.y*length*0.2);
+//			line.rotate(90);  // these are angles in degrees
+//			ofLine(px - line.x*length*0.2, py - line.y*length*0.2, px + line.x*length*0.2, py + line.y*length*0.2);
+            ofLine(px - line.x*length, py - line.y*length, px + line.x*length, py + line.y*length);
         }
     }
     ofPopStyle();
