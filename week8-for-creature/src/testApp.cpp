@@ -11,8 +11,9 @@ void testApp::setup(){
     height = 1048*scale;
     ofSetWindowShape(width, height);
     
-    font.loadFont("_aeiou2U.ttf", 20);
+    font.loadFont("_aeiou2U.ttf", 18);
     frame.loadImage("frame.png");
+    label.loadImage("lable.png");
     
     loopPos.set(width*0.5, height*0.5);
     clouds.load("clouds.xml", loopPos,scale);
@@ -100,16 +101,32 @@ void testApp::draw(){
     ofSetColor(255);
     clouds.draw();
     
-    ofSetColor(inkColor,200);
-    font.drawString("i = " + ofToString(counter), width*0.15, height*0.3);
-    ofSetColor(0,200);
-    font.drawString("i++", width*0.75, height*0.3);
-    
     ofSetColor(255);
     ouroboros.draw();
     
     ofSetColor(255);
     frame.draw(0, 0,width,height);
+    
+    ofSetColor(255);
+    float _labelScale = 0.62;
+    label.draw(width*0.5-label.getWidth()*0.5*_labelScale, height*0.1, label.getWidth()*_labelScale,label.getHeight()*_labelScale);
+    
+    ofPushMatrix();
+    ofTranslate(width*0.121, height*0.295);
+    ofRotateZ(-3);
+    ofSetColor(inkColor,200);
+    font.drawString("i= " + ofToString(counter), 0,0);
+    ofPopMatrix();
+    
+    ofPushMatrix();
+    ofTranslate(width*0.8, height*0.31);
+    ofRotateZ(10);
+    ofSetColor(0,200);
+    font.drawString("i++",0,0);
+    ofPopMatrix();
+    
+    ofSetColor(0,200);
+    font.drawString("i less than infinite", width*0.5- font.getStringBoundingBox("i less than infinite", 0, 0).width*0.5,height*0.18);
     
     ofSetColor(0,200);
     font.drawString("The Eternal Recurrence", width*0.5- font.getStringBoundingBox("The Eternal Recurrence", 0, 0).width*0.5,height*0.95);

@@ -32,6 +32,7 @@ public:
     //
     ofImage         background;
     ofImage         frame;
+    ofImage         label;
     ofTrueTypeFont  font;
     
     //  Caracters
