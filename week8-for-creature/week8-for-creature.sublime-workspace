@@ -1,0 +1,214 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/User/openFrameworks.sublime-build",
+	"command_palette":
+	{
+		"height": 147.0,
+		"selected_items":
+		[
+			[
+				"subl",
+				"Preferences: SublimeClang Settings – User"
+			],
+			[
+				"subli",
+				"Preferences: SublimeClang Settings – Default"
+			],
+			[
+				"sublin",
+				"Preferences: SublimeClang Settings – User"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"sub",
+				"Preferences: SublimeClang Settings – User"
+			],
+			[
+				"sublime",
+				"Preferences: SublimeClang Settings – Default"
+			],
+			[
+				"Packa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/Patricio/Library/Application Support/Sublime Text 2/Packages/SublimeClang/SublimeClang.sublime-settings",
+		"/Users/Patricio/Library/Application Support/Sublime Text 2/Packages/User/SublimeClang.sublime-settings",
+		"/Users/Patricio/Documents/Importantes/info.txt",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/interactive/expo_pepa/src/boton.h",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/interactive/expo_pepa/src/boton.cpp",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/interactive/expo_pepa/src/testApp.cpp",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/interactive/expo_pepa/src/main.cpp",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/interactive/expo_pepa/src/imagenJuego.cpp",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/interactive/expo_pepa/src/controlImagenes.cpp",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/megaphone/TangramViewer/tangram.sublime-project",
+		"/Users/Patricio/Library/Application Support/Sublime Text 2/Packages/User/oF.sublime-build",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/megaphone/TangramViewer/tangram.sublime-workspace",
+		"/Users/Patricio/Documents/2012 Parsons/2013-SPRING/NextClasses.txt",
+		"/Users/Patricio/Documents/2012 Parsons/2013-SPRING/NextClasses",
+		"/Users/Patricio/Desktop/openFrameworks/addons/ofxComposer/tools/flow.fs",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/addons-Examples/ofxComposer-example/bin/data/config.xml",
+		"/Users/Patricio/Desktop/openFrameworks/addons/ofxComposer/tools/blobExtractor.gs",
+		"/Users/Patricio/Desktop/openFrameworks/addons/ofxComposer/tools/blobDetector.fs",
+		"/Users/Patricio/Desktop/openFrameworks/addons/ofxComposer/tools/subtract.fs",
+		"/Users/Patricio/Desktop/openFrameworks/addons/ofxComposer/tools/threshold.fs",
+		"/Users/Patricio/Desktop/openFrameworks/addons/ofxComposer/tools/inverse.fs",
+		"/Users/Patricio/Desktop/openFrameworks/addons/ofxComposer/tools/contrast.fs",
+		"/Users/Patricio/Desktop/openFrameworks/addons/ofxComposer/tools/grayScale.fs",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/myProjects/eden/src/ofxEdenGeosphere.cpp",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/interactive/mapping/bin/data/viewport02.xml",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/interactive/mapping/bin/data/viewport01.xml",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/patriciogv_algo2012/week1-movingRec/bin/data/park0/points.xml",
+		"/Users/Patricio/Desktop/openFrameworks/myApps/patriciogv_algo2012/week1-movingRec/bin/data/movie0/points.xml",
+		"/Users/Patricio/Desktop/openFrameworks/addons/ofxFX/example-tint/src/testApp.h",
+		"/Users/Patricio/Desktop/elisa/src/ofxElisa/libs/elisa/performer/elisa_relay.h",
+		"/Users/Patricio/Desktop/elisa/src/ofxElisa/libs/elisa/performer/elisa_relay.cpp",
+		"/Users/Patricio/Desktop/elisa/src/ofxElisa/libs/elisa/performer/elisa_interface.h",
+		"/Users/Patricio/Desktop/elisa/src/ofxElisa/libs/elisa/performer/elisa_interface.cpp",
+		"/Users/Patricio/Desktop/elisa/src/ofxElisa/libs/elisa/performer/elisa_history.h",
+		"/Users/Patricio/Desktop/elisa/src/ofxElisa/libs/elisa/performer/elisa_history.cpp",
+		"/Users/Patricio/Desktop/elisa/src/ofxElisa/libs/elisa/performer/elisa_graphic_tree.h",
+		"/Users/Patricio/Desktop/elisa/src/ofxElisa/libs/elisa/performer/elisa_graphic_tree.cpp",
+		"/Users/Patricio/Desktop/elisa/src/ofxElisa/libs/elisa/performer/elisa_chrono.h",
+		"/Users/Patricio/Desktop/elisa/src/ofxElisa/libs/elisa/performer/qinterface.ui",
+		"/Users/Patricio/Desktop/elisa/src/ofxElisa/libs/gaol/config.sub",
+		"/Users/Patricio/Desktop/elisa/src/ofxElisa/libs/elisa/stamp-h.in",
+		"/Users/Patricio/Downloads/elisa-1.0.4/config.sub",
+		"/Users/Patricio/Library/Mail/V2/MailData/Signatures/86595313-8F12-4220-9786-F25541A9522C.mailsignature",
+		"/Users/Patricio/Library/Mail/V2/MailData/Signatures/7D184306-757A-42D4-80ED-AC7707523744.mailsignature"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"}\n",
+			"inject"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.clang":
+	{
+		"height": 100.0
+	},
+	"output.exec":
+	{
+		"height": 178.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 215.0,
+	"status_bar_visible": true
+}

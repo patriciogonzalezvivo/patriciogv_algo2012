@@ -2,8 +2,6 @@
 
 #include "ofMain.h"
 
-#include "ofxFX.h"
-
 #include "Body.h"
 #include "VectorField.h"
 

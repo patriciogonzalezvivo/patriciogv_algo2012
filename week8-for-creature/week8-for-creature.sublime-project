@@ -1,0 +1,24 @@
+{  
+    "folders":  
+    [  
+        {  
+            "path": "/Users/Patricio/Desktop/openFrameworks/myApps/patriciogv_algo2012/week8-for-creature"  
+        }  
+    ],  
+    "settings":  
+    {  
+        "sublimeclang_enable_fast_completions": true,  
+        "sublimeclang_options":  
+        [  
+            "-Isystem",  
+            "-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/include/",  
+            "-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/include/c++/4.2.1/",  
+            "-Wno-deprecated-declarations",  
+            "-F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks",  
+            "-I/Users/Patricio/Desktop/openFrameworks/libs/**",
+            "-I/${project_path}/../../../libs/openFrameworks/**",
+            "-I/${project_path}/../../../libs/openFrameworks/addons/ofxXmlSettings/**",
+            "-I/${project_path}/src/**"
+        ]  
+    }  
+} 
