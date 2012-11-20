@@ -35,7 +35,7 @@ void testApp::setup(){
                                       vec2 st = gl_TexCoord[0].st;
                                       
                                       vec4 newFrame = texture2DRect(texture, st);
-                                      vec4 color ;
+                                      vec4 color = vec4(0);
                                       vec2 norm	= ( texture2DRect(normals, st).rg - 0.5 ) * 2.0;
                                       float inc	= ( abs(norm.x) + abs(norm.y) ) * 0.5;
                                       
