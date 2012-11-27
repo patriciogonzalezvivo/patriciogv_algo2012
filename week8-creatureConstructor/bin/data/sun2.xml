@@ -1,0 +1,117 @@
+<texture>sun2.png</texture>
+<vertex>
+    <pos>
+        <x>12.000000000</x>
+        <y>149.000000000</y>
+    </pos>
+    <nId>3</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>44.000000000</x>
+        <y>59.000000000</y>
+    </pos>
+    <nId>4</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>48.000000000</x>
+        <y>246.000000000</y>
+    </pos>
+    <nId>7</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>133.000000000</x>
+        <y>25.000000000</y>
+    </pos>
+    <nId>0</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>137.000000000</x>
+        <y>272.000000000</y>
+    </pos>
+    <nId>1</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>230.000000000</x>
+        <y>60.000000000</y>
+    </pos>
+    <nId>5</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>230.000000000</x>
+        <y>241.000000000</y>
+    </pos>
+    <nId>6</nId>
+</vertex>
+<vertex>
+    <pos>
+        <x>260.000000000</x>
+        <y>150.000000000</y>
+    </pos>
+    <nId>2</nId>
+</vertex>
+<spring>
+    <A>3</A>
+    <B>7</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>7</A>
+    <B>1</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>1</A>
+    <B>6</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>6</A>
+    <B>2</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>2</A>
+    <B>5</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>5</A>
+    <B>0</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>0</A>
+    <B>4</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>4</A>
+    <B>3</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>4</A>
+    <B>6</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>1</A>
+    <B>0</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>7</A>
+    <B>5</B>
+    <k>0.200000003</k>
+</spring>
+<spring>
+    <A>2</A>
+    <B>3</B>
+    <k>0.200000003</k>
+</spring>

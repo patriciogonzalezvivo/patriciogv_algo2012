@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3D446392162BD89000A52EE2 /* ofxFlocking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D44636B162BD89000A52EE2 /* ofxFlocking.cpp */; };
 		3D446393162BD89000A52EE2 /* ofxFluid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D44636D162BD89000A52EE2 /* ofxFluid.cpp */; };
-		3D446394162BD89000A52EE2 /* ofxWater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D44636F162BD89000A52EE2 /* ofxWater.cpp */; };
 		3D446395162BD89000A52EE2 /* ofxFXObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D446372162BD89000A52EE2 /* ofxFXObject.cpp */; };
 		3D4463A0162BD9CA00A52EE2 /* vectorField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D44639E162BD9CA00A52EE2 /* vectorField.cpp */; };
 		3D9C5254162EF374002DE622 /* particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D9C5252162EF374002DE622 /* particle.cpp */; };
@@ -90,8 +89,6 @@
 		3D44636C162BD89000A52EE2 /* ofxFlocking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFlocking.h; sourceTree = "<group>"; };
 		3D44636D162BD89000A52EE2 /* ofxFluid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFluid.cpp; sourceTree = "<group>"; };
 		3D44636E162BD89000A52EE2 /* ofxFluid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFluid.h; sourceTree = "<group>"; };
-		3D44636F162BD89000A52EE2 /* ofxWater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxWater.cpp; sourceTree = "<group>"; };
-		3D446370162BD89000A52EE2 /* ofxWater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWater.h; sourceTree = "<group>"; };
 		3D446371162BD89000A52EE2 /* ofxFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFX.h; sourceTree = "<group>"; };
 		3D446372162BD89000A52EE2 /* ofxFXObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFXObject.cpp; sourceTree = "<group>"; };
 		3D446373162BD89000A52EE2 /* ofxFXObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFXObject.h; sourceTree = "<group>"; };
@@ -232,8 +229,6 @@
 				3D44636C162BD89000A52EE2 /* ofxFlocking.h */,
 				3D44636D162BD89000A52EE2 /* ofxFluid.cpp */,
 				3D44636E162BD89000A52EE2 /* ofxFluid.h */,
-				3D44636F162BD89000A52EE2 /* ofxWater.cpp */,
-				3D446370162BD89000A52EE2 /* ofxWater.h */,
 			);
 			path = interactive;
 			sourceTree = "<group>";
@@ -435,7 +430,6 @@
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
 				3D446392162BD89000A52EE2 /* ofxFlocking.cpp in Sources */,
 				3D446393162BD89000A52EE2 /* ofxFluid.cpp in Sources */,
-				3D446394162BD89000A52EE2 /* ofxWater.cpp in Sources */,
 				3D446395162BD89000A52EE2 /* ofxFXObject.cpp in Sources */,
 				3D4463A0162BD9CA00A52EE2 /* vectorField.cpp in Sources */,
 				3D9C5254162EF374002DE622 /* particle.cpp in Sources */,

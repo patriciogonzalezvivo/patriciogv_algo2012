@@ -23,28 +23,36 @@ public:
     void    dragEvent(ofDragInfo dragInfo);
     void    gotMessage(ofMessage msg);
 		
+    void    init(int _width, int _height, int _screenWidth, int _screenHeight);
+    void    preprocess(ofTexture &_text);
     
+    //  INPUT
+    //
     ofVideoGrabber  video;
     ofImage         image;
     
-    void    init(int _width, int _height, int _screenWidth, int _screenHeight);
-    void    process(ofTexture &_text);
-    
-    ofPixels brightPixels;
-    
+    //  PREPROCESS
+    //
     ofxGrayscale    grayscale;
     ofxGaussianBlur blur;
     ofxNormals      normals;
     
-    vector<Particle*> particles;
+    //  PROCESS
+    //
+    ofPixels        pixels;
     vectorField     VF;
+    vector<Particle*> particles;
     
-    float   prevMouseX;
-    float   prevMouseY;
+    //  RENDER
+    //
+    ofFbo           fbo;
+    
+    float   damping, noise;
     
     int     width, height,scale;
     
     bool    bImage;
+    bool    bTrails;
     bool    bDrawField;
-    bool    bPrintToPdf;
+    bool    bPrintScreen;
 };

@@ -6,11 +6,10 @@ Particle::Particle(){
 	set(0,0,0);
     vel.set(ofRandom(-10,10), ofRandom(-10,10));
     acc.set(0,0,0);
+
+	damping = NULL;
     
-    trailLength = ofRandom(50,100);
-	damping = 0.07f;
-    
-    color.set(1.0);
+    color.set(0.0);
 }
 
 void Particle::init( ofPoint _pos, ofPoint _vel){
@@ -27,7 +26,7 @@ void Particle::addForce(ofPoint &_force){
 void Particle::update(){
 	
     vel += acc;
-    vel *= 1.0f - damping;
+    vel *= 1.0f - *damping;
     *this += vel;
     
     acc *= 0;
@@ -35,8 +34,17 @@ void Particle::update(){
 
 //------------------------------------------------------------
 void Particle::draw(){
+    ofPushMatrix();
     ofSetColor(color);
-    ofCircle(x, y, size);
+    float w = size;
+    float h = w * (1.0 + vel.length() * 2.0);
+    float angle = atan2(vel.y,vel.x) + PI*0.5;
+    ofTranslate(x, y);
+    ofRotateZ(ofRadToDeg(angle));
+    ofRect(-w*0.5, -h*0.5, w, h);
+    
+    ofPopMatrix();
+    
 }
 
 void Particle::infinitWalls(){
@@ -142,7 +150,7 @@ void Particle::addRepulsionForce(Particle &p, float scale){
 	
 	ofVec2f diff	= (*this) - posOfForce;
 	float length	= diff.length();
-    float radius    = size*2.0 + p.size*2.0;
+    float radius    = size + p.size ;
 	
 	// ----------- (3) check close enough
 	
