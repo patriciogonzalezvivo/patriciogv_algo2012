@@ -7,7 +7,7 @@ Particle::Particle(){
     vel.set(ofRandom(-10,10), ofRandom(-10,10));
     acc.set(0,0,0);
 
-	damping = NULL;
+	damping = 0.01;
     
     color.set(0.0);
 }
@@ -26,7 +26,7 @@ void Particle::addForce(ofPoint &_force){
 void Particle::update(){
 	
     vel += acc;
-    vel *= 1.0f - *damping;
+    vel *= 1.0f - damping;
     *this += vel;
     
     acc *= 0;
@@ -38,7 +38,7 @@ void Particle::draw(){
     ofSetColor(color);
     float w = size;
     float h = w * (1.0 + vel.length() * 2.0);
-    float angle = atan2(vel.y,vel.x) + PI*0.5;
+    angle = ofLerp(angle,atan2(vel.y,vel.x) + HALF_PI, ofMap(damping, 0.01, 0.1, 0.05, 0.01));
     ofTranslate(x, y);
     ofRotateZ(ofRadToDeg(angle));
     ofRect(-w*0.5, -h*0.5, w, h);

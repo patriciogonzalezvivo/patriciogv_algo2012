@@ -47,7 +47,7 @@ public:
     //
     ofFbo           fbo;
     
-    float   damping, noise;
+    float   noise;
     
     int     width, height,scale;
     

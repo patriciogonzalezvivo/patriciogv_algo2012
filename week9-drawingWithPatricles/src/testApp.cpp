@@ -17,10 +17,9 @@ void testApp::setup(){
     init(640,480,1024,768);
     bImage = false;
     
-    damping = 0.01f;
     noise = 1.0f;
     
-    bTrails = true;
+    bTrails = false;
 }
 
 void testApp::init(int _width, int _height, int _screenWidth, int _screenHeight){
@@ -56,8 +55,7 @@ void testApp::init(int _width, int _height, int _screenWidth, int _screenHeight)
                                      ofMap(y,0,height/scale,0, _screenHeight),
                                      0.0),
                              ofPoint(0,0));
-            myParticle->size = 5;
-            myParticle->damping = &damping;
+            myParticle->size = 10;
             particles.push_back(myParticle);
         }
     }
@@ -139,22 +137,25 @@ void testApp::update(){
     //
     VF.noiseField( noise, 0.01, 3, true);
     for (int i = 0; i < particles.size(); i++){
-        ofPoint force = VF.getForceFromPos( *particles[i]  );
-        particles[i]->addForce( force );
-        particles[i]->bounceOffWalls();
         
-        int xOnVideo = ofMap(particles[i]->x, 0, ofGetWidth(), 0, width,true);
-        int yOnVideo = ofMap(particles[i]->y, 0, ofGetHeight(), 0, height,true);
+        //  Position
+        //
+        int xOnVideo = ofMap(particles[i]->x, 0, ofGetWidth(), 0, width-1,true);
+        int yOnVideo = ofMap(particles[i]->y, 0, ofGetHeight(), 0, height-1,true);
         
         particles[i]->color.lerp( pixels.getColor(xOnVideo, yOnVideo) , 0.01);
-        particles[i]->size = (0.1 + 1.0 - particles[i]->color.getBrightness()) * scale;
+        float  brigtness = particles[i]->color.getBrightness();
+        
+        particles[i]->size = (0.1 + (1.0 - brigtness)*0.9 ) * (scale*2.0);
+        particles[i]->damping = ofMap( brigtness ,0.0,1.0,0.1,0.01);
+        
+        ofPoint force = VF.getForceFromPos( *particles[i] );
+        particles[i]->addForce( force );
+        particles[i]->bounceOffWalls();
         particles[i]->update();
 	}
-    
-    //  RENDER
-    //
-    
-    ofSetWindowTitle("fps: "+ofToString(ofGetFrameRate()) + " damping: " + ofToString(damping) + " noise: " + ofToString(noise));
+        
+    ofSetWindowTitle("fps: "+ofToString(ofGetFrameRate()) + " noise: " + ofToString(noise));
 }
 
 //--------------------------------------------------------------
@@ -179,23 +180,22 @@ void testApp::draw(){
             ofSaveScreen("screenshot-"+ofGetTimestampString()+".png");
             bPrintScreen = false;
         }
-    } else {
+    } 
     
-        if (bPrintScreen){
-            ofBeginSaveScreenAsPDF("screenshot-"+ofGetTimestampString()+".pdf", false);
-        }
-        
-        for (int i = 0; i < particles.size(); i++){
-            ofSetColor(0);
-            particles[i]->draw();
-        }
-        
-        if (bPrintScreen){
-            ofEndSaveScreenAsPDF();
-            bPrintScreen = false;
-        }
-    
+    if (bPrintScreen){
+        ofBeginSaveScreenAsPDF("screenshot-"+ofGetTimestampString()+".pdf", false);
     }
+    
+    for (int i = 0; i < particles.size(); i++){
+        ofSetColor(0);
+        particles[i]->draw();
+    }
+    
+    if (bPrintScreen){
+        ofEndSaveScreenAsPDF();
+        bPrintScreen = false;
+    }
+    
     
     if (bDrawField){
         ofSetColor(255,100);
@@ -222,7 +222,6 @@ void testApp::keyPressed(int key){
 //                myParticle->init(ofPoint(ofMap(x,0, width/scale,0, ofGetWidth()),ofMap(y,0,height/scale,0,ofGetHeight()),0.0),ofPoint(0,0));
                 myParticle->init(ofPoint(ofRandom(ofGetWidth()),ofRandom(ofGetHeight()),0.0),ofPoint(0,0));
                 myParticle->size = 2;
-                myParticle->damping = &damping;
                 particles.push_back(myParticle);
             }
         }
@@ -251,8 +250,7 @@ void testApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-    damping = ofMap(x, 0, ofGetWidth(), 0.01, 0.15);
-    noise   = ofMap(y, 0, ofGetHeight(), 0.1, 0.3);
+    noise   = ofMap(y, 0, ofGetHeight(), 0.1, 0.5);
 }
 
 //--------------------------------------------------------------
@@ -284,7 +282,7 @@ void testApp::dragEvent(ofDragInfo dragInfo){
         bImage = image.loadImage(dragInfo.files[0]);
         if (bImage){
             image.update();
-            init(image.getWidth(),image.getHeight(),image.getWidth()*1.5,image.getHeight()*1.5);
+            init(image.getWidth(),image.getHeight(),image.getWidth()*1.2,image.getHeight()*1.2);
             preprocess(image.getTextureReference());
         }
     }

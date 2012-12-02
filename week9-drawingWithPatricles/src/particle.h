@@ -31,7 +31,8 @@ public:
     ofPoint vel;
     ofPoint acc;
     
-    float   *damping;
+    float   damping;
+    float   angle;
     float   size;
 };
 
