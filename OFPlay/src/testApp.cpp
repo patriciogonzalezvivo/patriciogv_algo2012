@@ -113,17 +113,20 @@ void testApp::setup(){
     
     //  Default Settings
     //
-    mode                = MODE_NORMAL;
     project             = NULL;
     statusEnergy        = 0;
-    float paddingTop    = 64;
-    float paddingButton = 20;
-    float paddingLeft   = 64;
-    float paddingRight  = 20;
+    
+    float defaultHeight = 38;
+    float paddingTop    = defaultHeight;
+    float paddingLeft   = defaultHeight;
+    float paddingRight  = defaultHeight;
+    float paddingButton = defaultHeight*0.5;
+    
     string  sketchName  = "mySketch";
     
-    ofBackground(230,230,230);
-    
+    logo.loadImage("images/OFPlay.png");
+    logo.setAnchorPercent(0.5, 0.5);
+
     //  XML Settings
     //
     ofxXmlSettings XML;
@@ -162,114 +165,62 @@ void testApp::setup(){
     font.loadFont("fonts/Inconsolata.otf", 14, true,false,false,0.5,90);
     secondFont.loadFont("fonts/GeosansLight.ttf", 11, true,false,false,0.5,90);
     
-    //  Sketch button
+    //  Name:
     //
-    textButton  *buttonName = new textButton();
-    buttonName->font = &font;
-    buttonName->secondFont = &secondFont;
-    buttonName->prefix = "Name: ";
-    buttonName->enableEditing();
-	buttonName->topLeftAnchor.set(paddingTop, paddingLeft); //set top button position - others are set relative to this.
-    buttonName->setText(sketchName);
-    buttonName->secondaryText = "<< CLICK TO CHANGE THE NAME";
-    buttons.push_back(buttonName);
+    projectName.text = sketchName;
+    projectName.prefix = "Name: ";
+    projectName.font = &font;
+    projectName.setSizeAndShapes(defaultHeight, 3);
+    projectName.x = paddingLeft;
+    projectName.y = paddingTop;
+    projectName.enable();
     
-    //  Path Button
-    //
-    textButton  *buttonPath = new textButton();
-    buttonPath->font = &font;
-    buttonPath->secondFont = &secondFont;
-    buttonPath->topLeftAnchor.set(buttons[ buttons.size() -1 ]->topLeftAnchor.x, buttons[ buttons.size() -1 ]->topLeftAnchor.y + buttons[ buttons.size() -1 ]->height + paddingButton);
-    buttonPath->deliminater = "/";
-    buttonPath->prefix = "Path: ";
-    buttonPath->setText(sketchPath);
-    buttonPath->secondaryText = "<< CLICK TO CHANGE THE DIRECTORY";
-    buttons.push_back(buttonPath);
+    froebelTextBox *subProjectName = new froebelTextBox();
+    *subProjectName = projectName;
+    subProjectName->prefix = "<< ";
+    subProjectName->text = "CHANGE THE NAME";
+    subProjectName->font = &secondFont;
+    subProjectName->bLeftAlign = false;
+    subProjectName->setSizeAndShapes(defaultHeight, 1);
+    subProjectName->setActiveColors(6, 2);
+    subProjectName->setPasiveColors(3, 0);
+    subProjectName->width = ofGetWidth() - paddingLeft*2.0;
+    projectName.subInfo = subProjectName;
     
-    //  Platform Button
-    //
-    textButton  *buttonPlat = new textButton();
-    buttonPlat->font = &font;
-    buttonPlat->secondFont = &secondFont;
-    buttonPlat->topLeftAnchor.set(buttons[ buttons.size() -1 ]->topLeftAnchor.x, buttons[ buttons.size() -1 ]->topLeftAnchor.y + buttons[ buttons.size() -1 ]->height + paddingButton);
-    buttonPlat->deliminater = ", ";
-    buttonPlat->prefix = "Platforms: ";
-    buttonPlat->secondaryText = "<< CLICK TO CHANGE THE PLATFORM";
-    buttonPlat->setText("");
-    buttons.push_back(buttonPlat);
+    projectPath.text = sketchPath;
+    projectPath.prefix = "Path: ";
+    projectPath.deliminater = "/";
+    projectPath.font = &font;
+    projectPath.setSizeAndShapes(defaultHeight, 3);
+    projectPath.x = paddingLeft;
+    projectPath.y = projectName.y + projectName.height + paddingButton;
     
-    //  Addons Button
-    //
-    textButton  *buttonAddon = new textButton();
-    buttonAddon->font = &font;
-    buttonAddon->secondFont = &secondFont;
-    buttonAddon->topLeftAnchor.set(buttons[ buttons.size() -1 ]->topLeftAnchor.x, buttons[ buttons.size() -1 ]->topLeftAnchor.y + buttons[ buttons.size() -1 ]->height + paddingButton);
-    buttonAddon->deliminater = ", ";
-    buttonAddon->prefix = "Addons: ";
-    buttonAddon->secondaryText = "<< CLICK TO SELECT ADDONS";
-    buttonAddon->setText("");
-    buttons.push_back(buttonAddon);
-    
-    for (int i = 0; i < buttons.size(); i++){
-        buttons[i]->calculateRect();
-    }
-    
-    //  Generate Button
-    //
-    generateButton.font = &font;
-    generateButton.secondFont = &secondFont;
-    generateButton.deliminater = ",";
-    generateButton.prefix = "GENERATE PROJECT";
-    generateButton.setText("");
-    generateButton.bDrawLong = false;
-    generateButton.topLeftAnchor.set(ofGetWidth() - buttons[0]->x - generateButton.width + paddingRight , ofGetHeight() - generateButton.height - paddingButton);
-    generateButton.calculateRect();
-    
-    //  Addon Button
-    //
-    backButton = generateButton;
-    backButton.prefix = "BACK >>";
-    backButton.setText("");
-    backButton.bDrawLong = false;
-    backButton.calculateRect();
-    
-    //  LOAD ADDONS
-    //
-    coreAddonsList.set(paddingLeft-12,paddingTop-22,270,500);
-    coreAddonsList.font = &font;
-    coreAddonsList.secondFont = &secondFont;
-    coreAddonsList.title = "CORE ADDONS";
-    otherAddonsList.set(coreAddonsList.x+coreAddonsList.width+paddingRight,coreAddonsList.y,coreAddonsList.width,coreAddonsList.height);
-    otherAddonsList.font = &font;
-    otherAddonsList.secondFont = &secondFont;
-    otherAddonsList.title = "EXTRA ADDONS";
-    
-    ofDirectory addonsFolder(addonsPath);
-    addonsFolder.listDir();
-    for(int i=0; i < (int)addonsFolder.size();i++){
-    	string addonName = addonsFolder.getName(i);
-        
-    	if(addonName.find("ofx")==0){
-            if (isAddonCore(addonName)){
-                coreAddonsList.addElement(addonName);
-            } else {
-                bHaveNonCoreAddons = true;
-                otherAddonsList.addElement(addonName);
-            }
-    	}
-    }
+    froebelTextBox *subProjectPath = new froebelTextBox();
+    *subProjectPath = projectPath;
+    subProjectPath->prefix = "<< ";
+    subProjectPath->text = "CHANGE THE DIRECTORY";
+    subProjectPath->font = &secondFont;
+    subProjectPath->bLeftAlign = false;
+    subProjectPath->setSizeAndShapes(defaultHeight, 1);
+    subProjectPath->setActiveColors(6, 2);
+    subProjectPath->setPasiveColors(3, 0);
+    subProjectPath->width = ofGetWidth() - paddingLeft*2.0;
+    projectPath.subInfo = subProjectPath;
     
     //  LOAD PLATFORMS
     //
-    platformsList.set(paddingLeft-12,paddingTop-22,270,500);
+    platformsList.x = paddingLeft;
+    platformsList.y = projectPath.y + projectPath.height + paddingButton;
     platformsList.font = &font;
-    platformsList.secondFont = &secondFont;
-    platformsList.title = "PLATFORM TARGETS";
+    platformsList.text = "Platform:";
+    platformsList.deliminater = ", ";
+    platformsList.setSizeAndShapes(38,3);
+    platformsList.width = 270;
     platformsList.addElement("windows (codeblocks)",ofGetTargetPlatform()==OF_TARGET_WINGCC);
 	platformsList.addElement("windows (visualStudio)", ofGetTargetPlatform()==OF_TARGET_WINVS);
 	platformsList.addElement("linux (codeblocks)",ofGetTargetPlatform()==OF_TARGET_LINUX);
 	platformsList.addElement("linux64 (codeblocks)",ofGetTargetPlatform()==OF_TARGET_LINUX64);
-
+    
     //#define MAKE_IOS
 #ifdef MAKE_IOS
 	platformsList.addElement("osx (xcode)",false);
@@ -279,20 +230,61 @@ void testApp::setup(){
 	platformsList.addElement("ios (xcode)",ofGetTargetPlatform()==OF_TARGET_IPHONE);
 #endif
     
-    // update the platforms text in the platform button
+    froebelTextBox *subPlatformList = new froebelTextBox();
+    *subPlatformList = platformsList;
+    subPlatformList->prefix = "<< ";
+    subPlatformList->text = "CHANGE THE PLATFORM TARGET";
+    subPlatformList->font = &secondFont;
+    subPlatformList->bLeftAlign = false;
+    subPlatformList->setSizeAndShapes(defaultHeight, 1);
+    subPlatformList->setActiveColors(6, 2);
+    subPlatformList->setPasiveColors(3, 0);
+    subPlatformList->width = ofGetWidth() - paddingLeft*2.0;
+    platformsList.subInfo = subPlatformList;
+
+    //  LOAD ADDONS
     //
-    buttons[2]->setText( platformsList.getSelectedAsString() );
+    addonsList.x = paddingLeft;
+    addonsList.y = platformsList.y + platformsList.height + paddingButton;
+    addonsList.font = &font;
+    addonsList.text = "Addons:";
+    addonsList.deliminater = ", ";
+    addonsList.setSizeAndShapes(38,3);
+    addonsList.width = 270;
+    addonsList.maxHeight = 500;
     
-    guiEl.text = " esto es un texto largo ";
-    guiEl.prefix = "Path:";
-    guiEl.deliminater = "/";
-    guiEl.bLeftAlign = false;
-    guiEl.setFont(font);
-    guiEl.setSizeAndShapes(38, 3, 4);
-    guiEl.x = ofGetWidth()*0.5;
-    guiEl.y = ofGetHeight()*0.5;
-    guiEl.enable();
-//    guiEl.width = 300;
+    ofDirectory addonsFolder(addonsPath);
+    addonsFolder.listDir();
+    for(int i=0; i < (int)addonsFolder.size();i++){
+    	string addonName = addonsFolder.getName(i);
+        
+    	if(addonName.find("ofx")==0){
+            if (isAddonCore(addonName)){
+                addonsList.addElement(addonName,false,0);
+            } else {
+                addonsList.addElement(addonName,false,4);
+            }
+    	}
+    }
+    
+    froebelTextBox *subAddonsList = new froebelTextBox();
+    *subAddonsList = addonsList;
+    subAddonsList->prefix = "<< ";
+    subAddonsList->text = "SELECT ADDONS";
+    subAddonsList->font = &secondFont;
+    subAddonsList->bLeftAlign = false;
+    subAddonsList->setSizeAndShapes(defaultHeight, 1);
+    subAddonsList->setActiveColors(6, 2);
+    subAddonsList->setPasiveColors(3, 0);
+    subAddonsList->width = ofGetWidth() - paddingLeft*2.0;
+    addonsList.subInfo = subAddonsList;
+    
+    generateButton.text = "GENERATE PROJECT";
+    generateButton.font = &font;
+    generateButton.setSizeAndShapes(defaultHeight);
+    generateButton.x = ofGetWidth() - paddingLeft - 300;
+    generateButton.y = ofGetHeight() - defaultHeight - paddingButton;
+    generateButton.width = 300;
     
 }
 
@@ -328,14 +320,14 @@ void testApp::loadProject(string _path){
     string folder = "";
     
     extractFolderFromPath(_path,folder);
-    buttons[0]->setText(folder);
-    buttons[1]->setText(_path);
+    projectName.text = folder;
+    projectPath.text = _path;
+    
     setStatus("Project " + folder + " loaded ");
     
     //  Extracting Addons ( from addons.make)
     //
-    coreAddonsList.reset();
-    otherAddonsList.reset();
+    addonsList.reset();
     
     //  Have addons.make??
     //
@@ -352,7 +344,7 @@ void testApp::loadProject(string _path){
     string addonsAdded = "";
     while(!(fs >> line).fail()){
         
-        if ( selectAddon(line) ){
+        if ( addonsList.select(line) ){
             if (counter > 0)
                 addonsAdded +=", ";
             addonsAdded += line;
@@ -364,16 +356,6 @@ void testApp::loadProject(string _path){
     fs.seekg(0,ios::beg);
     fs.clear();
     fs.close();
-    
-    buttons[3]->setText(addonsAdded);
-}
-
-bool testApp::selectAddon(string _addonName){
-    if ( isAddonCore(_addonName)){
-        coreAddonsList.select(_addonName);
-    } else {
-        otherAddonsList.select(_addonName);
-    }
 }
 
 string testApp::setTarget(int targ){
@@ -426,7 +408,7 @@ void testApp::generateProject(){
     
     vector <int> targetsToMake;
     for(int i = 0; i < platformsList.elements.size(); i++){
-        if ( *(platformsList.elements[i]) == true ){
+        if ( platformsList.elements[i]->bSelected == true ){
             if (platformsList.elements[i]->text == "windows (codeblocks)" ){
                 targetsToMake.push_back(OF_TARGET_WINGCC);
             } else if (platformsList.elements[i]->text == "windows (visualStudio)"){
@@ -451,29 +433,21 @@ void testApp::generateProject(){
         return;
 	}
     
-    if (buttons[0]->text.size() == 0){
+    if (projectName.text.size() == 0){
         ofSystemAlertDialog("Error: project must have a name");
         return;
     }
     
     printf("start with project generation \n");
     
-    string path = ofFilePath::join(buttons[1]->text, buttons[0]->text);
+    string path = ofFilePath::join(projectPath.text, projectName.text);
     
 	for(int i = 0; i < (int)targetsToMake.size(); i++){
 		string target = setTarget(targetsToMake[i]);
         
         if(project->create(path)){
             
-            vector<string> addons = coreAddonsList.getSelected(); 
-            for (int i = 0; i < addons.size(); i++){
-                ofAddon addon;
-                addon.pathToOF = getOFRelPath(path);
-                addon.fromFS(ofFilePath::join(addonsPath, addons[i]),target);
-                project->addAddon(addon);
-            }
-            
-            addons = coreAddonsList.getSelected();
+            vector<string> addons = addonsList.getSelected();
             for (int i = 0; i < addons.size(); i++){
                 ofAddon addon;
                 addon.pathToOF = getOFRelPath(path);
@@ -484,7 +458,7 @@ void testApp::generateProject(){
             project->save(true);
         }
         
-        setStatus("generated: " + buttons[1]->text + "/" + buttons[0]->text + " for " + platformsList.getSelected()[i]);
+        setStatus("generated: " + projectPath.text + "/" + projectName.text + " for " + platformsList.getSelected()[i]);
 	}
     
     printf("done with project generation \n");
@@ -494,58 +468,29 @@ void testApp::generateProject(){
 void testApp::update(){
     ofPoint mouse = ofPoint(mouseX, mouseY);
     
+    projectName.update();
+    projectPath.update();
+    platformsList.update();
+    addonsList.update();
+    
     float diff = ofGetElapsedTimef()- statusSetTime;
     if (diff > 3){
         statusEnergy *= 0.99;;
     }
-    //-------------------------------------
-    // if we are in addon mode check
-    //-------------------------------------
-
-    if (mode == MODE_NORMAL){
-        for (int i = 0; i < buttons.size(); i++){
-            buttons[i]->calculateRect();
-            buttons[i]->checkMousePressed(mouse);
-        }
-        generateButton.checkMousePressed(mouse);
-        
-        for (int i = 0; i < buttons.size(); i++){
-            if (i != 0){
-                buttons[i]->topLeftAnchor.y = buttons[i-1]->topLeftAnchor.y + buttons[i-1]->height + 20;
-            }
-        }
-        
-    } else if (mode == MODE_ADDON ){
-        backButton.checkMousePressed(mouse);
-        coreAddonsList.update();
-        otherAddonsList.update();
-    } else if (mode == MODE_PLATFORM){
-        backButton.checkMousePressed(mouse);
-        platformsList.update();
-    }
-
+    
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    ofBackground(230,230,230);
+
+    projectName.draw();
+    projectPath.draw();
+    platformsList.draw();
+    addonsList.draw();
     
-    if (mode == MODE_NORMAL ) {
-		for (int i = 0; i < buttons.size(); i++){
-			buttons[i]->draw();
-		}
-        generateButton.draw();
-        
-    } else if (mode == MODE_ADDON){
-        coreAddonsList.draw();
-        if (bHaveNonCoreAddons){
-            otherAddonsList.draw();
-        }
-        backButton.draw();
-        
-    } else if (mode == MODE_PLATFORM){
-        platformsList.draw();
-        backButton.draw();
-    }
+    logo.draw(798,506);
+    generateButton.draw();
     
     ofFill();
     ofSetColor(0 + 220 * (1-statusEnergy),0 + 220 * (1-statusEnergy),0 + 220 * (1-statusEnergy));
@@ -553,7 +498,6 @@ void testApp::draw(){
     ofSetColor(255,255,255, 255 * statusEnergy);
     ofDrawBitmapString(status, 10,ofGetHeight()-8);
     
-    guiEl.draw();
 }
 
 //--------------------------------------------------------------
@@ -576,101 +520,28 @@ void testApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
     ofPoint mouse = ofPoint(x, y);
-    if (mode == MODE_NORMAL){
-
-        for (int i = 0; i < buttons.size(); i++){
-            buttons[i]->checkMousePressed(mouse);
+    
+    if ( projectPath.checkMousePressed( mouse )){
+        string command = "";
+        ofDirectory dir(ofFilePath::join(getOFRoot(),defaultLoc));
+        
+        if (!dir.exists()){
+            dir.create();
         }
         
-        //-------------------------------------
-        // 0 = sketch name
-        //-------------------------------------
-//        if (buttons[0].bMouseOver == true){
-//            string text = ofSystemTextBoxDialog("choose sketch name", buttons[0].text);
-//            fixStringCharacters(text);
-//            setStatus("sketch name set to: " + text);
-//            buttons[0].setText(text);
-//        }
-
-        //-------------------------------------
-        // 1 = sketch path
-        //-------------------------------------
-        if (buttons[1]->bMouseOver == true){
-
-            string command = "";
-
-            ofDirectory dir(ofFilePath::join(getOFRoot(),defaultLoc));
-
-            if (!dir.exists()){
-                dir.create();
-            }
-          	
-        #ifdef TARGET_WIN32
-                    ofFileDialogResult res = ofSystemLoadDialog("please select sketch folder", true, windowsFromUnixPath(dir.path()));
-        #else 
-                    ofFileDialogResult res = ofSystemLoadDialog("please select sketch folder", true, dir.path());
-        #endif
-            
-
-            if (res.bSuccess){
-                string result = res.filePath;
-                convertWindowsToUnixPath(result);
-                buttons[1]->setText( result );
-                
-                setStatus("path set to: " + result);
-            }
+#ifdef TARGET_WIN32
+        ofFileDialogResult res = ofSystemLoadDialog("please select sketch folder", true, windowsFromUnixPath(dir.path()));
+#else
+        ofFileDialogResult res = ofSystemLoadDialog("please select sketch folder", true, dir.path());
+#endif
+        if (res.bSuccess){
+            string result = res.filePath;
+            convertWindowsToUnixPath(result);
+            projectPath.text = result;
+            setStatus("path set to: " + result);
         }
-
-        //-------------------------------------
-        // 2 = platform  (disabled)
-        //-------------------------------------
-        if (buttons[2]->bMouseOver == true){
-            // platform is diabled for now
-             mode = MODE_PLATFORM;
-        }
-
-        //-------------------------------------
-        // 3 = addon
-        //-------------------------------------
-        if (buttons[3]->bMouseOver == true){
-            mode = MODE_ADDON;
-        }
-        
-        //-------------------------------------
-        // 4 = genearate
-        //-------------------------------------
-        if (generateButton.bMouseOver == true){
-            generateProject();
-        }
-    } else if (mode == MODE_ADDON ){
-        
-        coreAddonsList.checkMousePressed(mouse);
-        if(bHaveNonCoreAddons)
-            otherAddonsList.checkMousePressed(mouse);
-        
-        //-------------------------------------
-        // if we hit he back button, collect the addons for display
-        //-------------------------------------
-
-        if (backButton.bMouseOver){
-            string addons = coreAddonsList.getSelectedAsString() + otherAddonsList.getSelectedAsString();
-            buttons[3]->setText(addons);
-            setStatus("addons set to: " + addons);
-
-            backButton.bMouseOver = false;
-            mode = MODE_NORMAL;
-        }
-    } else if (mode == MODE_PLATFORM){
-        platformsList.checkMousePressed(mouse);
-        
-        if (backButton.bMouseOver){
-            string platforms = platformsList.getSelectedAsString();
-            buttons[2]->setText( platforms );
-            setStatus("Platform targets set to: " + platforms);
-            
-            backButton.bMouseOver = false;
-            mode = MODE_NORMAL;
-        }
+    } else if ( generateButton.checkMousePressed(mouse)){
+        generateProject();
     }
 }
 
@@ -681,15 +552,7 @@ void testApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h){
-    generateButton.topLeftAnchor.set(ofGetWidth() - buttons[0]->x - generateButton.width + 10, ofGetHeight() - generateButton.height - 40);
-    generateButton.calculateRect();
     
-    backButton.topLeftAnchor.set(ofGetWidth() - buttons[0]->x - backButton.width + 10, ofGetHeight() - backButton.height - 40);
-    backButton.calculateRect();
-    
-    coreAddonsList.set(coreAddonsList.x,coreAddonsList.y,coreAddonsList.width,ofGetHeight()-64*2-10);
-    otherAddonsList.set(otherAddonsList.x,otherAddonsList.y,otherAddonsList.width, coreAddonsList.height);
-    platformsList.set(platformsList.x,platformsList.y,platformsList.width,coreAddonsList.height);
 }
 
 //--------------------------------------------------------------

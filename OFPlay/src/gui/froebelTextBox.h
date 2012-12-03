@@ -20,13 +20,20 @@ public:
     void    setPasiveColors(int _fg, int _bg);
     void    setSizeAndShapes(float _size, int _endingShape = -1, int _iconShape = -1);
     
-    void    setFont(ofTrueTypeFont &_font);
+    virtual bool checkMousePressed(ofPoint _mouse);
     
+    virtual void update();
     virtual void draw();
     
     string  text;
     string  prefix;
     string  deliminater;
+    
+    ofFloatColor    fgActiveColor,fgPasiveColor;
+    ofFloatColor    bgActiveColor,bgPasiveColor;
+    
+    ofTrueTypeFont  *font;
+    froebelTextBox  *subInfo;
     
     float   damp;
     int     maxWidth;
@@ -42,15 +49,15 @@ protected:
     
     string          displayText;
     
-    ofFloatColor    fgActiveColor,fgPasiveColor;
-    ofFloatColor    bgActiveColor,bgPasiveColor;
-    
     ofFloatColor    fgColor, fgDstColor;
     ofFloatColor    bgColor, bgDstColor;
     
-    ofTrueTypeFont  *font;
+    ofRectangle     textBox;
     
     float   size;
+    float   margins;
+    
+    int     nEdges;
     
     bool    bEdge;
     bool    bIcon;

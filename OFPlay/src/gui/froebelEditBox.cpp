@@ -9,12 +9,12 @@
 #include "froebelEditBox.h"
 
 froebelEditBox::froebelEditBox(){
-    fgActiveColor   = froebelColor(3);
-    fgColor = fgDstColor = fgPasiveColor = froebelColor(2);
-    bgActiveColor   = froebelColor(4);
-    bgColor = bgDstColor = bgPasiveColor = froebelColor(5);
+    subInfo     = NULL;
     
-    endingShape.dstColor = bgDstColor;
+    setActiveColors(3, 4);
+    setPasiveColors(2, 5);
+    
+    iconShape.dstColor = endingShape.dstColor = bgColor = bgDstColor = fgColor = fgDstColor = froebelColor(0);
     
     bSelected   = false;
     bLeftAlign  = true;
@@ -57,6 +57,7 @@ void froebelEditBox::disable(){
     }
 	
 }
+
 void froebelEditBox::beginEditing() {
     if(!bEditing){
         ofAddListener(ofEvents().keyPressed, this, &froebelEditBox::keyPressed);
@@ -190,9 +191,6 @@ void froebelEditBox::draw(){
 
 void froebelEditBox::mousePressed(ofMouseEventArgs& args){
 	mouseDownInRect = inside(args.x, args.y);
-    cout << args.x << "x" << args.y << endl;
-    cout << this->x << " " << this->y << " " << this-> width << " " << this->height << endl;
-    cout << "Pressed and " << mouseDownInRect << endl;
 }
 
 void froebelEditBox::mouseReleased(ofMouseEventArgs& args){

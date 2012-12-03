@@ -11,10 +11,9 @@
 
 #include "ofxXmlSettings.h"
 
-#include "textButton.h"
-#include "checkList.h"
-
 #include "froebelEditBox.h"
+#include "froebelTextBox.h"
+#include "froebelListBox.h"
 
 class testApp : public ofBaseApp{
 public:
@@ -33,24 +32,21 @@ public:
     void gotMessage(ofMessage msg);
  
     void    loadProject(string _path);
-    bool    selectAddon(string _addonName);
     bool    isAddonCore(string _addonName);
     string  setTarget(int targ);
     void    setStatus(string newStatus);
     void    generateProject();
     
+    ofImage         logo;
+    
     ofTrueTypeFont  font;
     ofTrueTypeFont  secondFont;
-    
-    froebelEditBox guiEl;
-    
-    checkList       platformsList;
-    checkList       coreAddonsList;
-    checkList       otherAddonsList;
-    
-    vector<textButton*> buttons;
-    textButton      backButton;
-    textButton      generateButton;
+
+    froebelEditBox  projectName;
+    froebelEditBox  projectPath;
+    froebelListBox  platformsList;
+    froebelListBox  addonsList;
+    froebelTextBox  generateButton;
     
     string      appToRoot;
     string      defaultLoc;
@@ -61,8 +57,4 @@ public:
     float       statusEnergy;
     
     baseProject *project;
-    int         mode;
-    enum { MODE_NORMAL, MODE_ADDON, MODE_PLATFORM };
-    
-    bool        bHaveNonCoreAddons;
 };

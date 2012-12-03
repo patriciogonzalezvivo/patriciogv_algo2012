@@ -9,13 +9,12 @@
 #include "froebelTextBox.h"
 
 froebelTextBox::froebelTextBox(){
+    subInfo     = NULL;
     
-    fgActiveColor   = froebelColor(3);
-    fgColor = fgDstColor = fgPasiveColor = froebelColor(2);
-    bgActiveColor   = froebelColor(4);
-    bgColor = bgDstColor = bgPasiveColor = froebelColor(5);
+    setActiveColors(3, 4);
+    setPasiveColors(2, 5);
     
-    endingShape.dstColor = bgDstColor;
+    iconShape.dstColor = endingShape.dstColor = bgColor = bgDstColor = fgColor = fgDstColor = froebelColor(0);
     
     bSelected   = false;
     bLeftAlign  = true;
@@ -30,6 +29,16 @@ froebelTextBox::froebelTextBox(){
     maxWidth = 600;
     size = 40;
     damp = 0.1;
+}
+
+void froebelTextBox::setActiveColors(int _fg, int _bg){
+    fgActiveColor = froebelColor(_fg);
+    bgActiveColor = froebelColor(_bg);
+}
+
+void froebelTextBox::setPasiveColors(int _fg, int _bg){
+    fgPasiveColor = froebelColor(_fg);
+    bgPasiveColor = froebelColor(_bg);
 }
 
 void froebelTextBox::setSizeAndShapes(float _size, int _endingShape, int _iconShape){
@@ -51,13 +60,21 @@ void froebelTextBox::setSizeAndShapes(float _size, int _endingShape, int _iconSh
     
 }
 
-void froebelTextBox::setFont(ofTrueTypeFont &_font){
-    font = &_font;
+bool froebelTextBox::checkMousePressed(ofPoint _mouse){
+    if (inside(_mouse)){
+        bSelected = !bSelected;
+        return true;
+    }
+    return false;
 }
 
-void froebelTextBox::draw(){
+void froebelTextBox::update(){
+    //  If it have a sub textBox, update it first
+    //
+    if (subInfo != NULL)
+        subInfo->update();
     
-    //  Selection and Hover colors 
+    //  Selection and Hover colors
     //
     if( bSelected ){
         bgDstColor = bgActiveColor;
@@ -68,7 +85,7 @@ void froebelTextBox::draw(){
         
         if (bIcon)
             iconShape.dstColor = fgActiveColor;
-            
+        
     } else {
         if (inside(ofGetMouseX(), ofGetMouseY()) ){
             fgDstColor = bgActiveColor;
@@ -99,12 +116,12 @@ void froebelTextBox::draw(){
     //  Compose text
     //
     displayText = prefix + text;
-    int   nEdges = 1;
+    nEdges = 1;
     
     //  Calculate the size of the text
     //
-    ofRectangle textBox = font->getStringBoundingBox( displayText , 0, 0);
-    float margins = size;
+    textBox = font->getStringBoundingBox( displayText , 0, 0);
+    margins = size;
     
     if ( bEdge )
         margins += size*0.5;
@@ -160,6 +177,14 @@ void froebelTextBox::draw(){
             }
         }
     }
+}
+
+void froebelTextBox::draw(){
+    
+    //  If it have a sub textBox, draw it first
+    //
+    if (subInfo != NULL)
+        subInfo->draw();
     
     //  Render
     //

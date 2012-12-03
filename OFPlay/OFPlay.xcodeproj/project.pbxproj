@@ -8,16 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		2401072dc4df01e251cf003d9332bc0a /* readme.txt in Sources */ = {isa = PBXBuildFile; fileRef = 24639b472940899b3de0e7ec7a7ac9fc /* readme.txt */; };
-		3D4F9869166BD447004FD728 /* froebelShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F9867166BD447004FD728 /* froebelShape.cpp */; };
-		3D4F986C166BD459004FD728 /* froebelTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F986A166BD459004FD728 /* froebelTextBox.cpp */; };
-		3D4F9879166C1C75004FD728 /* froebelEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F9877166C1C75004FD728 /* froebelEditBox.cpp */; };
+		3D4F9886166C5973004FD728 /* froebelEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F987E166C5973004FD728 /* froebelEditBox.cpp */; };
+		3D4F9887166C5973004FD728 /* froebelListBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F9880166C5973004FD728 /* froebelListBox.cpp */; };
+		3D4F9888166C5973004FD728 /* froebelShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F9882166C5973004FD728 /* froebelShape.cpp */; };
+		3D4F9889166C5973004FD728 /* froebelTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F9884166C5973004FD728 /* froebelTextBox.cpp */; };
 		5a4349e9754d6fa14c0f2a3a1abc30b6 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = fc5da1c87211d4f6377da7199d8c5a1e /* tinyxmlparser.cpp */; };
 		63b57ac5bf4ef088491e0317dbb2ecaa /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */; };
 		73dafc4fc2caaa9d82202d0485c878a3 /* baseProject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = c1f04460748bba0b6cc52d7ecb4cd7da /* baseProject.cpp */; };
 		75fc637d83c9fa4df94c36ed0834a275 /* visualStudioProject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53e59de3bc648ce3a83be02a8f7632bd /* visualStudioProject.cpp */; };
 		7a6e160bd5f9ab99b03fa79e79636de5 /* ofAddon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = e6a0df30a5c700a55be09c5d3bc2f74c /* ofAddon.cpp */; };
-		83852fa1f387edb9605f26e372a7239c /* checkList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = b27107cb7510435788a18c77bd075045 /* checkList.cpp */; };
-		8baeada59628a9eef3b57894d9def946 /* checkButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = dd2fa9d4db1657095fed71b8f8d7a1b4 /* checkButton.cpp */; };
 		933a2227713c720ceff80fd967d0a8ee /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2b40eda85beb63e46785bc299a638898 /* tinyxml.cpp */; };
 		9ccedf924d3546afae1d36e7172a7466 /* CBLinuxProject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79026f30cf4132d41bfbbd77dc08be6e /* CBLinuxProject.cpp */; };
 		9d44dc88ef9e7991b4a09951e2e4769f /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832bdc407620cdba568b713d2252c43c /* tinyxmlerror.cpp */; };
@@ -41,7 +40,6 @@
 		E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */; };
 		E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E715D3B6510020DFD4 /* QTKit.framework */; };
 		E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F985F515E0DE99003869B5 /* Accelerate.framework */; };
-		a36f448bc64e481bcf6e8dd69472d626 /* textButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8edde74b6be02542127e51d1b93e5dda /* textButton.cpp */; };
 		b1225d783eb660c3510cf3455c6c4db1 /* xcodeProject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = fe5f6e26cbf7604a99f2ee3a51c3ce04 /* xcodeProject.cpp */; };
 		cafb2b81dd272974f8e26e2a4232e19a /* CBWinProject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = d44316d4ad455ac2e87fd596803bb1ce /* CBWinProject.cpp */; };
 		dd6cc5e71318b8f152cbbdd63e04d64a /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13e1aa3bfbcb01a75729a54a64ff24c7 /* Utils.cpp */; };
@@ -81,29 +79,28 @@
 /* Begin PBXFileReference section */
 		006a2bc8073b8e86223f7c7459b85164 /* baseProject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = baseProject.h; path = src/ProjectGeneratorMotor/src/baseProject.h; sourceTree = SOURCE_ROOT; };
 		01dcc0911400f9acf5b65578af4ec8f9 /* ofxXmlSettings.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxXmlSettings.h; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.h; sourceTree = SOURCE_ROOT; };
-		0cd663cbf893e2d2606bc91e14735b0e /* checkList.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = checkList.h; path = src/gui/checkList.h; sourceTree = SOURCE_ROOT; };
 		13e1aa3bfbcb01a75729a54a64ff24c7 /* Utils.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Utils.cpp; path = src/ProjectGeneratorMotor/src/Utils.cpp; sourceTree = SOURCE_ROOT; };
 		24639b472940899b3de0e7ec7a7ac9fc /* readme.txt */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = readme.txt; path = src/ProjectGeneratorMotor/libs/pugixml/readme.txt; sourceTree = SOURCE_ROOT; };
 		2b40eda85beb63e46785bc299a638898 /* tinyxml.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxml.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxml.cpp; sourceTree = SOURCE_ROOT; };
 		2dccc50f731106a891cbbd4fb9bd4a16 /* pugiconfig.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = pugiconfig.hpp; path = src/ProjectGeneratorMotor/libs/pugixml/src/pugiconfig.hpp; sourceTree = SOURCE_ROOT; };
-		3D4F9867166BD447004FD728 /* froebelShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = froebelShape.cpp; sourceTree = "<group>"; };
-		3D4F9868166BD447004FD728 /* froebelShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = froebelShape.h; sourceTree = "<group>"; };
-		3D4F986A166BD459004FD728 /* froebelTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = froebelTextBox.cpp; sourceTree = "<group>"; };
-		3D4F986B166BD459004FD728 /* froebelTextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = froebelTextBox.h; sourceTree = "<group>"; };
-		3D4F9877166C1C75004FD728 /* froebelEditBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = froebelEditBox.cpp; sourceTree = "<group>"; };
-		3D4F9878166C1C75004FD728 /* froebelEditBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = froebelEditBox.h; sourceTree = "<group>"; };
+		3D4F987E166C5973004FD728 /* froebelEditBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = froebelEditBox.cpp; sourceTree = "<group>"; };
+		3D4F987F166C5973004FD728 /* froebelEditBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = froebelEditBox.h; sourceTree = "<group>"; };
+		3D4F9880166C5973004FD728 /* froebelListBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = froebelListBox.cpp; sourceTree = "<group>"; };
+		3D4F9881166C5973004FD728 /* froebelListBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = froebelListBox.h; sourceTree = "<group>"; };
+		3D4F9882166C5973004FD728 /* froebelShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = froebelShape.cpp; sourceTree = "<group>"; };
+		3D4F9883166C5973004FD728 /* froebelShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = froebelShape.h; sourceTree = "<group>"; };
+		3D4F9884166C5973004FD728 /* froebelTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = froebelTextBox.cpp; sourceTree = "<group>"; };
+		3D4F9885166C5973004FD728 /* froebelTextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = froebelTextBox.h; sourceTree = "<group>"; };
 		3D520B6D166AF1EE00212598 /* OFPlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OFPlay.png; sourceTree = "<group>"; };
 		3D520B6E166AF23500212598 /* OFPlay.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OFPlay.icns; sourceTree = "<group>"; };
 		3e12fc1366c71a2011058511445803c9 /* ofAddon.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofAddon.h; path = src/ProjectGeneratorMotor/src/ofAddon.h; sourceTree = SOURCE_ROOT; };
 		50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
 		53e59de3bc648ce3a83be02a8f7632bd /* visualStudioProject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = visualStudioProject.cpp; path = src/ProjectGeneratorMotor/src/visualStudioProject.cpp; sourceTree = SOURCE_ROOT; };
-		69ef7dbad4baa443e25141258c9adf2e /* checkButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = checkButton.h; path = src/gui/checkButton.h; sourceTree = SOURCE_ROOT; };
 		77bb38201f37242d900e8d2ab2b0f158 /* CBLinuxProject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = CBLinuxProject.h; path = src/ProjectGeneratorMotor/src/CBLinuxProject.h; sourceTree = SOURCE_ROOT; };
 		78605f0b91413d758213aae712cb86ad /* Utils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Utils.h; path = src/ProjectGeneratorMotor/src/Utils.h; sourceTree = SOURCE_ROOT; };
 		78e6a7e26ea13565fec1412bb6f42805 /* pugixml.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = pugixml.cpp; path = src/ProjectGeneratorMotor/libs/pugixml/src/pugixml.cpp; sourceTree = SOURCE_ROOT; };
 		79026f30cf4132d41bfbbd77dc08be6e /* CBLinuxProject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = CBLinuxProject.cpp; path = src/ProjectGeneratorMotor/src/CBLinuxProject.cpp; sourceTree = SOURCE_ROOT; };
 		832bdc407620cdba568b713d2252c43c /* tinyxmlerror.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxmlerror.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxmlerror.cpp; sourceTree = SOURCE_ROOT; };
-		8edde74b6be02542127e51d1b93e5dda /* textButton.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = textButton.cpp; path = src/gui/textButton.cpp; sourceTree = SOURCE_ROOT; };
 		96ec34b7b2cf472cc08e01609475d875 /* CBWinProject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = CBWinProject.h; path = src/ProjectGeneratorMotor/src/CBWinProject.h; sourceTree = SOURCE_ROOT; };
 		9f772c7104466b871109338a97ec0327 /* visualStudioProject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = visualStudioProject.h; path = src/ProjectGeneratorMotor/src/visualStudioProject.h; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
@@ -132,12 +129,9 @@
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		ab4344a8be38c13dc4c9c7e94158b769 /* pugixml.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = pugixml.hpp; path = src/ProjectGeneratorMotor/libs/pugixml/src/pugixml.hpp; sourceTree = SOURCE_ROOT; };
 		b21e7e5f548eea92f368040bb1aa2f69 /* tinyxml.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tinyxml.h; path = ../../../addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SOURCE_ROOT; };
-		b27107cb7510435788a18c77bd075045 /* checkList.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = checkList.cpp; path = src/gui/checkList.cpp; sourceTree = SOURCE_ROOT; };
 		c1f04460748bba0b6cc52d7ecb4cd7da /* baseProject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = baseProject.cpp; path = src/ProjectGeneratorMotor/src/baseProject.cpp; sourceTree = SOURCE_ROOT; };
 		d44316d4ad455ac2e87fd596803bb1ce /* CBWinProject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = CBWinProject.cpp; path = src/ProjectGeneratorMotor/src/CBWinProject.cpp; sourceTree = SOURCE_ROOT; };
-		d8c8f2c92c1b57c91f12423f16e1fddf /* textButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = textButton.h; path = src/gui/textButton.h; sourceTree = SOURCE_ROOT; };
 		daef14e9f14d065fa8eaae9e32069a63 /* foreach.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = foreach.hpp; path = src/ProjectGeneratorMotor/libs/pugixml/contrib/foreach.hpp; sourceTree = SOURCE_ROOT; };
-		dd2fa9d4db1657095fed71b8f8d7a1b4 /* checkButton.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = checkButton.cpp; path = src/gui/checkButton.cpp; sourceTree = SOURCE_ROOT; };
 		e6a0df30a5c700a55be09c5d3bc2f74c /* ofAddon.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofAddon.cpp; path = src/ProjectGeneratorMotor/src/ofAddon.cpp; sourceTree = SOURCE_ROOT; };
 		f839f42cfec81c7ca117023d0e5716a2 /* xcodeProject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = xcodeProject.h; path = src/ProjectGeneratorMotor/src/xcodeProject.h; sourceTree = SOURCE_ROOT; };
 		fc5da1c87211d4f6377da7199d8c5a1e /* tinyxmlparser.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxmlparser.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxmlparser.cpp; sourceTree = SOURCE_ROOT; };
@@ -189,6 +183,21 @@
 			name = ofxXmlSettings;
 			sourceTree = "<group>";
 		};
+		3D4F987D166C5973004FD728 /* gui */ = {
+			isa = PBXGroup;
+			children = (
+				3D4F987E166C5973004FD728 /* froebelEditBox.cpp */,
+				3D4F987F166C5973004FD728 /* froebelEditBox.h */,
+				3D4F9880166C5973004FD728 /* froebelListBox.cpp */,
+				3D4F9881166C5973004FD728 /* froebelListBox.h */,
+				3D4F9882166C5973004FD728 /* froebelShape.cpp */,
+				3D4F9883166C5973004FD728 /* froebelShape.h */,
+				3D4F9884166C5973004FD728 /* froebelTextBox.cpp */,
+				3D4F9885166C5973004FD728 /* froebelTextBox.h */,
+			);
+			path = gui;
+			sourceTree = "<group>";
+		};
 		48bcb089d143d57572152ca862542db5 /* ProjectGeneratorMotor */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,25 +225,6 @@
 				01dcc0911400f9acf5b65578af4ec8f9 /* ofxXmlSettings.h */,
 			);
 			name = src;
-			sourceTree = "<group>";
-		};
-		6f69382cecad473b4816a9285d4c9cb1 /* gui */ = {
-			isa = PBXGroup;
-			children = (
-				dd2fa9d4db1657095fed71b8f8d7a1b4 /* checkButton.cpp */,
-				69ef7dbad4baa443e25141258c9adf2e /* checkButton.h */,
-				b27107cb7510435788a18c77bd075045 /* checkList.cpp */,
-				0cd663cbf893e2d2606bc91e14735b0e /* checkList.h */,
-				8edde74b6be02542127e51d1b93e5dda /* textButton.cpp */,
-				d8c8f2c92c1b57c91f12423f16e1fddf /* textButton.h */,
-				3D4F9868166BD447004FD728 /* froebelShape.h */,
-				3D4F9867166BD447004FD728 /* froebelShape.cpp */,
-				3D4F986B166BD459004FD728 /* froebelTextBox.h */,
-				3D4F986A166BD459004FD728 /* froebelTextBox.cpp */,
-				3D4F9878166C1C75004FD728 /* froebelEditBox.h */,
-				3D4F9877166C1C75004FD728 /* froebelEditBox.cpp */,
-			);
-			name = gui;
 			sourceTree = "<group>";
 		};
 		90d6d131bb86bcce96827c578742f525 /* contrib */ = {
@@ -321,7 +311,7 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
-				6f69382cecad473b4816a9285d4c9cb1 /* gui */,
+				3D4F987D166C5973004FD728 /* gui */,
 				48bcb089d143d57572152ca862542db5 /* ProjectGeneratorMotor */,
 			);
 			path = src;
@@ -463,9 +453,6 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
-				8baeada59628a9eef3b57894d9def946 /* checkButton.cpp in Sources */,
-				83852fa1f387edb9605f26e372a7239c /* checkList.cpp in Sources */,
-				a36f448bc64e481bcf6e8dd69472d626 /* textButton.cpp in Sources */,
 				2401072dc4df01e251cf003d9332bc0a /* readme.txt in Sources */,
 				fae92bb5085f4ee5a61a6580ab640b0a /* pugixml.cpp in Sources */,
 				73dafc4fc2caaa9d82202d0485c878a3 /* baseProject.cpp in Sources */,
@@ -479,9 +466,10 @@
 				933a2227713c720ceff80fd967d0a8ee /* tinyxml.cpp in Sources */,
 				9d44dc88ef9e7991b4a09951e2e4769f /* tinyxmlerror.cpp in Sources */,
 				5a4349e9754d6fa14c0f2a3a1abc30b6 /* tinyxmlparser.cpp in Sources */,
-				3D4F9869166BD447004FD728 /* froebelShape.cpp in Sources */,
-				3D4F986C166BD459004FD728 /* froebelTextBox.cpp in Sources */,
-				3D4F9879166C1C75004FD728 /* froebelEditBox.cpp in Sources */,
+				3D4F9886166C5973004FD728 /* froebelEditBox.cpp in Sources */,
+				3D4F9887166C5973004FD728 /* froebelListBox.cpp in Sources */,
+				3D4F9888166C5973004FD728 /* froebelShape.cpp in Sources */,
+				3D4F9889166C5973004FD728 /* froebelTextBox.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
