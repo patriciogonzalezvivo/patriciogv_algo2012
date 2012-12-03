@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2401072dc4df01e251cf003d9332bc0a /* readme.txt in Sources */ = {isa = PBXBuildFile; fileRef = 24639b472940899b3de0e7ec7a7ac9fc /* readme.txt */; };
+		3D4F9869166BD447004FD728 /* froebelShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F9867166BD447004FD728 /* froebelShape.cpp */; };
+		3D4F986C166BD459004FD728 /* froebelTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F986A166BD459004FD728 /* froebelTextBox.cpp */; };
+		3D4F9879166C1C75004FD728 /* froebelEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F9877166C1C75004FD728 /* froebelEditBox.cpp */; };
 		5a4349e9754d6fa14c0f2a3a1abc30b6 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = fc5da1c87211d4f6377da7199d8c5a1e /* tinyxmlparser.cpp */; };
 		63b57ac5bf4ef088491e0317dbb2ecaa /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */; };
 		73dafc4fc2caaa9d82202d0485c878a3 /* baseProject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = c1f04460748bba0b6cc52d7ecb4cd7da /* baseProject.cpp */; };
@@ -83,6 +86,12 @@
 		24639b472940899b3de0e7ec7a7ac9fc /* readme.txt */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = readme.txt; path = src/ProjectGeneratorMotor/libs/pugixml/readme.txt; sourceTree = SOURCE_ROOT; };
 		2b40eda85beb63e46785bc299a638898 /* tinyxml.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxml.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxml.cpp; sourceTree = SOURCE_ROOT; };
 		2dccc50f731106a891cbbd4fb9bd4a16 /* pugiconfig.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = pugiconfig.hpp; path = src/ProjectGeneratorMotor/libs/pugixml/src/pugiconfig.hpp; sourceTree = SOURCE_ROOT; };
+		3D4F9867166BD447004FD728 /* froebelShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = froebelShape.cpp; sourceTree = "<group>"; };
+		3D4F9868166BD447004FD728 /* froebelShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = froebelShape.h; sourceTree = "<group>"; };
+		3D4F986A166BD459004FD728 /* froebelTextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = froebelTextBox.cpp; sourceTree = "<group>"; };
+		3D4F986B166BD459004FD728 /* froebelTextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = froebelTextBox.h; sourceTree = "<group>"; };
+		3D4F9877166C1C75004FD728 /* froebelEditBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = froebelEditBox.cpp; sourceTree = "<group>"; };
+		3D4F9878166C1C75004FD728 /* froebelEditBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = froebelEditBox.h; sourceTree = "<group>"; };
 		3D520B6D166AF1EE00212598 /* OFPlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OFPlay.png; sourceTree = "<group>"; };
 		3D520B6E166AF23500212598 /* OFPlay.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OFPlay.icns; sourceTree = "<group>"; };
 		3e12fc1366c71a2011058511445803c9 /* ofAddon.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofAddon.h; path = src/ProjectGeneratorMotor/src/ofAddon.h; sourceTree = SOURCE_ROOT; };
@@ -218,6 +227,12 @@
 				0cd663cbf893e2d2606bc91e14735b0e /* checkList.h */,
 				8edde74b6be02542127e51d1b93e5dda /* textButton.cpp */,
 				d8c8f2c92c1b57c91f12423f16e1fddf /* textButton.h */,
+				3D4F9868166BD447004FD728 /* froebelShape.h */,
+				3D4F9867166BD447004FD728 /* froebelShape.cpp */,
+				3D4F986B166BD459004FD728 /* froebelTextBox.h */,
+				3D4F986A166BD459004FD728 /* froebelTextBox.cpp */,
+				3D4F9878166C1C75004FD728 /* froebelEditBox.h */,
+				3D4F9877166C1C75004FD728 /* froebelEditBox.cpp */,
 			);
 			name = gui;
 			sourceTree = "<group>";
@@ -464,6 +479,9 @@
 				933a2227713c720ceff80fd967d0a8ee /* tinyxml.cpp in Sources */,
 				9d44dc88ef9e7991b4a09951e2e4769f /* tinyxmlerror.cpp in Sources */,
 				5a4349e9754d6fa14c0f2a3a1abc30b6 /* tinyxmlparser.cpp in Sources */,
+				3D4F9869166BD447004FD728 /* froebelShape.cpp in Sources */,
+				3D4F986C166BD459004FD728 /* froebelTextBox.cpp in Sources */,
+				3D4F9879166C1C75004FD728 /* froebelEditBox.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

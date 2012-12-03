@@ -151,6 +151,6 @@ void checkList::draw(){
         ofSetColor(220,220,220);
         ofRect(x, y, width, elementHeight);
         ofSetColor(0,0,0);
-        font->drawString(title, x + 11 , y + elementHeight - 11);
+        secondFont->drawString(title, x + 11 , y + elementHeight - 11);
     }
 }

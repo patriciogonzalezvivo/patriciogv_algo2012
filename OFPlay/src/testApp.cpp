@@ -159,8 +159,8 @@ void testApp::setup(){
     
     //  load font and setup the buttons
     //
-    font.loadFont("fonts/Inconsolata.otf", 14, true,false,false,0.3,90);
-    secondFont.loadFont("fonts/Inconsolata.otf", 11, true,false,false,0.3,90);
+    font.loadFont("fonts/Inconsolata.otf", 14, true,false,false,0.5,90);
+    secondFont.loadFont("fonts/GeosansLight.ttf", 11, true,false,false,0.5,90);
     
     //  Sketch button
     //
@@ -237,10 +237,12 @@ void testApp::setup(){
     //
     coreAddonsList.set(paddingLeft-12,paddingTop-22,270,500);
     coreAddonsList.font = &font;
-    coreAddonsList.title = "Core Addons";
+    coreAddonsList.secondFont = &secondFont;
+    coreAddonsList.title = "CORE ADDONS";
     otherAddonsList.set(coreAddonsList.x+coreAddonsList.width+paddingRight,coreAddonsList.y,coreAddonsList.width,coreAddonsList.height);
     otherAddonsList.font = &font;
-    otherAddonsList.title = "Non-Core Addons";
+    otherAddonsList.secondFont = &secondFont;
+    otherAddonsList.title = "EXTRA ADDONS";
     
     ofDirectory addonsFolder(addonsPath);
     addonsFolder.listDir();
@@ -261,7 +263,8 @@ void testApp::setup(){
     //
     platformsList.set(paddingLeft-12,paddingTop-22,270,500);
     platformsList.font = &font;
-    platformsList.title = "Platforms";
+    platformsList.secondFont = &secondFont;
+    platformsList.title = "PLATFORM TARGETS";
     platformsList.addElement("windows (codeblocks)",ofGetTargetPlatform()==OF_TARGET_WINGCC);
 	platformsList.addElement("windows (visualStudio)", ofGetTargetPlatform()==OF_TARGET_WINVS);
 	platformsList.addElement("linux (codeblocks)",ofGetTargetPlatform()==OF_TARGET_LINUX);
@@ -279,6 +282,18 @@ void testApp::setup(){
     // update the platforms text in the platform button
     //
     buttons[2]->setText( platformsList.getSelectedAsString() );
+    
+    guiEl.text = " esto es un texto largo ";
+    guiEl.prefix = "Path:";
+    guiEl.deliminater = "/";
+    guiEl.bLeftAlign = false;
+    guiEl.setFont(font);
+    guiEl.setSizeAndShapes(38, 3, 4);
+    guiEl.x = ofGetWidth()*0.5;
+    guiEl.y = ofGetHeight()*0.5;
+    guiEl.enable();
+//    guiEl.width = 300;
+    
 }
 
 //------------------------------------------------------
@@ -537,10 +552,13 @@ void testApp::draw(){
     ofRect(0,ofGetHeight(), ofGetWidth(), -25);
     ofSetColor(255,255,255, 255 * statusEnergy);
     ofDrawBitmapString(status, 10,ofGetHeight()-8);
+    
+    guiEl.draw();
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
+
 }
 
 //--------------------------------------------------------------

@@ -44,6 +44,7 @@ void textButton::setText(string _newText){
 
         ofRectangle rect = font->getStringBoundingBox(text, pos.x, pos.y);
         ofRectangle rectSecText = secondFont->getStringBoundingBox(secondaryText, 0, 0);
+        
         if ((pos.x + rect.width) > ((ofGetWidth() - x*2) - rectSecText.width)){
             displayText += "\n";
             displayText += text;

@@ -14,6 +14,8 @@
 #include "textButton.h"
 #include "checkList.h"
 
+#include "froebelEditBox.h"
+
 class testApp : public ofBaseApp{
 public:
     void setup();
@@ -39,6 +41,8 @@ public:
     
     ofTrueTypeFont  font;
     ofTrueTypeFont  secondFont;
+    
+    froebelEditBox guiEl;
     
     checkList       platformsList;
     checkList       coreAddonsList;

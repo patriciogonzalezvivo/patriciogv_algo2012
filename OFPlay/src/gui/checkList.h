@@ -29,8 +29,10 @@ public:
     void    draw();
     
     vector<checkButton*> elements;
-    ofTrueTypeFont * font;
-
+    
+    ofTrueTypeFont  *font;
+    ofTrueTypeFont  *secondFont;
+    
     float   damp;
     float   elementHeight;
     string  title;
