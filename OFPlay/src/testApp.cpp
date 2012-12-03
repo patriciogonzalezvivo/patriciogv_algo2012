@@ -182,7 +182,7 @@ void testApp::setup(){
     subProjectName->font = &secondFont;
     subProjectName->bLeftAlign = false;
     subProjectName->setSizeAndShapes(defaultHeight, 1);
-    subProjectName->setActiveColors(6, 2);
+    subProjectName->setActiveColors(4, 6);
     subProjectName->setPasiveColors(3, 0);
     subProjectName->width = ofGetWidth() - paddingLeft*2.0;
     projectName.subInfo = subProjectName;
@@ -202,7 +202,7 @@ void testApp::setup(){
     subProjectPath->font = &secondFont;
     subProjectPath->bLeftAlign = false;
     subProjectPath->setSizeAndShapes(defaultHeight, 1);
-    subProjectPath->setActiveColors(6, 2);
+    subProjectPath->setActiveColors(4, 6);
     subProjectPath->setPasiveColors(3, 0);
     subProjectPath->width = ofGetWidth() - paddingLeft*2.0;
     projectPath.subInfo = subProjectPath;
@@ -212,10 +212,10 @@ void testApp::setup(){
     platformsList.x = paddingLeft;
     platformsList.y = projectPath.y + projectPath.height + paddingButton;
     platformsList.font = &font;
-    platformsList.text = "Platform:";
+    platformsList.prefix = "Platform: ";
     platformsList.deliminater = ", ";
     platformsList.setSizeAndShapes(38,3);
-    platformsList.width = 270;
+    platformsList.width = 320;
     platformsList.addElement("windows (codeblocks)",ofGetTargetPlatform()==OF_TARGET_WINGCC);
 	platformsList.addElement("windows (visualStudio)", ofGetTargetPlatform()==OF_TARGET_WINVS);
 	platformsList.addElement("linux (codeblocks)",ofGetTargetPlatform()==OF_TARGET_LINUX);
@@ -237,7 +237,7 @@ void testApp::setup(){
     subPlatformList->font = &secondFont;
     subPlatformList->bLeftAlign = false;
     subPlatformList->setSizeAndShapes(defaultHeight, 1);
-    subPlatformList->setActiveColors(6, 2);
+    subPlatformList->setActiveColors(4, 6);
     subPlatformList->setPasiveColors(3, 0);
     subPlatformList->width = ofGetWidth() - paddingLeft*2.0;
     platformsList.subInfo = subPlatformList;
@@ -247,10 +247,11 @@ void testApp::setup(){
     addonsList.x = paddingLeft;
     addonsList.y = platformsList.y + platformsList.height + paddingButton;
     addonsList.font = &font;
-    addonsList.text = "Addons:";
+    addonsList.prefix = "Addons: ";
     addonsList.deliminater = ", ";
     addonsList.setSizeAndShapes(38,3);
-    addonsList.width = 270;
+    addonsList.width = 320;
+    addonsList.height = defaultHeight;
     addonsList.maxHeight = 500;
     
     ofDirectory addonsFolder(addonsPath);
@@ -274,7 +275,7 @@ void testApp::setup(){
     subAddonsList->font = &secondFont;
     subAddonsList->bLeftAlign = false;
     subAddonsList->setSizeAndShapes(defaultHeight, 1);
-    subAddonsList->setActiveColors(6, 2);
+    subAddonsList->setActiveColors(4, 6);
     subAddonsList->setPasiveColors(3, 0);
     subAddonsList->width = ofGetWidth() - paddingLeft*2.0;
     addonsList.subInfo = subAddonsList;
@@ -486,9 +487,10 @@ void testApp::draw(){
 
     projectName.draw();
     projectPath.draw();
-    platformsList.draw();
     addonsList.draw();
+    platformsList.draw();
     
+    ofSetColor(255);
     logo.draw(798,506);
     generateButton.draw();
     
@@ -521,6 +523,8 @@ void testApp::mouseDragged(int x, int y, int button){
 void testApp::mousePressed(int x, int y, int button){
     ofPoint mouse = ofPoint(x, y);
     
+   
+    
     if ( projectPath.checkMousePressed( mouse )){
         string command = "";
         ofDirectory dir(ofFilePath::join(getOFRoot(),defaultLoc));
@@ -540,8 +544,31 @@ void testApp::mousePressed(int x, int y, int button){
             projectPath.text = result;
             setStatus("path set to: " + result);
         }
+        
+        projectPath.bSelected   = false;
+    } else if ( addonsList.checkMousePressed(mouse)){
+        platformsList.bSelected = false;
+        addonsList.bSelected    = false;
+        projectPath.bSelected   = false;
+        projectName.bSelected   = false;
+        addonsList.bSelected    = true;
+    } else if ( platformsList.checkMousePressed(mouse)){
+        platformsList.bSelected = false;
+        addonsList.bSelected    = false;
+        projectPath.bSelected   = false;
+        projectName.bSelected   = false;
+        platformsList.bSelected = true;
     } else if ( generateButton.checkMousePressed(mouse)){
+        platformsList.bSelected = false;
+        addonsList.bSelected    = false;
+        projectPath.bSelected   = false;
+        projectName.bSelected   = false;
         generateProject();
+    } else {
+        platformsList.bSelected = false;
+        addonsList.bSelected    = false;
+        projectPath.bSelected   = false;
+        projectName.bSelected   = false;
     }
 }
 

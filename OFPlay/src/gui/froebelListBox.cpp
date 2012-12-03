@@ -54,21 +54,21 @@ void froebelListBox::addElement(string _value, bool _defVal, int _iconShape){
     newElement->fgPasiveColor = froebelColor(5);
     newElement->fgActiveColor = froebelColor(4);
     
+    elements.push_back(newElement);
     
-    
-    //  recalculate the bounding box
-    //
-    box.x = x;
-    box.y = y + height;
-    box.width = width;
-    box.height = 0;
-    
-    if (bEdge)
-        box.width -= size*0.5;
-    
-    for(int i = 0; i < elements.size(); i++){
-        box.height += elements[i]->height;
-    }
+//    //  recalculate the bounding box
+//    //
+//    box.x = x;
+//    box.y = y + size;
+//    box.width = width;
+//    box.height = 0;
+//    
+//    if (bEdge)
+//        box.width -= size*0.5;
+//    
+//    for(int i = 0; i < elements.size(); i++){
+//        box.height += elements[i]->height;
+//    }
 }
 
 void froebelListBox::clear(){
@@ -110,7 +110,6 @@ string froebelListBox::getSelectedAsString(){
     string list;
     
     for (int i = 0; i < elements.size(); i++){
-        
         if ( elements[i]->bSelected ){
             
             if (list.length() > 0)
@@ -125,51 +124,85 @@ string froebelListBox::getSelectedAsString(){
 
 bool froebelListBox::checkMousePressed(ofPoint _mouse){
     
-    if ( !froebelTextBox::checkMousePressed(_mouse) ){
-    
-        if (box.inside(_mouse)){
+    if ( !bSelected ){ 
+        
+        return froebelTextBox::checkMousePressed(_mouse);
+        
+    } else {
+        
+        if ( box.inside(_mouse) ){
+            
             for(int i = 0; i < elements.size(); i++){
                 if (box.inside( elements[i]->getCenter() )){
-                    if (elements[i]->checkMousePressed(_mouse))
-                        break;
+                    if (elements[i]->checkMousePressed(_mouse)){
+                        text = getSelectedAsString();
+                        return true;
+                    }
                 }
             }
+            
+            return false;
         }
     }
 }
 
-void froebelListBox::draw(){
+void froebelListBox::update(){
     
-    //  Calculate the mouse compensation
-    //
-    if (inside(ofGetMouseX(),ofGetMouseY()) && box.height > maxHeight ){
-        float pct = ofMap(ofGetMouseY()-box.y, 0, box.height, 0,1,true);
-        float diff = maxHeight - box.height;
-        mouseOffSet = ofLerp( mouseOffSet, -diff * pct, damp);
-    }
+    froebelTextBox::update();
     
-    //  Fix the position of the elements
-    //
-    float offSetY = 0;
-    for(int i = 0; i < elements.size(); i++){
-        elements[i]->x = x;
-        elements[i]->y = y + offSetY + mouseOffSet;
-        elements[i]->width = width;
+    if (bSelected){
+        //  recalculate the bounding box
+        //
+        box.x = x;
+        box.width = width;
+        box.y = y + size;
         
-        offSetY += elements[i]->height;
+        if (bEdge)
+            box.width -= size*0.5;
+        
+        box.height = ofGetHeight() - box.y - size*2;
+        
+        float totalLenght = 0;
+        float offSetY = size;
+        for(int i = 0; i < elements.size(); i++){
+            totalLenght += elements[i]->height;
+        }
+        
+        if (totalLenght > box.height){
+            if (box.inside(ofGetMouseX(),ofGetMouseY())){
+                float pct = ofMap(ofGetMouseY()- box.y, size*0.5, box.height, 0,1,true);
+                float diff = totalLenght - box.height;
+                mouseOffSet = ofLerp( mouseOffSet, -diff * pct, damp);
+            }
+        }
+        
+        for(int i = 0; i < elements.size(); i++){
+            elements[i]->x = box.x;
+            elements[i]->y = box.y + offSetY + mouseOffSet;
+            elements[i]->width = box.width;
+            elements[i]->update();
+            
+            offSetY += elements[i]->height;
+        }
     }
-    
+}
+
+
+void froebelListBox::draw(){
     //  Render Elements
     //
-    ofSetColor(backgroundColor);
-    ofRect(box);
-    
-    for(int i = 0; i < elements.size(); i++){
-        if (box.inside( elements[i]->getCenter() )){
-            elements[i]->draw();
+    if ( bSelected ){
+        ofFill();
+        ofSetColor(backgroundColor);
+        ofRect(box);
+        
+        for(int i = 0; i < elements.size(); i++){
+            
+            if (box.inside( elements[i]->getCenter() )){
+                elements[i]->draw();
+            }
         }
     }
     
     froebelTextBox::draw();
-    height = size;
 }

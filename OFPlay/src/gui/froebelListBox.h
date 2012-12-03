@@ -27,6 +27,7 @@ public:
     void    clear();
     void    reset();
     
+    void    update();
     void    draw();
     
     ofFloatColor    backgroundColor;
