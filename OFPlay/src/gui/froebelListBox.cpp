@@ -154,9 +154,9 @@ void froebelListBox::update(){
         //  recalculate the bounding box
         //
         box.x = x;
-        box.width = width;
         box.y = y + size;
         
+        box.width = width;
         if (bEdge)
             box.width -= size*0.5;
         

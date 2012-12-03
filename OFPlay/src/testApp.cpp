@@ -229,6 +229,7 @@ void testApp::setup(){
     platformsList.addElement("osx (xcode)",ofGetTargetPlatform()==OF_TARGET_OSX);
 	platformsList.addElement("ios (xcode)",ofGetTargetPlatform()==OF_TARGET_IPHONE);
 #endif
+    platformsList.text = platformsList.getSelectedAsString();
     
     froebelTextBox *subPlatformList = new froebelTextBox();
     *subPlatformList = platformsList;
@@ -357,6 +358,8 @@ void testApp::loadProject(string _path){
     fs.seekg(0,ios::beg);
     fs.clear();
     fs.close();
+    
+    addonsList.text = addonsList.getSelectedAsString();
 }
 
 string testApp::setTarget(int targ){
