@@ -12,6 +12,7 @@
 		3D4F9887166C5973004FD728 /* froebelListBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F9880166C5973004FD728 /* froebelListBox.cpp */; };
 		3D4F9888166C5973004FD728 /* froebelShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F9882166C5973004FD728 /* froebelShape.cpp */; };
 		3D4F9889166C5973004FD728 /* froebelTextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F9884166C5973004FD728 /* froebelTextBox.cpp */; };
+		3D9D9D9F166D8FB300889B5C /* froebelColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D9D9D166D8FB300889B5C /* froebelColor.cpp */; };
 		5a4349e9754d6fa14c0f2a3a1abc30b6 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = fc5da1c87211d4f6377da7199d8c5a1e /* tinyxmlparser.cpp */; };
 		63b57ac5bf4ef088491e0317dbb2ecaa /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */; };
 		73dafc4fc2caaa9d82202d0485c878a3 /* baseProject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = c1f04460748bba0b6cc52d7ecb4cd7da /* baseProject.cpp */; };
@@ -93,6 +94,8 @@
 		3D4F9885166C5973004FD728 /* froebelTextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = froebelTextBox.h; sourceTree = "<group>"; };
 		3D520B6D166AF1EE00212598 /* OFPlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OFPlay.png; sourceTree = "<group>"; };
 		3D520B6E166AF23500212598 /* OFPlay.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = OFPlay.icns; sourceTree = "<group>"; };
+		3D9D9D9D166D8FB300889B5C /* froebelColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = froebelColor.cpp; sourceTree = "<group>"; };
+		3D9D9D9E166D8FB300889B5C /* froebelColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = froebelColor.h; sourceTree = "<group>"; };
 		3e12fc1366c71a2011058511445803c9 /* ofAddon.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofAddon.h; path = src/ProjectGeneratorMotor/src/ofAddon.h; sourceTree = SOURCE_ROOT; };
 		50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
 		53e59de3bc648ce3a83be02a8f7632bd /* visualStudioProject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = visualStudioProject.cpp; path = src/ProjectGeneratorMotor/src/visualStudioProject.cpp; sourceTree = SOURCE_ROOT; };
@@ -186,14 +189,16 @@
 		3D4F987D166C5973004FD728 /* gui */ = {
 			isa = PBXGroup;
 			children = (
-				3D4F987E166C5973004FD728 /* froebelEditBox.cpp */,
-				3D4F987F166C5973004FD728 /* froebelEditBox.h */,
-				3D4F9880166C5973004FD728 /* froebelListBox.cpp */,
-				3D4F9881166C5973004FD728 /* froebelListBox.h */,
-				3D4F9882166C5973004FD728 /* froebelShape.cpp */,
+				3D9D9D9E166D8FB300889B5C /* froebelColor.h */,
+				3D9D9D9D166D8FB300889B5C /* froebelColor.cpp */,
 				3D4F9883166C5973004FD728 /* froebelShape.h */,
-				3D4F9884166C5973004FD728 /* froebelTextBox.cpp */,
+				3D4F9882166C5973004FD728 /* froebelShape.cpp */,
 				3D4F9885166C5973004FD728 /* froebelTextBox.h */,
+				3D4F9884166C5973004FD728 /* froebelTextBox.cpp */,
+				3D4F987F166C5973004FD728 /* froebelEditBox.h */,
+				3D4F987E166C5973004FD728 /* froebelEditBox.cpp */,
+				3D4F9881166C5973004FD728 /* froebelListBox.h */,
+				3D4F9880166C5973004FD728 /* froebelListBox.cpp */,
 			);
 			path = gui;
 			sourceTree = "<group>";
@@ -470,6 +475,7 @@
 				3D4F9887166C5973004FD728 /* froebelListBox.cpp in Sources */,
 				3D4F9888166C5973004FD728 /* froebelShape.cpp in Sources */,
 				3D4F9889166C5973004FD728 /* froebelTextBox.cpp in Sources */,
+				3D9D9D9F166D8FB300889B5C /* froebelColor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

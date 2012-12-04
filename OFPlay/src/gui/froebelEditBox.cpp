@@ -3,7 +3,7 @@
 //  OFPlay
 //
 //  Created by Patricio Gonzalez Vivo on 12/2/12.
-//
+//  Copyright (c) 2012 http://www.patriciogonzalezvivo.com All rights reserved.
 //
 
 #include "froebelEditBox.h"
@@ -14,20 +14,22 @@ froebelEditBox::froebelEditBox(){
     setActiveColors(3, 4);
     setPasiveColors(2, 5);
     
-    iconShape.dstColor = endingShape.dstColor = bgColor = bgDstColor = fgColor = fgDstColor = froebelColor(0);
+    bgColor = bgDstColor = fgColor = fgDstColor = froebelColor(0);
     
     bSelected   = false;
     bLeftAlign  = true;
+    bChange     = true;
     
     text = "";
     prefix = "";
     deliminater = "";
     
+    bIcon = false;
+    bEdge = false;
+    
     maxWidth = 600;
     size = 40;
     damp = 0.1;
-    
-    text = "";
     
 	cursorPosition = 0;
 	cursorx = 0;
@@ -256,4 +258,6 @@ void froebelEditBox::keyPressed(ofKeyEventArgs& args) {
 			}
 		}
 	}
+    
+    bChange = true;
 }

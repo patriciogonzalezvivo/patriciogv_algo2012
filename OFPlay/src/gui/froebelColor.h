@@ -3,12 +3,28 @@
 //  OFPlay
 //
 //  Created by Patricio Gonzalez Vivo on 12/3/12.
+//  Copyright (c) 2012 http://www.patriciogonzalezvivo.com All rights reserved.
 //
-//
 
-#ifndef __OFPlay__froebelColor__
-#define __OFPlay__froebelColor__
+#ifndef FROEBELCOLOR
+#define FROEBELCOLOR
 
-#include <iostream>
+#include "ofMain.h"
 
-#endif /* defined(__OFPlay__froebelColor__) */
+class froebelColor {
+public:
+    
+    froebelColor();
+    
+    ofFloatColor    getColorFromPalet( int _palletNum );
+    
+    void    addState( int _pallet );
+    void    addState( ofFloatColor *_color );
+    
+    ofFloatColor    color;
+private:
+    vector<ofFloatColor*>   dstColors;
+    
+};
+
+#endif

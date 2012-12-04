@@ -167,8 +167,8 @@ void testApp::setup(){
     
     //  Name:
     //
-    projectName.text = sketchName;
-    projectName.prefix = "Name: ";
+    projectName.setText(sketchName);
+    projectName.setPrefix("Name: ");
     projectName.font = &font;
     projectName.setSizeAndShapes(defaultHeight, 3);
     projectName.x = paddingLeft;
@@ -177,8 +177,8 @@ void testApp::setup(){
     
     froebelTextBox *subProjectName = new froebelTextBox();
     *subProjectName = projectName;
-    subProjectName->prefix = "<< ";
-    subProjectName->text = "CHANGE THE NAME";
+    subProjectName->setPrefix("<< ");
+    subProjectName->setText("CHANGE THE NAME");
     subProjectName->font = &secondFont;
     subProjectName->bLeftAlign = false;
     subProjectName->setSizeAndShapes(defaultHeight, 1);
@@ -187,9 +187,9 @@ void testApp::setup(){
     subProjectName->width = ofGetWidth() - paddingLeft*2.0;
     projectName.subInfo = subProjectName;
     
-    projectPath.text = sketchPath;
-    projectPath.prefix = "Path: ";
-    projectPath.deliminater = "/";
+    projectPath.setText(sketchPath);
+    projectPath.setPrefix("Path: ");
+    projectPath.setDivider("/");
     projectPath.font = &font;
     projectPath.setSizeAndShapes(defaultHeight, 3);
     projectPath.x = paddingLeft;
@@ -197,8 +197,8 @@ void testApp::setup(){
     
     froebelTextBox *subProjectPath = new froebelTextBox();
     *subProjectPath = projectPath;
-    subProjectPath->prefix = "<< ";
-    subProjectPath->text = "CHANGE THE DIRECTORY";
+    subProjectPath->setPrefix("<< ");
+    subProjectPath->setText("CHANGE THE DIRECTORY");
     subProjectPath->font = &secondFont;
     subProjectPath->bLeftAlign = false;
     subProjectPath->setSizeAndShapes(defaultHeight, 1);
@@ -212,8 +212,8 @@ void testApp::setup(){
     platformsList.x = paddingLeft;
     platformsList.y = projectPath.y + projectPath.height + paddingButton;
     platformsList.font = &font;
-    platformsList.prefix = "Platform: ";
-    platformsList.deliminater = ", ";
+    platformsList.setPrefix("Platform: ");
+    platformsList.setDivider(", ");
     platformsList.setSizeAndShapes(38,3);
     platformsList.width = 320;
     platformsList.addElement("windows (codeblocks)",ofGetTargetPlatform()==OF_TARGET_WINGCC);
@@ -229,12 +229,12 @@ void testApp::setup(){
     platformsList.addElement("osx (xcode)",ofGetTargetPlatform()==OF_TARGET_OSX);
 	platformsList.addElement("ios (xcode)",ofGetTargetPlatform()==OF_TARGET_IPHONE);
 #endif
-    platformsList.text = platformsList.getSelectedAsString();
+    platformsList.setText( platformsList.getSelectedAsString() );
     
     froebelTextBox *subPlatformList = new froebelTextBox();
     *subPlatformList = platformsList;
-    subPlatformList->prefix = "<< ";
-    subPlatformList->text = "CHANGE THE PLATFORM TARGET";
+    subPlatformList->setDivider( "<< " );
+    subPlatformList->setText("CHANGE THE PLATFORM TARGET");
     subPlatformList->font = &secondFont;
     subPlatformList->bLeftAlign = false;
     subPlatformList->setSizeAndShapes(defaultHeight, 1);
@@ -248,12 +248,13 @@ void testApp::setup(){
     addonsList.x = paddingLeft;
     addonsList.y = platformsList.y + platformsList.height + paddingButton;
     addonsList.font = &font;
-    addonsList.prefix = "Addons: ";
-    addonsList.deliminater = ", ";
+    addonsList.setPrefix("Addons: ");
+    addonsList.setDivider(", ");
     addonsList.setSizeAndShapes(38,3);
     addonsList.width = 320;
     addonsList.height = defaultHeight;
-    addonsList.maxHeight = 500;
+    addonsList.maxWidth = 700;
+    addonsList.maxHeight = 200;
     
     ofDirectory addonsFolder(addonsPath);
     addonsFolder.listDir();
@@ -271,8 +272,8 @@ void testApp::setup(){
     
     froebelTextBox *subAddonsList = new froebelTextBox();
     *subAddonsList = addonsList;
-    subAddonsList->prefix = "<< ";
-    subAddonsList->text = "SELECT ADDONS";
+    subAddonsList->setPrefix("<< ");
+    subAddonsList->setText("SELECT ADDONS");
     subAddonsList->font = &secondFont;
     subAddonsList->bLeftAlign = false;
     subAddonsList->setSizeAndShapes(defaultHeight, 1);
@@ -281,7 +282,7 @@ void testApp::setup(){
     subAddonsList->width = ofGetWidth() - paddingLeft*2.0;
     addonsList.subInfo = subAddonsList;
     
-    generateButton.text = "GENERATE PROJECT";
+    generateButton.setText( "GENERATE PROJECT" );
     generateButton.font = &font;
     generateButton.setSizeAndShapes(defaultHeight);
     generateButton.x = ofGetWidth() - paddingLeft - 300;
@@ -322,8 +323,8 @@ void testApp::loadProject(string _path){
     string folder = "";
     
     extractFolderFromPath(_path,folder);
-    projectName.text = folder;
-    projectPath.text = _path;
+    projectName.setText(folder);
+    projectPath.setText(_path);
     
     setStatus("Project " + folder + " loaded ");
     
@@ -359,7 +360,7 @@ void testApp::loadProject(string _path){
     fs.clear();
     fs.close();
     
-    addonsList.text = addonsList.getSelectedAsString();
+    addonsList.setText( addonsList.getSelectedAsString() );
 }
 
 string testApp::setTarget(int targ){
@@ -413,17 +414,17 @@ void testApp::generateProject(){
     vector <int> targetsToMake;
     for(int i = 0; i < platformsList.elements.size(); i++){
         if ( platformsList.elements[i]->bSelected == true ){
-            if (platformsList.elements[i]->text == "windows (codeblocks)" ){
+            if (platformsList.elements[i]->getText() == "windows (codeblocks)" ){
                 targetsToMake.push_back(OF_TARGET_WINGCC);
-            } else if (platformsList.elements[i]->text == "windows (visualStudio)"){
+            } else if (platformsList.elements[i]->getText() == "windows (visualStudio)"){
                 targetsToMake.push_back(OF_TARGET_WINVS);
-            } else if (platformsList.elements[i]->text == "linux (codeblocks)"){
+            } else if (platformsList.elements[i]->getText() == "linux (codeblocks)"){
                 targetsToMake.push_back(OF_TARGET_LINUX);
-            } else if (platformsList.elements[i]->text == "linux64 (codeblocks)"){
+            } else if (platformsList.elements[i]->getText() == "linux64 (codeblocks)"){
                 targetsToMake.push_back(OF_TARGET_LINUX64);
-            } else if (platformsList.elements[i]->text == "osx (xcode)"){
+            } else if (platformsList.elements[i]->getText() == "osx (xcode)"){
                 targetsToMake.push_back(OF_TARGET_OSX);
-            } else if (platformsList.elements[i]->text == "ios (xcode)"){
+            } else if (platformsList.elements[i]->getText() == "ios (xcode)"){
                 targetsToMake.push_back(OF_TARGET_IPHONE);
             }
         }
@@ -437,14 +438,14 @@ void testApp::generateProject(){
         return;
 	}
     
-    if (projectName.text.size() == 0){
+    if (projectName.getText().size() == 0){
         ofSystemAlertDialog("Error: project must have a name");
         return;
     }
     
     printf("start with project generation \n");
     
-    string path = ofFilePath::join(projectPath.text, projectName.text);
+    string path = ofFilePath::join(projectPath.getText(), projectName.getText());
     
 	for(int i = 0; i < (int)targetsToMake.size(); i++){
 		string target = setTarget(targetsToMake[i]);
@@ -462,7 +463,7 @@ void testApp::generateProject(){
             project->save(true);
         }
         
-        setStatus("generated: " + projectPath.text + "/" + projectName.text + " for " + platformsList.getSelected()[i]);
+        setStatus("generated: " + projectPath.getText() + "/" + projectName.getText() + " for " + platformsList.getSelected()[i]);
 	}
     
     printf("done with project generation \n");
@@ -544,7 +545,7 @@ void testApp::mousePressed(int x, int y, int button){
         if (res.bSuccess){
             string result = res.filePath;
             convertWindowsToUnixPath(result);
-            projectPath.text = result;
+            projectPath.setText(result);
             setStatus("path set to: " + result);
         }
         

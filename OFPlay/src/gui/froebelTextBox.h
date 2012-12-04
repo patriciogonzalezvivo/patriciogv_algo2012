@@ -3,7 +3,7 @@
 //  OFPlay
 //
 //  Created by Patricio Gonzalez Vivo on 12/2/12.
-//
+//  Copyright (c) 2012 http://www.patriciogonzalezvivo.com All rights reserved.
 //
 
 #ifndef FROEBELTEXTBOX
@@ -22,12 +22,13 @@ public:
     
     virtual bool checkMousePressed(ofPoint _mouse);
     
+    virtual void setText(string _text );
+    virtual string getText();
+    virtual void setPrefix( string _prefix );
+    virtual void setDivider( string _deliminater );
+    
     virtual void update();
     virtual void draw();
-    
-    string  text;
-    string  prefix;
-    string  deliminater;
     
     ofFloatColor    fgActiveColor,fgPasiveColor;
     ofFloatColor    bgActiveColor,bgPasiveColor;
@@ -38,10 +39,15 @@ public:
     float   damp;
     int     maxWidth;
     
+    bool    bChange;
     bool    bSelected;
     bool    bLeftAlign;
     
 protected:
+    string  text;
+    string  prefix;
+    string  deliminater;
+    
     ofFloatColor    froebelColor(int _colorFromPalet);
     
     froebelShape    endingShape;
@@ -56,11 +62,10 @@ protected:
     
     float   size;
     float   margins;
-    
-    int     nEdges;
-    
+
     bool    bEdge;
     bool    bIcon;
+    int     nEdges;
 };
 
 #endif

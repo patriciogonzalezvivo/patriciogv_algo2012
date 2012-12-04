@@ -3,7 +3,7 @@
 //  OFPlay
 //
 //  Created by Patricio Gonzalez Vivo on 12/2/12.
-//
+//  Copyright (c) 2012 http://www.patriciogonzalezvivo.com All rights reserved.
 //
 
 #include "froebelShape.h"
@@ -59,7 +59,7 @@ void froebelShape::setShape(int _shapeNum, float _size){
     
     switch (_shapeNum) {
         case 0:
-            shape.arc(center,size*0.5,size*0.5, 0, 360, true, 36);
+            shape.arc(center,size*0.4,size*0.4, 0, 360, true, 36);
             break;
         case 1:
             shape.arc(center,size*0.5,size*0.5, -90, 90, true, 20);

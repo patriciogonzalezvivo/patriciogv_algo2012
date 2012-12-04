@@ -3,7 +3,7 @@
 //  OFPlay
 //
 //  Created by Patricio Gonzalez Vivo on 12/2/12.
-//
+//  Copyright (c) 2012 http://www.patriciogonzalezvivo.com All rights reserved.
 //
 
 #include "froebelTextBox.h"
@@ -14,13 +14,14 @@ froebelTextBox::froebelTextBox(){
     setActiveColors(3, 4);
     setPasiveColors(2, 5);
     
-    iconShape.dstColor = endingShape.dstColor = bgColor = bgDstColor = fgColor = fgDstColor = froebelColor(0);
+    bgColor = bgDstColor = fgColor = fgDstColor = froebelColor(0);
     
     bSelected   = false;
     bLeftAlign  = true;
+    bChange     = true;
     
-    bEdge       = false;
-    bIcon       = false;
+    bEdge = false;
+    bIcon = false;
     
     text = "";
     prefix = "";
@@ -49,15 +50,34 @@ void froebelTextBox::setSizeAndShapes(float _size, int _endingShape, int _iconSh
     if (_endingShape != -1){
         bEdge = true;
         endingShape.setShape(_endingShape, _size);
-    } else {
-        bEdge = false;
     }
+    
     
     if (_iconShape != -1){
         bIcon = true;
         iconShape.setShape(_iconShape, _size*0.5);
     }
     
+    bChange = true;
+}
+
+void froebelTextBox::setText(string _text ){
+    text = _text;
+    bChange = true;
+}
+
+string froebelTextBox::getText(){
+    return text;
+}
+
+void froebelTextBox::setPrefix( string _prefix ){
+    prefix = _prefix;
+    bChange = true;
+}
+
+void froebelTextBox::setDivider( string _deliminater ){
+    deliminater = _deliminater;
+    bChange = true;
 }
 
 bool froebelTextBox::checkMousePressed(ofPoint _mouse){
@@ -69,10 +89,11 @@ bool froebelTextBox::checkMousePressed(ofPoint _mouse){
 }
 
 void froebelTextBox::update(){
-    //  If it have a sub textBox, update it first
+    //  Update dependences
     //
     if (subInfo != NULL)
         subInfo->update();
+    
     
     //  Selection and Hover colors
     //
@@ -113,68 +134,71 @@ void froebelTextBox::update(){
         fgColor.lerp(fgDstColor, damp);
     }
     
-    //  Compose text
-    //
-    displayText = prefix + text;
-    nEdges = 1;
-    
-    //  Calculate the size of the text
-    //
-    textBox = font->getStringBoundingBox( displayText , 0, 0);
-    margins = size;
-    
-    if ( bEdge )
-        margins += size*0.5;
-    
-    if ( bIcon )
-        margins += size*0.5;
-    
-    if ( textBox.width + margins >= width ){
-        if ( textBox.width + margins <= maxWidth ){
-            
-            //  If it less that the max adjust the shape
-            //
-            width = textBox.width + margins;
-            
-        } else {
-            
-            //  other wise break it baby
-            //
-            string _newText = displayText;
-            vector < string > breakUp;
-            breakUp = ofSplitString(_newText, deliminater);
-            
-            ofPoint pos;
-            pos.set(0,0);
-            
-            displayText = "";
-            
-            for (int i = 0; i < breakUp.size(); i++){
-                string text = breakUp[i];
-                if (i != breakUp.size() -1) text += deliminater;
+    if (bChange){
+        //  Compose text
+        //
+        displayText = prefix + text;
+        nEdges = 1;
+        
+        //  Calculate the size of the text
+        //
+        textBox = font->getStringBoundingBox( displayText , 0, 0);
+        margins = size;
+        
+        if ( bEdge )
+            margins += size*0.5;
+        
+        if ( bIcon)
+            margins += size*0.5;
+        
+        if ( textBox.width + margins >= width ){
+            if ( textBox.width + margins <= maxWidth ){
                 
-                ofRectangle rect = font->getStringBoundingBox(text, pos.x, pos.y);
+                //  If it less that the max adjust the shape
+                //
+                width = textBox.width + margins;
                 
-                if ((pos.x + rect.width) > maxWidth ){
-                    displayText += "\n";
-                    displayText += text;
-                    pos.x = rect.width;
-                } else {
-                    displayText+= text;
-                    pos.x += rect.width;
+            } else {
+                
+                //  other wise break it baby
+                //
+                string _newText = displayText;
+                vector < string > breakUp;
+                breakUp = ofSplitString(_newText, deliminater);
+                
+                ofPoint pos;
+                pos.set(0,0);
+                
+                displayText = "";
+                
+                for (int i = 0; i < breakUp.size(); i++){
+                    string text = breakUp[i];
+                    if (i != breakUp.size() -1) text += deliminater;
+                    
+                    ofRectangle rect = font->getStringBoundingBox(text, pos.x, pos.y);
+                    
+                    if ((pos.x + rect.width) > maxWidth ){
+                        displayText += "\n";
+                        displayText += text;
+                        pos.x = rect.width;
+                    } else {
+                        displayText+= text;
+                        pos.x += rect.width;
+                    }
                 }
             }
             
-        }
-        
-        textBox = font->getStringBoundingBox( displayText , 0, 0);
-        width = textBox.width + margins ;
-        
-        if ( textBox.height+size*0.5 > size ) {
-            while ( textBox.height+size > size*nEdges ) {
-                nEdges++;
-                height = size*nEdges;
+            textBox = font->getStringBoundingBox( displayText , 0, 0);
+            width = textBox.width + margins ;
+            
+            if ( textBox.height+size*0.5 > size ) {
+                while ( textBox.height+size > size*nEdges ) {
+                    nEdges++;
+                    height = size*nEdges;
+                }
             }
+            
+            bChange = false;
         }
     }
 }
@@ -205,14 +229,14 @@ void froebelTextBox::draw(){
     ofRect(smallBox);
     ofTranslate(x, y);
     
-    if (bEdge){
+    if ( bEdge ){
         for(int i = 0; i < nEdges; i++){
             endingShape.set(smallBox.width,size*0.5+size*i);
             endingShape.draw();
         }
     }
     
-    if (bIcon){
+    if ( bIcon ){
         iconShape.set( width-size*0.5 ,size*0.5);
         iconShape.draw();
     }

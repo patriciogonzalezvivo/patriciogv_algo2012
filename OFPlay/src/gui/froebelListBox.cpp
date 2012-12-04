@@ -3,7 +3,7 @@
 //  OFPlay
 //
 //  Created by Patricio Gonzalez Vivo on 12/2/12.
-//
+//  Copyright (c) 2012 http://www.patriciogonzalezvivo.com All rights reserved.
 //
 
 #include "froebelListBox.h"
@@ -14,12 +14,13 @@ froebelListBox::froebelListBox(){
     setActiveColors(3, 4);
     setPasiveColors(2, 5);
     
-    iconShape.dstColor = endingShape.dstColor = bgColor = bgDstColor = fgColor = fgDstColor = froebelColor(0);
+    bgColor = bgDstColor = fgColor = fgDstColor = froebelColor(0);
     
     backgroundColor = ofColor(230.f);
     
     bSelected   = false;
     bLeftAlign  = true;
+    bChange     = false;
     
     bEdge       = false;
     bIcon       = false;
@@ -28,25 +29,30 @@ froebelListBox::froebelListBox(){
     prefix      = "";
     deliminater = "";
     
-    maxWidth = 600;
+    maxWidth = 300;
+    maxHeight = 200;
     size = 40;
     damp = 0.1;
 }
 
 void froebelListBox::addElement(string _value, bool _defVal, int _iconShape){
     
+    int lastY = 0;
+    if (elements.size() > 0)
+        lastY = elements[elements.size()-1]->y +  elements[elements.size()-1]->height;
+        
     //  Add element to the vector
     //
     froebelTextBox *newElement = new froebelTextBox();
     newElement->x = x;
-    newElement->y = box.y+box.height;
+    newElement->y = lastY;
     
     if ( _iconShape == -1 )
         newElement->setSizeAndShapes(size,3);
     else
         newElement->setSizeAndShapes(size,3,_iconShape);
         
-    newElement->text = _value;
+    newElement->setText(_value);
     newElement->font = font;
     newElement->bSelected = _defVal;
     newElement->bgPasiveColor = backgroundColor;
@@ -56,19 +62,22 @@ void froebelListBox::addElement(string _value, bool _defVal, int _iconShape){
     
     elements.push_back(newElement);
     
-//    //  recalculate the bounding box
-//    //
-//    box.x = x;
-//    box.y = y + size;
-//    box.width = width;
-//    box.height = 0;
-//    
-//    if (bEdge)
-//        box.width -= size*0.5;
-//    
-//    for(int i = 0; i < elements.size(); i++){
-//        box.height += elements[i]->height;
-//    }
+    //  recalculate the bounding box
+    //
+    box.x = x;
+    box.y = y + size;
+    box.width = width;
+    box.height = 0;
+
+    if (bEdge)
+        box.width -= size*0.5;
+    
+    for(int i = 0; i < elements.size(); i++){
+        if (box.height < maxHeight)
+            box.height += elements[i]->height;
+    }
+    
+    box.height += size*0.5;
 }
 
 void froebelListBox::clear(){
@@ -86,8 +95,9 @@ void froebelListBox::reset(){
 
 bool froebelListBox::select(string _value){
     for(int i = 0; i < elements.size(); i++){
-        if ( elements[i]->text == _value){
+        if ( elements[i]->getText() == _value){
             elements[i]->bSelected = true;
+            bChange = true;
             return true;
         }
     }
@@ -99,7 +109,7 @@ vector<string> froebelListBox::getSelected(){
     
     for(int i = 0; i < elements.size(); i++){
         if ( elements[i]->bSelected ){
-            list.push_back( elements[i]->text );
+            list.push_back( elements[i]->getText() );
         }
     }
     
@@ -115,7 +125,7 @@ string froebelListBox::getSelectedAsString(){
             if (list.length() > 0)
                 list += deliminater;
             
-            list += elements[i]->text;
+            list += elements[i]->getText();
         }
     }
     
@@ -136,6 +146,7 @@ bool froebelListBox::checkMousePressed(ofPoint _mouse){
                 if (box.inside( elements[i]->getCenter() )){
                     if (elements[i]->checkMousePressed(_mouse)){
                         text = getSelectedAsString();
+                        bChange = true;
                         return true;
                     }
                 }
@@ -155,15 +166,9 @@ void froebelListBox::update(){
         //
         box.x = x;
         box.y = y + size;
-        
-        box.width = width;
-        if (bEdge)
-            box.width -= size*0.5;
-        
-        box.height = ofGetHeight() - box.y - size*2;
-        
+    
         float totalLenght = 0;
-        float offSetY = size;
+        float offSetY = 0;
         for(int i = 0; i < elements.size(); i++){
             totalLenght += elements[i]->height;
         }
