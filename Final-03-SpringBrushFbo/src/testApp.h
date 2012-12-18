@@ -3,7 +3,7 @@
 #include "ofMain.h"
 
 #include "ofxGui.h"
-//#include "ofxFX.h"
+#include "ofxFX.h"
 
 #include "Brush.h"
 
@@ -25,33 +25,36 @@ public:
 
     //  GUI
     //
-    ofxPanel        brushPanel;
+    ofxPanel        gui;
     ofxIntSlider    brushWidth;
     ofxIntSlider    brushNumber;
     ofxFloatSlider  brushDamp;
     ofxFloatSlider  brushSoftness;
     ofxFloatSlider  brushHeight;
+    ofxFloatSlider  noiseZoom;
+    ofxIntSlider    noiseStrengh;
+    ofxFloatSlider  blurRadius;
 
     Brush           brush;
-    
+    ofImage         brushMask;
+    ofImage         background;
     ofFbo           canvas;
-//    ofImage         background;
-//    
-//    
-//    //  FILTERS
-//    //
-//    ofxGrayscale    grayscale;
-//    ofxInverse      inverse;
-//    ofxGaussianBlur blur;
-//    ofxNormals      normals;
-//    ofxMask         mask;
-//    
-//    //  SHADER
-//    //
-//    ofFbo           pingpong[2];
-//    ofShader        shader;
-//    
-//    int             timer, width, height, blurRadius;
+    
+    
+    //  FILTERS
+    //
+    ofxGrayscale    grayscale;
+    ofxNoise        noise;
+    ofxGaussianBlur blur;
+    ofxNormals      normals;
+    ofxMask         mask;
+    
+    //  SHADER
+    //
+    ofFbo           pingpong[2];
+    ofShader        shader;
+    
+    int             timer, width, height;
     
     bool            bDebug;
 };
