@@ -84,11 +84,11 @@ void Particle::addAttractionForce(ofPoint posOfForce, float radius, float scale)
 }
 
 //------------------------------------------------------------
-void Particle::addRepulsionForce(Particle &p, float radius, float scale){
+void Particle::addRepulsionForce(Particle *p, float radius, float scale){
 	
 	// ----------- (1) make a vector of where this Particle p is:
 	ofPoint posOfForce;
-	posOfForce.set(p);
+	posOfForce.set(*p);
 	
 	// ----------- (2) calculate the difference & length
 	
@@ -110,16 +110,16 @@ void Particle::addRepulsionForce(Particle &p, float radius, float scale){
 		float pct = 1 - (length / radius);  // stronger on the inside
 		diff.normalize();
 		addForce(diff * scale * pct);
-        p.addForce(diff * scale * pct * -1);
+        p->addForce(diff * scale * pct * -1);
     }
 }
 
 //------------------------------------------------------------
-void Particle::addAttractionForce(Particle & p, float radius, float scale){
+void Particle::addAttractionForce(Particle *p, float radius, float scale){
 	
 	// ----------- (1) make a vector of where this Particle p is:
 	ofPoint posOfForce;
-	posOfForce.set(p);
+	posOfForce.set(*p);
 	
 	// ----------- (2) calculate the difference & length
 	
@@ -141,17 +141,17 @@ void Particle::addAttractionForce(Particle & p, float radius, float scale){
 		float pct = 1 - (length / radius);  // stronger on the inside
 		diff.normalize();
         addForce(diff * scale * pct * -1);
-        p.addForce(diff * scale * pct);
+        p->addForce(diff * scale * pct);
     }
 	
 }
 
 //------------------------------------------------------------
-void Particle::addClockwiseForce(Particle &p, float radius, float scale){
+void Particle::addClockwiseForce(Particle *p, float radius, float scale){
 	
 	// ----------- (1) make a vector of where this Particle p is:
 	ofPoint posOfForce;
-	posOfForce.set(p);
+	posOfForce.set(*p);
 	
 	// ----------- (2) calculate the difference & length
 	
@@ -174,17 +174,17 @@ void Particle::addClockwiseForce(Particle &p, float radius, float scale){
 		diff.normalize();
         addForce(ofPoint(diff.y * scale * pct * -1,
                          diff.x * scale * pct));
-        p.addForce(ofPoint(diff.y * scale * pct,
+        p->addForce(ofPoint(diff.y * scale * pct,
                            diff.x * scale * pct * -1));
     }
 }
 
 //------------------------------------------------------------
-void Particle::addCounterClockwiseForce(Particle &p, float radius, float scale){
+void Particle::addCounterClockwiseForce(Particle *p, float radius, float scale){
 	
 	// ----------- (1) make a vector of where this Particle p is:
 	ofPoint posOfForce;
-	posOfForce.set(p);
+	posOfForce.set(*p);
 	
 	// ----------- (2) calculate the difference & length
 	
@@ -207,7 +207,7 @@ void Particle::addCounterClockwiseForce(Particle &p, float radius, float scale){
 		diff.normalize();
         addForce(ofPoint(diff.y * scale * pct,
                          diff.x * scale * pct * -1));
-        p.addForce(ofPoint(diff.y * scale * pct * -1,
+        p->addForce(ofPoint(diff.y * scale * pct * -1,
                            diff.x * scale * pct));
     }
 }

@@ -146,8 +146,14 @@ void Brush::update(){
     if(bDown){
         for(int i = 0; i < springs.size(); i++){
             As[i]->update();
-            Bs[i]->update();
+            
+//            for (int j = 0; j < i; j++){
+//                Bs[i]->addRepulsionForce( Bs[j], Bs[i]->size, 0.5);
+//            }
+            
             springs[i].update();
+            
+            Bs[i]->update();
             
             if (tail.size() > 0){
                 tails[i].addVertex( *Bs[i] );
@@ -160,15 +166,17 @@ void Brush::draw(){
     ofPushStyle();
     ofSetColor(0);
     for(int i = 0; i < springs.size(); i++){
+        ofSetColor(0);
+        tails[i].draw();
+        
         if (bDebug){
-        ofSetColor(255);
+            ofSetColor(255);
             As[i]->draw();
             springs[i].draw();
             Bs[i]->draw();
         }
         
-        ofSetColor(0);
-        tails[i].draw();
+        
     }
     
     float angle = getAngle() + HALF_PI;
