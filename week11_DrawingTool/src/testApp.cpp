@@ -7,11 +7,11 @@ void testApp::setup(){
     ofEnableSmoothing();
     
     brushPanel.setup("brush");
-    brushPanel.add(brushWidth.setup("width",50,0,100));
-    brushPanel.add(brushNumber.setup("number",50,1,50));
-    brushPanel.add(brushDamp.setup("damp",0.1,0.0,0.5));
-    brushPanel.add(brushSoftness.setup("softness",0.1,0.0,0.5));
-    brushPanel.add(brushHeight.setup("height",1.0,0.0,10.0));
+    brushPanel.add(brushWidth.setup("width",25,0,50));
+    brushPanel.add(brushNumber.setup("number",25,1,50));
+    brushPanel.add(brushDamp.setup("damp",0.29,0.0,0.5));
+    brushPanel.add(brushSoftness.setup("softness",0.2625,0.0,0.5));
+    brushPanel.add(brushHeight.setup("height",0.1,0.0,2.0));
     
     brush.setWidth(50);
     brush.setNum(50);
@@ -31,6 +31,9 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
+    if (key == 'd'){
+        brush.bDebug = !brush.bDebug;
+    }
 }
 
 //--------------------------------------------------------------

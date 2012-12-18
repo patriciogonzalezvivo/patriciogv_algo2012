@@ -160,9 +160,14 @@ void Brush::draw(){
     ofPushStyle();
     ofSetColor(0);
     for(int i = 0; i < springs.size(); i++){
-        As[i]->draw();
-        springs[i].draw();
-        Bs[i]->draw();
+        if (bDebug){
+        ofSetColor(255);
+            As[i]->draw();
+            springs[i].draw();
+            Bs[i]->draw();
+        }
+        
+        ofSetColor(0);
         tails[i].draw();
     }
     
