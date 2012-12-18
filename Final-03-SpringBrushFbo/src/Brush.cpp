@@ -15,6 +15,7 @@ Brush::Brush(){
     damp = 0.1;
     softness = 0.1;
     height = 10;
+    passes = 0;
 }
 
 //-------------------------------------------------
@@ -306,5 +307,31 @@ void Brush::drawPathFollower(){
         
         ofSetRectMode( OF_RECTMODE_CORNER );
 		ofPopMatrix();
+    }
+}
+
+void Brush::drawPathFollower(ofImage &_image){
+    if (!bDown){
+        float timeToCheck = ofGetElapsedTimef() - playbackStartTime;
+        while (timeToCheck > getDuration() && getDuration() > 0){
+            timeToCheck -= getDuration();
+        }
+        
+        ofPoint pos = getPositionForTime(timeToCheck);
+        ofPoint vel = getVelocityForTime(timeToCheck);
+        
+        float angle = atan2(vel.y, vel.x);
+        
+        float lengthVel = ofDist(0,0,vel.x, vel.y);
+        
+        ofFill();
+        
+        ofPushMatrix();
+        ofTranslate(pos.x,pos.y);
+        ofRotateZ(angle * RAD_TO_DEG);
+        
+        //    ofRect(0,0,width + lengthVel/2.0,width);
+        _image.draw(0,0);
+        ofPopMatrix();
     }
 }

@@ -42,12 +42,14 @@ public:
     void    draw();
     void    drawDebug();
     void    drawPathFollower();
+    void    drawPathFollower(ofImage &_image);
 
     float   softness;
     float   height;
     float   damp;
     
     bool    bDown;
+    int     passes;
     
 private:
     vector<Particle*>   As;

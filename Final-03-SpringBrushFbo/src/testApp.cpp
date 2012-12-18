@@ -15,12 +15,13 @@ void testApp::setup(){
     gui.add(noiseZoom.setup("noise_zoom", 10., 0.0, 100.0));
     gui.add(noiseStrengh.setup("noise_strenght", 200, 0, 255));
     gui.add(blurRadius.setup("blur_radius", 5, 1, 10));
+    gui.loadFromFile("settings.xml");
     
     brushMask.loadImage("brush.png");
-    background.loadImage("background.jpg");
+    brushMask.setAnchorPercent(0.5, 0.5);
     
     width = ofGetScreenWidth();
-    height = ofGetScreenWidth();
+    height = ofGetScreenHeight();
     canvas.allocate(width, height);
     canvas.begin();
     ofClear(255);
@@ -44,7 +45,7 @@ void testApp::setup(){
     
     string fragShader = STRINGIFY(uniform sampler2DRect backbuffer;
                                   uniform sampler2DRect normals;
-                                  uniform sampler2DRect dampMap;
+                                  uniform sampler2DRect maskMap;
                                   uniform sampler2DRect canvas;
                                   
                                   void main(){
@@ -53,8 +54,7 @@ void testApp::setup(){
                                       vec4 newFrame = texture2DRect(backbuffer, st);
                                       vec4 color = texture2DRect(canvas,st);
                                       vec2 norm	= ( texture2DRect(normals, st).rg - 0.5 ) * 2.0;
-                                      float inc = texture2DRect( dampMap, st ).r;
-//                                      float inc	= ( abs(norm.x) + abs(norm.y) ) * 0.5;
+                                      float mask = texture2DRect( maskMap, st ).r;
                                       
                                       vec2 offset[36];
                                       int iTotal = 36;
@@ -79,8 +79,9 @@ void testApp::setup(){
                                           }
                                       }
                                       color = color / sources;
+                                      color = color*(mask) + newFrame*(1.0-mask);
                                       
-                                      gl_FragColor = color*(1.0-inc) + newFrame*inc ;
+                                      gl_FragColor = color;
                                   }
                                   );
     
@@ -106,8 +107,8 @@ void testApp::update(){
     grayscale.begin();
     ofSetColor(noiseStrengh);
     noise.draw(0,0);
-//    ofSetColor(255);
-//    background.draw(0,0);
+    ofSetColor(255);
+    pingpong[(timer+1)%2].draw(0, 0);
     grayscale.end();
     grayscale.update();
     
@@ -122,7 +123,7 @@ void testApp::update(){
     pingpong[ timer%2 ].begin();
     shader.begin();
     shader.setUniformTexture("normals", normals.getTextureReference(), 1);
-    shader.setUniformTexture("dampMap", mask.getTextureReference(), 2);
+    shader.setUniformTexture("maskMap", mask.getTextureReference(), 2);
     shader.setUniformTexture("canvas", canvas.getTextureReference(), 3);
     
     if (brush.bDown){
@@ -135,6 +136,7 @@ void testApp::update(){
     
     mask.begin();
     ofClear(0);
+    brush.drawPathFollower(brushMask);
     mask.end();
     
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
@@ -142,7 +144,6 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-//    background.draw(0,0);
     ofBackgroundGradient(ofColor::white, ofColor::gray);
     pingpong[(timer+1)%2].draw(0, 0);
     
@@ -153,11 +154,13 @@ void testApp::draw(){
         brush.drawDebug();
         
         ofSetColor(255);
-        normals.draw(width*0.0,0,width*0.25,height*0.25);
-        mask.draw(width*0.25,0,width*0.25,height*0.25);
+        normals.draw(ofGetWidth()-width*0.25-15,ofGetHeight()-height*0.25-15,width*0.25,height*0.25);
+        mask.draw(ofGetWidth()-width*0.25-15,ofGetHeight()-height*0.25-15,width*0.25,height*0.25);
+        
+        ofSetColor(100,100);
+        brush.drawPathFollower(brushMask);
+        gui.draw();
     }
-    
-    gui.draw();
 }
 
 //--------------------------------------------------------------
@@ -196,15 +199,20 @@ void testApp::mouseMoved(int x, int y ){
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
     brush.set(x,y);
-    
-    mask.begin(0);
-    ofClear(0,0);
-    brushMask.draw(x,y,200,200);
-    mask.end(0);
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
+    canvas.begin();
+    ofClear(255);//0, 0);
+//    ofSetColor(255);
+//    pingpong[(timer)%2].draw(0, 0);
+//    pingpong[(timer+1)%2].draw(0, 0);
+    canvas.end();
+    
+    noise.setZoom(noiseZoom);
+    noise.update();
+    
     brush.setNum(brushNumber);
     brush.setWidth(brushWidth);
     brush.damp = brushDamp;
@@ -212,7 +220,7 @@ void testApp::mousePressed(int x, int y, int button){
     brush.softness = brushSoftness;
     
     ofColor color(255,0,0);
-    color.setHue(abs(sin(ofGetElapsedTimef()))*255);
+    color.setHue(ofRandom(240));
     brush.setColor(color);
     brush.begin();
     brush.set(x,y);
@@ -222,12 +230,6 @@ void testApp::mousePressed(int x, int y, int button){
 void testApp::mouseReleased(int x, int y, int button){
     brush.set(x, y);
     brush.end();
-//    
-//    pingpong[ timer%2].begin();
-//    ofSetColor(255);
-//    canvas.draw(0, 0);
-//    pingpong[ (timer+1)%2].draw(0,0);
-//    pingpong[ timer%2 ].end();
 }
 
 //--------------------------------------------------------------

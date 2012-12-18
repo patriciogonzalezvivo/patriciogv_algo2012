@@ -37,7 +37,6 @@ public:
 
     Brush           brush;
     ofImage         brushMask;
-    ofImage         background;
     ofFbo           canvas;
     
     
