@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    ofSetVerticalSync(true);
+//    ofSetVerticalSync(true);
     ofEnableAlphaBlending();
     ofEnableSmoothing();
     
@@ -144,7 +144,8 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    ofBackgroundGradient(ofColor::white, ofColor::gray);
+//    ofBackgroundGradient(ofColor::white, ofColor::gray);
+    ofBackground(255);
     pingpong[(timer+1)%2].draw(0, 0);
     
     if (bDebug) {
@@ -205,9 +206,6 @@ void testApp::mouseDragged(int x, int y, int button){
 void testApp::mousePressed(int x, int y, int button){
     canvas.begin();
     ofClear(255);//0, 0);
-//    ofSetColor(255);
-//    pingpong[(timer)%2].draw(0, 0);
-//    pingpong[(timer+1)%2].draw(0, 0);
     canvas.end();
     
     noise.setZoom(noiseZoom);

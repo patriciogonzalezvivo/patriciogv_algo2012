@@ -131,7 +131,9 @@ void testApp::keyPressed(int key){
         
     } else if ( key == 'v'){
         bDrawField = !bDrawField;
-	}
+	} else if ( key == 'f'){
+        ofToggleFullscreen();
+    }
     
 }
 
