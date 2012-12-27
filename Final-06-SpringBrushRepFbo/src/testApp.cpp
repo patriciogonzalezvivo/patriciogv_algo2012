@@ -3,7 +3,6 @@
 //--------------------------------------------------------------
 void testApp::setup(){
     ofSetVerticalSync(true);
-    ofEnableAlphaBlending();
     
     gui.setup("brush");
     gui.add(brushWidth.setup("width",25,0,50));
@@ -36,7 +35,7 @@ void testApp::setup(){
     for(int i = 0; i < 2; i++){
         pingpong[i].allocate(width,height);
         pingpong[i].begin();
-        ofClear(0);
+        ofClear(0,0);
         pingpong[i].end();
     }
     
@@ -81,16 +80,16 @@ void testApp::setup(){
     shader.linkProgram();
     
     timer   = 0;
-    bDebug  = false;
+    bDebug  = true;
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     brush.update();
-    
-    if (brush.bDown){
+   
+//    if (brush.bDown){
         canvas.begin();
-        ofEnableAlphaBlending();
+        ofEnableBlendMode(OF_BLENDMODE_ALPHA );
         brush.draw();
         canvas.end();
         
@@ -108,6 +107,8 @@ void testApp::update(){
         normals.update();
         
         pingpong[ timer%2 ].begin();
+        ofEnableAlphaBlending();
+
         shader.begin();
         shader.setUniformTexture("normals", normals.getTextureReference(), 0);
         shader.setUniformTexture("canvas", canvas.getTextureReference(), 1);
@@ -120,10 +121,11 @@ void testApp::update(){
         glEnd();
         
         shader.end();
+        ofDisableAlphaBlending();
         pingpong[ timer%2 ].end();
         
         timer++;
-    }
+//    }
     
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
 }
@@ -133,11 +135,11 @@ void testApp::draw(){
 //    ofBackground(255);
     
     ofSetColor(255);
+    ofEnableAlphaBlending();
     pingpong[(timer+1)%2].draw(0, 0);
+    ofDisableAlphaBlending();
     
-    if (bDebug) {
-        ofSetColor(255, 100);
-        canvas.draw(0, 0);
+    if (bDebug){
         ofSetColor(255);
         brush.drawDebug();
         
@@ -160,7 +162,7 @@ void testApp::keyPressed(int key){
         for(int i = 0; i < 2; i++){
             pingpong[i].allocate(width,height);
             pingpong[i].begin();
-            ofClear(0);
+            ofClear(0,0);
             pingpong[i].end();
         }
     } else if (key == 'f'){

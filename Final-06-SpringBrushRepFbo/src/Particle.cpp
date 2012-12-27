@@ -10,8 +10,6 @@ Particle::Particle(){
 	damping = 0.07f;
     
     trail.setMode(OF_PRIMITIVE_LINE_STRIP);
-//    color.set(ofRandomf(),ofRandomf(),ofRandomf());
-//    color.set(0.0);
 }
 
 //------------------------------------------------------------
@@ -31,8 +29,8 @@ void Particle::update(){
         color.a = alpha;
         trail.addColor(color);
         trail.addVertex(*this);
+        trail.addTexCoord(ofVec2f(*this));
         
-//        if (vel.length() < 2) trail.clear();
     }
     
     acc *= 0;
