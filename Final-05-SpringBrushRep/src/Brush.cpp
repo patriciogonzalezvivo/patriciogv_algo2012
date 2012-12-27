@@ -14,10 +14,8 @@ Brush::Brush(){
     
     damp = 0.1;
     k = 0.1;
-    lerp = 0.1;
     repPct = 0.5;
     repRad = 5.0;
-    height = 10;
 }
 
 void Brush::setWidth(float _width){
@@ -67,9 +65,7 @@ void Brush::setNum(int _num){
         Spring newSpring;
         newSpring.A = a;
         newSpring.B = b;
-        newSpring.maxDist = height;
         newSpring.k = k;
-        newSpring.lerp = lerp;
         springs.push_back(newSpring);
         
     }
@@ -103,7 +99,10 @@ void Brush::set(ofPoint _pos){
         if (tail.size() == 1){
             int n = springs.size();
             setNum(n);
-        } else if ( tail.size() > 0){
+        } else if ( tail.size() >= 2){
+            
+            //  FLAT BRUSH
+            //
             float angle = getAngle() + HALF_PI;
             float step = width/(float)As.size();
             
@@ -121,6 +120,20 @@ void Brush::set(ofPoint _pos){
             for(int i = 0; i < As.size(); i++){
                 As[i]->set( top + diff * i );
             }
+            
+            //  CIRCULAR BRUSH
+            //
+//            ofPolyline positions;
+//            positions.arc(*this, height*0.5, height*0.5, 0, 360, true, As.size()/2);
+//            
+//            for(int i = 0; i < As.size()/2; i++){
+//                As[i]->set( positions.getVertices()[i] );
+//            }
+//            
+//            positions.arc(*this, height, height, 0, 360, true, As.size()/2);
+//            for(int i = 0; i < As.size()/2; i++){
+//                As[As.size()/2+i]->set( positions.getVertices()[i] );
+//            }
             
         }
     }
@@ -148,7 +161,7 @@ void Brush::update(){
             As[i]->update();
             
             springs[i].update();
-            
+        
             for (int j = 0; j < i; j++){
                 Bs[i]->addRepulsionForce( Bs[j], repRad, repPct);
             }

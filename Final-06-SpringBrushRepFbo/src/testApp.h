@@ -3,6 +3,7 @@
 #include "ofMain.h"
 
 #include "ofxGui.h"
+#include "ofxFX.h"
 
 #include "Brush.h"
 
@@ -27,15 +28,36 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
+    //  GUI
+    //
     ofxPanel        gui;
     ofxIntSlider    brushWidth;
     ofxIntSlider    brushNumber;
     ofxFloatSlider  brushDamp;
     ofxFloatSlider  brushK;
-    ofxFloatSlider  brushLerp;
-    ofxFloatSlider  brushHeight;
     ofxFloatSlider  brushRepRad;
     ofxFloatSlider  brushRepPct;
+    ofxFloatSlider  noiseZoom;
+    ofxIntSlider    noiseStrengh;
+    ofxFloatSlider  blurRadius;
 
     Brush           brush;
+    ofFbo           canvas;
+    
+    //  FILTERS
+    //
+    ofxGrayscale    grayscale;
+    ofxNoise        noise;
+    ofxGaussianBlur blur;
+    ofxNormals      normals;
+    ofxMask         mask;
+    
+    //  SHADER
+    //
+    ofFbo           pingpong[2];
+    ofShader        shader;
+    
+    int             timer, width, height;
+    
+    bool            bDebug;
 };

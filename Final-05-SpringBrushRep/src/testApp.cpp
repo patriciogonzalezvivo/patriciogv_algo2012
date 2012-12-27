@@ -10,10 +10,7 @@ void testApp::setup(){
     gui.add(brushWidth.setup("width",25,0,50));
     gui.add(brushNumber.setup("number",10,1,50));
     gui.add(brushDamp.setup("damp",0.245,0.0,0.5));
-    
-    gui.add(brushHeight.setup("height",0.1,0.0,20.0));
     gui.add(brushK.setup("k",0.0825,0.0,0.5));
-    gui.add(brushLerp.setup("lerp", 0.1, 0.0, 1.0));
     
     gui.add(brushRepRad.setup("repulsion_rad", 5, 0, 20));
     gui.add(brushRepPct.setup("repulsion_pct", 0.5, 0.0, 1.0));
@@ -63,9 +60,7 @@ void testApp::mousePressed(int x, int y, int button){
     brush.setNum(brushNumber);
     brush.setWidth(brushWidth);
     brush.damp = brushDamp;
-    brush.height = brushHeight;
     brush.k = brushK;
-    brush.lerp = brushLerp;
     brush.repPct = brushRepPct;
     brush.repRad = brushRepRad;
     

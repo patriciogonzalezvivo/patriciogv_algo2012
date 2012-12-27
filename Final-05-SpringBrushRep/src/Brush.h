@@ -32,9 +32,7 @@ public:
     void    update();
     void    draw();
 
-    float   height;
     float   damp;
-    float   lerp;
     float   k;
     float   repRad;
     float   repPct;

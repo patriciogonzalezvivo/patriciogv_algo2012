@@ -15,8 +15,6 @@ public:
     Particle * A;
     Particle * B;
 		
-    float maxDist;
-    float lerp;
     float k;	 // this is the k, Springiness constant
 };
 
