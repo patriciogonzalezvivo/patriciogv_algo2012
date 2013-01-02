@@ -191,8 +191,15 @@ void Brush::draw(){
     ofPushStyle();
 //    ofSetColor(color);
     for(int i = 0; i < springs.size(); i++){
+        if (tail.size() < 10){
+            ofPushStyle();
+            ofSetColor(Bs[i]->color);
+            ofCircle( *Bs[i], ofMap(10-Bs[i]->tail.size(),0,10,0,3));
+            ofPopStyle();
+        }
         Bs[i]->trail.draw();
     }
+    
     ofPopStyle();
 }
 

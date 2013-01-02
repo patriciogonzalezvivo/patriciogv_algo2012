@@ -21,7 +21,7 @@ void testApp::setup(){
     height = ofGetHeight();//ofGetScreenHeight();
     canvas.allocate(width, height);
     canvas.begin();
-    ofClear(255,0,0);
+    ofClear(0,0);
     canvas.end();
     
     grayscale.allocate(width, height);
@@ -35,7 +35,7 @@ void testApp::setup(){
     for(int i = 0; i < 2; i++){
         pingpong[i].allocate(width,height);
         pingpong[i].begin();
-        ofClear(255);
+        ofClear(0,0);
         pingpong[i].end();
     }
     

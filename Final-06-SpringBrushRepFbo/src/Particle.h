@@ -32,11 +32,10 @@ public:
     bool    bFixed;
     
     ofFloatColor    color;
-    ofMesh  trail;
+    vector<pPoint>  tail;
+    ofMesh          trail;
     
 private:
-    vector<pPoint> tail;
-    
     ofPoint vel;
     ofPoint acc;
 };
