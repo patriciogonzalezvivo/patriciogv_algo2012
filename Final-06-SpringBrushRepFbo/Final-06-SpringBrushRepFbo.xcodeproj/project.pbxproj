@@ -364,8 +364,8 @@
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				111e0684689d001acae1c0c76a7c0b63 /* Brush.h */,
 				f6b3a9948f5a31ea1e25a937c2b02670 /* Brush.cpp */,
-				e9aa5fd1edf04cd1f5fb1686f10b85a9 /* Particle.cpp */,
 				7b0055eeb8ad49d04b3f5d4d8151039c /* Particle.h */,
+				e9aa5fd1edf04cd1f5fb1686f10b85a9 /* Particle.cpp */,
 				5c639adf1e531cdce3ec21276346360b /* Spring.cpp */,
 				96d32f3004ac71e996b25c28991b1b86 /* Spring.h */,
 			);

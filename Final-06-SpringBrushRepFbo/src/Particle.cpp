@@ -27,10 +27,27 @@ void Particle::update(){
         
         float alpha = ofMap( vel.length(), 0.0,80.0,1.0,0.0 );
         color.a = alpha;
-        trail.addColor(color);
-        trail.addVertex(*this);
-        trail.addTexCoord(ofVec2f(*this));
+
+//        trail.addColor(color);
+//        trail.addVertex(*this);
+//        trail.addTexCoord(ofVec2f(*this));
         
+        pPoint newPoint;
+        newPoint.pos = *this;
+        newPoint.color = color;
+        
+        tail.push_back(newPoint);
+        
+        if (tail.size() > 10){
+            tail.erase(tail.begin());
+        }
+        
+        trail.clear();
+        for(int i = 0; i < tail.size(); i++){
+            trail.addColor(tail[i].color);
+            trail.addVertex(tail[i].pos);
+            trail.addTexCoord(ofVec2f(tail[i].pos));
+        }
     }
     
     acc *= 0;

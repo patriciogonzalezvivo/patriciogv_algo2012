@@ -21,7 +21,7 @@ void testApp::setup(){
     height = ofGetHeight();//ofGetScreenHeight();
     canvas.allocate(width, height);
     canvas.begin();
-    ofClear(0,0);
+    ofClear(255,0,0);
     canvas.end();
     
     grayscale.allocate(width, height);
@@ -35,12 +35,13 @@ void testApp::setup(){
     for(int i = 0; i < 2; i++){
         pingpong[i].allocate(width,height);
         pingpong[i].begin();
-        ofClear(0,0);
+        ofClear(255);
         pingpong[i].end();
     }
     
     string fragShader = STRINGIFY(uniform sampler2DRect normals;
                                   uniform sampler2DRect canvas;
+                                  uniform sampler2DRect backbuffer;
                                   
                                   void main(){
                                       vec2 st = gl_TexCoord[0].st;
@@ -65,43 +66,54 @@ void testApp::setup(){
                                       for (int i = 0; i < iTotal; i++){
                                           vec4 goingTo = ( texture2DRect( normals, st + offset[i] ) - 0.5 ) * 2.0;
                                           
-                                          if ( dot(goingTo.rg,offset[i]) < -1.0/fTotal ){
-                                              sources += 1.0;
-                                              color += texture2DRect(canvas, st + offset[i]);
+                                          if ( dot(goingTo.rg,offset[i]) < -1.0/fTotal ) {
+                                              vec4 target = texture2DRect(canvas, st + offset[i]);
+                                              
+                                              if (target.a > 0.5){
+                                                  sources += 1.0;
+                                                  color += target;
+                                              }
                                           }
                                       }
                                       color = color / sources;
                                       
                                       gl_FragColor = color;
-                                  }
-                                  );
+                                  });
     
     shader.setupShaderFromSource(GL_FRAGMENT_SHADER, fragShader);
     shader.linkProgram();
     
     timer   = 0;
     bDebug  = true;
+    bShader = true;
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     brush.update();
    
-//    if (brush.bDown){
-        canvas.begin();
-        ofEnableBlendMode(OF_BLENDMODE_ALPHA );
-        brush.draw();
-        canvas.end();
-        
+    canvas.begin();
+    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+    brush.draw();
+    canvas.end();
+    
+    if (bShader){
         blur.setRadius(blurRadius);
-        
+         
+#ifdef CORRECTNORMAL
         grayscale.begin();
         ofSetColor(255);
         pingpong[(timer+1)%2].draw(0, 0);
         grayscale.end();
         grayscale.update();
-        
         blur << grayscale;
+#else
+        blur.begin();
+        ofSetColor(255);
+        pingpong[(timer+1)%2].draw(0, 0);
+        blur.end();
+        blur.update();
+#endif
         blur.update();
         normals << blur;
         normals.update();
@@ -112,6 +124,7 @@ void testApp::update(){
         shader.begin();
         shader.setUniformTexture("normals", normals.getTextureReference(), 0);
         shader.setUniformTexture("canvas", canvas.getTextureReference(), 1);
+        shader.setUniformTexture("backbuffer", pingpong[(timer+1)%2], 2);
         
         glBegin(GL_QUADS);
         glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
@@ -125,7 +138,7 @@ void testApp::update(){
         pingpong[ timer%2 ].end();
         
         timer++;
-//    }
+    }
     
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
 }
@@ -134,10 +147,14 @@ void testApp::update(){
 void testApp::draw(){
 //    ofBackground(255);
     
-    ofSetColor(255);
-    ofEnableAlphaBlending();
-    pingpong[(timer+1)%2].draw(0, 0);
-    ofDisableAlphaBlending();
+    if (bShader){
+        ofSetColor(255);
+        ofEnableAlphaBlending();
+        pingpong[(timer+1)%2].draw(0, 0);
+        ofDisableAlphaBlending();
+    } else {
+        canvas.draw(0, 0);
+    }
     
     if (bDebug){
         ofSetColor(255);
@@ -170,6 +187,8 @@ void testApp::keyPressed(int key){
     } else if (key == 'n'){
         noise.setZoom(noiseZoom);
         noise.update();
+    } else if (key == 's'){
+        bShader = !bShader;
     }
 }
 

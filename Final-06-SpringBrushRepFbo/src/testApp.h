@@ -1,5 +1,7 @@
 #pragma once
 
+#define CORRECTNORMAL   // MAKE IT GRAYSCALE 
+
 #include "ofMain.h"
 
 #include "ofxGui.h"
@@ -50,7 +52,6 @@ public:
     ofxNoise        noise;
     ofxGaussianBlur blur;
     ofxNormals      normals;
-    ofxMask         mask;
     
     //  SHADER
     //
@@ -59,5 +60,6 @@ public:
     
     int             timer, width, height;
     
+    bool            bShader;
     bool            bDebug;
 };

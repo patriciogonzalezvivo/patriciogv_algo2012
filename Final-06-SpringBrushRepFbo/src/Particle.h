@@ -3,6 +3,11 @@
 
 #include "ofMain.h"
 
+struct pPoint{
+    ofPoint pos;
+    ofFloatColor color;
+};
+
 class Particle : public ofPoint {
 public:
     
@@ -30,6 +35,7 @@ public:
     ofMesh  trail;
     
 private:
+    vector<pPoint> tail;
     
     ofPoint vel;
     ofPoint acc;
