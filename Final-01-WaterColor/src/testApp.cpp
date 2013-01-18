@@ -69,6 +69,7 @@ void testApp::setup(){
                                               color += texture2DRect(backbuffer, st + offset[i]);
                                           }
                                       }
+                                      
                                       color = color / sources;
                                       inc = 1.0-damp;
                                       
